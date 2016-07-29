@@ -4,11 +4,13 @@ import java.util.List;
 
 import modelo.Aluno;
 import modelo.Usuario;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.jcommon.encryption.SimpleMD5;
 
 
 public class UsuarioDao {
@@ -19,8 +21,15 @@ public class UsuarioDao {
 	Query			query;
 	
 	
+	public void criptografia(Usuario u){
+		SimpleMD5 md5 = new SimpleMD5("@1001",u.getSenha());
+		 u.setSenha(md5.toHexString());
+	}
+	
+	
 	
 	public void create(Usuario u){
+		criptografia(u);
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.beginTransaction();
 		session.save(u);
@@ -30,6 +39,7 @@ public class UsuarioDao {
 	}
 	
 	public void update(Usuario u){
+		criptografia(u);
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.beginTransaction();
 		session.update(u);
@@ -63,6 +73,7 @@ public class UsuarioDao {
 	
 	
 	public Usuario login(Usuario u) throws Exception {
+		criptografia(u);
 		session = HibernateUtil.getSessionFactory().openSession();
 		criteria = session.createCriteria(Usuario.class);
 		criteria.add(Restrictions.and(Restrictions.eq("login", u.getLogin()),
