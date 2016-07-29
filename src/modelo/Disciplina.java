@@ -14,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 @Entity
-public class Disciplina implements Serializable {
+public class Disciplina implements Serializable, Comparable<Disciplina> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -105,5 +105,10 @@ public class Disciplina implements Serializable {
 			return false;
 		return true;
 	}
+	@Override
+	public int compareTo(Disciplina d) {
+		return this.descricao.compareTo(d.getDescricao());
+	}
+
 
 }

@@ -1,7 +1,10 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Aluno implements Serializable {
+public class Aluno implements Serializable, Comparable<Aluno> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -138,6 +141,7 @@ public class Aluno implements Serializable {
 	public void setTelefone(Telefone telefone) {
 		this.telefone = telefone;
 	}
+	
 
 	@Override
 	public int hashCode() {
@@ -164,4 +168,12 @@ public class Aluno implements Serializable {
 		return true;
 	}
 
+	@Override
+	public int compareTo(Aluno a) {
+		return this.nome.compareTo(a.getNome());
+	}
+
+	
+	
+	
 }

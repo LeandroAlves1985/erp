@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Professor implements Serializable {
+public class Professor implements Serializable, Comparable<Professor> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -164,5 +164,11 @@ public class Professor implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public int compareTo(Professor p) {
+		return this.nome.compareTo(p.getNome());
+	}
+
 
 }
