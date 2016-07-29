@@ -1,6 +1,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 @Entity
 public class Aluno implements Serializable {
 
@@ -19,6 +23,8 @@ public class Aluno implements Serializable {
 	private Integer id;
 	@Column
 	private String nome;
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento;
 	@Column
 	private String email;
 	@Column
@@ -42,11 +48,12 @@ public class Aluno implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Aluno(Integer id, String nome, String email, String nomeResponsavel,
-			String cpfResponsavel) {
+	public Aluno(Integer id, String nome, Date dataNascimento, String email,
+			String nomeResponsavel, String cpfResponsavel) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.dataNascimento = dataNascimento;
 		this.email = email;
 		this.nomeResponsavel = nomeResponsavel;
 		this.cpfResponsavel = cpfResponsavel;
@@ -68,6 +75,14 @@ public class Aluno implements Serializable {
 		this.nome = nome == null ? null: nome.toUpperCase();
 	}
 
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -81,7 +96,7 @@ public class Aluno implements Serializable {
 	}
 
 	public void setNomeResponsavel(String nomeResponsavel) {
-		this.nomeResponsavel = nomeResponsavel == null ? null: nomeResponsavel.toUpperCase();				
+		this.nomeResponsavel = nomeResponsavel == null ? null: nomeResponsavel.toUpperCase();
 	}
 
 	public String getCpfResponsavel() {

@@ -1,6 +1,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 @Entity
 public class Professor implements Serializable {
 
@@ -21,6 +25,8 @@ public class Professor implements Serializable {
 	private Integer id;
 	@Column
 	private String nome;
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento;
 	@Column
 	private String email;
 	@Column
@@ -43,11 +49,12 @@ public class Professor implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Professor(Integer id, String nome, String email, String cpf,
-			String ctps) {
+	public Professor(Integer id, String nome, Date dataNascimento,
+			String email, String cpf, String ctps) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.dataNascimento = dataNascimento;
 		this.email = email;
 		this.cpf = cpf;
 		this.ctps = ctps;
@@ -67,6 +74,14 @@ public class Professor implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome == null ? null: nome.toUpperCase();
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getEmail() {
