@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>	
+	<p:layout style="min-width:400px; min-heigth:200px;">
+		<ui:include src="/template/template.xhtml"></ui:include>
+		<p:layoutUnit position="center">
+		
+			<h3 align="center">Cadastro de Perfis</h3>
+			<p:growl autoUpdate="true"></p:growl>
+			
+			<h:form id="formPerfil">
+				<p:toolbar id="menuPerfil">
+					<f:facet name="left">
+						<h:panelGrid columns="5">
+							
+							<p:outputPanel>
+								<p:commandButton value="Novo" title="Novo" icon="ui-icon-document" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
+							</p:outputPanel>
+							<p:outputPanel>
+								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
+							</p:outputPanel>							
+							<p:outputPanel>
+								<p:commandButton value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+									<p:resetInput target=":formEdit:edicao-dialog"/>
+									<f:setPropertyActionListener value="#{perfilBean.perfilSelecionado}" target="#{perfilBean.perfilEdicao}"/>
+								</p:commandButton>
+							</p:outputPanel>
+							<p:outputPanel>
+								<p:commandButton value="Exibir" title="Exibir" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+									<p:resetInput target=":formEdit:edicao-dialog"/>
+									<f:setPropertyActionListener value="#{perfilBean.perfilSelecionado}" target="#{perfilBean.perfilEdicao}"/>
+								</p:commandButton>
+							</p:outputPanel>							
+							<p:outputPanel>
+								<p:commandButton action="#{perfilBean.remover}" value="Excluir" title="Excluir" process="@this" update=":formTab:tabela-perfil"/>																	
+							</p:outputPanel>
+							
+						</h:panelGrid>
+					</f:facet>
+				</p:toolbar>
+			</h:form>
+			
+			<h:form id="formTab">				
+				<p:dataTable id="tabela-perfil" value="#{perfilBean.todosPerfis}" var="linha" emptyMessage="Nenhuma perfil selecionado!" rows="10" paginator="true" paginatorPosition="bottom" style="margin-top: 10px"
+							selectionMode="single" rowKey="#{linha.id}" selection="#{perfilBean.perfilSelecionado}" 
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {JumpToPageDropdown} {NextPageLink} {LastPageLink}"
+							currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} - Página: {currentPage}/{totalPages} ]">
+							
+							<p:ajax event="rowSelect" update=":formPerfil:menuPerfil"></p:ajax> 
+							<p:ajax event="rowSelect" update=":formPerfil:menuPerfil"></p:ajax> 
+							<p:ajax event="rowUnselect" update=":formPerfil:menuPerfil"></p:ajax> 
+														
+							<p:column headerText="Descrição" filterMatchMode="contains" filterBy="#{linha.descricao}">
+								<h:outputText value="#{linha.descricao}" style="text-transform:uppercase"/>
+							</p:column>														
+							
+				</p:dataTable>
+			</h:form>
+			
+			<h:form id="formCad">				
+				<p:dialog width="800px" maximizable="true" responsive="true" header="Novo Perfil" widgetVar="janelaCadastro" id="cadastro-dialog" resizable="false" modal="false">
+					<p:tabView id="tab-perfil">
+						<p:tab title="Dados Principais">
+							<h:panelGrid columns="2">							
+								<p:outputPanel>
+									<p:outputLabel value="Descrição"/>
+									<p:inputText style="text-transform:uppercase; width: 400px" value="#{perfilBean.perfilEdicao.descricao}" required="true" requiredMessage="Descrição obrigatória"/>
+								</p:outputPanel>
+							</h:panelGrid>					
+						</p:tab>
+						<p:tab title="Administração">
+                                <p:tree  value="#{perfilBean.menuAdministracao}" var="menu" selectionMode="checkbox" 
+                                        selection="#{perfilBean.menuAdministracaoSelecionados}" >
+                                    <p:treeNode>
+                                        <h:outputText value="#{menu.nomeMenuTela}"/>
+                                    </p:treeNode>         
+                                </p:tree>
+                        </p:tab>												
+					</p:tabView>
+					<h:panelGrid columns="1">
+						<p:commandButton style="width: 755px" value="Salvar" action="#{perfilBean.salvar}" ajax="true" update=":formTab:tabela-perfil"/>
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>
+			
+			<h:form id="formEdit">				
+				<p:dialog width="800px" maximizable="true" responsive="true" header="Edição de Perfil" widgetVar="janelaEdicao" id="edicao-dialog" resizable="false" modal="false">
+					<p:tabView id="tab-perfil-edit">
+						<p:tab title="Dados Principais">
+							<h:panelGrid columns="2">							
+								<p:outputPanel>
+									<p:outputLabel value="Descrição"/>
+									<p:inputText style="text-transform:uppercase; width: 400px" value="#{perfilBean.perfilEdicao.descricao}" required="true" requiredMessage="Descrição obrigatória"/>
+								</p:outputPanel>
+							</h:panelGrid>					
+						</p:tab>
+						<p:tab title="Administração">
+                                <p:tree  value="#{perfilBean.menuAdministracao}" var="menu" selectionMode="checkbox" 
+                                        selection="#{perfilBean.menuAdministracaoSelecionados}" >
+                                    <p:treeNode   >
+                                        <h:outputText value="#{menu.nomeMenuTela}"/>
+                                    </p:treeNode>         
+                                </p:tree>
+                        </p:tab>												
+					</p:tabView>
+					<h:panelGrid columns="1">
+						<p:commandButton style="width: 755px" value="Salvar" action="#{perfilBean.editar}" ajax="true" update=":formTab:tabela-perfil"/>
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>
+		
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<p:layout style="min-width:400px; min-heigth:200px;">
+		<p:layoutUnit position="center">
+			<p:panel header="Login">
+				<p:growl autoUpdate="true"></p:growl>
+				<h:form id="formLogin">
+					<p:panelGrid columns="1">
+						<p:outputPanel>
+							<p:outputLabel value="Login"/>
+							<p:inputText value="#{usuarioBean.usuario.login}" style="text-transform: uppercase; width: 304px"/>
+						</p:outputPanel>
+						<p:outputPanel>
+							<p:outputLabel value="Senha"/>
+							<p:inputText type="password" value="#{usuarioBean.usuario.senha}" style="text-transform: uppercase; width: 300px"/>
+						</p:outputPanel>
+						<p:outputPanel>
+							<p:commandButton style="width: 350px" value="Logar" action="#{usuarioBean.logar}" ajax="true" update=":formLogin"/>
+						</p:outputPanel>						
+					</p:panelGrid>					
+				</h:form>
+			</p:panel>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>
