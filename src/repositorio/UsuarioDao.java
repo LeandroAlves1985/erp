@@ -22,9 +22,9 @@ public class UsuarioDao {
 	
 	
 	
-	public static String criptografia(Usuario u){
+	public static void criptografia(Usuario u){
 		SimpleMD5 md5 = new SimpleMD5("@1001",u.getSenha());
-		 return md5.toHexString();
+		 u.setSenha(md5.toHexString());
 	}
 	
 	public void create(Usuario u){
@@ -71,20 +71,10 @@ public class UsuarioDao {
 	}
 	
 	
-	public Usuario login(Usuario u) throws Exception {
-		criptografia(u);
-		session = HibernateUtil.getSessionFactory().openSession();
-		criteria = session.createCriteria(Usuario.class);
-		criteria.add(Restrictions.and(Restrictions.eq("login", u.getLogin()),
-				     Restrictions.eq("senha", u.getSenha())));
-		Usuario user = (Usuario) criteria.uniqueResult();
-		session.close();
-		return user;
-	}
-	
+		
 	public Usuario logar(Usuario u) {
-		session = HibernateUtil.getSessionFactory().openSession();
-		u.setSenha(criptografia(u));
+		criptografia(u);
+		session = HibernateUtil.getSessionFactory().openSession();		
 		query = session
 				.createQuery("from Usuario where login=:param1 and senha=:param2");
 		query.setString("param1", u.getLogin());

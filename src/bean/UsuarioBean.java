@@ -49,7 +49,7 @@ public class UsuarioBean implements Serializable{
 	public String logar(){
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
-			usuarioDao.criptografia(usuario);
+			//usuarioDao.criptografia(usuario);
 			usuarioLogado = usuarioDao.logar(usuario);
 			if(usuarioLogado!=null){
 				HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();

@@ -7,29 +7,46 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head>
-<h:body>
-	<p:layout style="min-width:400px; min-heigth:200px;">
-		<p:layoutUnit position="center">
-			<p:panel header="Login">
+ <h:head>
+     <style>
+			body{
+				background-attachment: fixed;
+				background-image: url('img/escola.jpg'); 
+				background-repeat:no-repeat;
+				background-size:100% 100%;"
+			}
+		#painelLogin{
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto
+		}
+		
+	</style>
+
+
+ </h:head>
+
+<h:body>	
+			<p:panel header="Login" style="width:210px; height:160px;"  id="painelLogin">
 				<p:growl autoUpdate="true"></p:growl>
 				<h:form id="formLogin">
 					<p:panelGrid columns="1">
 						<p:outputPanel>
 							<p:outputLabel value="Login"/>
-							<p:inputText value="#{usuarioBean.usuario.login}" style="text-transform: uppercase; width: 304px"/>
+							<p:inputText value="#{usuarioBean.usuario.login}"/>
 						</p:outputPanel>
 						<p:outputPanel>
 							<p:outputLabel value="Senha"/>
-							<p:inputText type="password" value="#{usuarioBean.usuario.senha}" style="text-transform: uppercase; width: 300px"/>
+							<p:inputText type="password" value="#{usuarioBean.usuario.senha}"/>
 						</p:outputPanel>
 						<p:outputPanel>
-							<p:commandButton style="width: 350px" value="Logar" action="#{usuarioBean.logar}" ajax="true" update=":formLogin"/>
+							<p:commandButton value="Logar" action="#{usuarioBean.logar}" ajax="true" update=":formLogin"/>
 						</p:outputPanel>						
 					</p:panelGrid>					
 				</h:form>
 			</p:panel>
-		</p:layoutUnit>
-	</p:layout>
-</h:body>
+		 </h:body>
 </html>

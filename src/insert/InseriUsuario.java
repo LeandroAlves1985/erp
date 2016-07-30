@@ -15,6 +15,8 @@ public class InseriUsuario {
 		
 		dao.create(usuario);
 		System.out.println("Dados gravados");
+		
+		
 	}
 
 }
