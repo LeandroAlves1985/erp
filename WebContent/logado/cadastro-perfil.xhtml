@@ -66,7 +66,7 @@
 			</h:form>
 			
 			<h:form id="formCad">				
-				<p:dialog width="800px" maximizable="true" responsive="true" header="Novo Perfil" widgetVar="janelaCadastro" id="cadastro-dialog" resizable="false" modal="false">
+				<p:dialog width="580px" maximizable="true" responsive="true" header="Novo Perfil" widgetVar="janelaCadastro" id="cadastro-dialog" resizable="false" modal="false">
 					<p:tabView id="tab-perfil">
 						<p:tab title="Dados Principais">
 							<h:panelGrid columns="2">							
@@ -86,13 +86,13 @@
                         </p:tab>												
 					</p:tabView>
 					<h:panelGrid columns="1">
-						<p:commandButton style="width: 755px" value="Salvar" action="#{perfilBean.salvar}" ajax="true" update=":formTab:tabela-perfil"/>
+						<p:commandButton style="width: 535px" value="Salvar" action="#{perfilBean.salvar}" ajax="true" update=":formTab:tabela-perfil, :formPerfil"/>
 					</h:panelGrid>
 				</p:dialog>
 			</h:form>
 			
 			<h:form id="formEdit">				
-				<p:dialog width="800px" maximizable="true" responsive="true" header="Edição de Perfil" widgetVar="janelaEdicao" id="edicao-dialog" resizable="false" modal="false">
+				<p:dialog width="580px" maximizable="true" responsive="true" header="Edição de Perfil" widgetVar="janelaEdicao" id="edicao-dialog" resizable="false" modal="false">
 					<p:tabView id="tab-perfil-edit">
 						<p:tab title="Dados Principais">
 							<h:panelGrid columns="2">							
@@ -112,7 +112,7 @@
                         </p:tab>												
 					</p:tabView>
 					<h:panelGrid columns="1">
-						<p:commandButton style="width: 755px" value="Salvar" action="#{perfilBean.editar}" ajax="true" update=":formTab:tabela-perfil"/>
+						<p:commandButton style="width: 535px" value="Salvar" action="#{perfilBean.editar}" ajax="true" update=":formTab:tabela-perfil, :formPerfil"/>
 					</h:panelGrid>
 				</p:dialog>
 			</h:form>
