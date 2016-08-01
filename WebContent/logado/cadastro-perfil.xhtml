@@ -22,7 +22,7 @@
 						<h:panelGrid columns="5">
 							
 							<p:outputPanel>
-								<p:commandButton value="Novo" title="Novo" icon="ui-icon-document" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
+								<p:commandButton value="Novo" title="Novo" style="color:white" icon="fa fa-file" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
 							</p:outputPanel>
 							<p:outputPanel>
 								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
@@ -86,7 +86,7 @@
                         </p:tab>												
 					</p:tabView>
 					<h:panelGrid columns="1">
-						<p:commandButton style="width: 755px" value="Salvar" action="#{perfilBean.salvar}" ajax="true" update=":formTab:tabela-perfil"/>
+						<p:commandButton style="width: 755px" value="Salvar" action="#{perfilBean.salvar}" ajax="false" update=":formTab"/>
 					</h:panelGrid>
 				</p:dialog>
 			</h:form>
