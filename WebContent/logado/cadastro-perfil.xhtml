@@ -19,10 +19,10 @@
 			<h:form id="formPerfil">
 				<p:toolbar id="menuPerfil">
 					<f:facet name="left">
-						<h:panelGrid columns="5">
+						<h:panelGrid columns="4">
 							
 							<p:outputPanel>
-								<p:commandButton value="Novo" title="Novo" icon="ui-icon-document" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
+								<p:commandButton value="Novo" title="Novo" style="color:white" icon="fa fa-file" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
 							</p:outputPanel>
 							<p:outputPanel>
 								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
@@ -32,13 +32,7 @@
 									<p:resetInput target=":formEdit:edicao-dialog"/>
 									<f:setPropertyActionListener value="#{perfilBean.perfilSelecionado}" target="#{perfilBean.perfilEdicao}"/>
 								</p:commandButton>
-							</p:outputPanel>
-							<p:outputPanel>
-								<p:commandButton value="Exibir" title="Exibir" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
-									<p:resetInput target=":formEdit:edicao-dialog"/>
-									<f:setPropertyActionListener value="#{perfilBean.perfilSelecionado}" target="#{perfilBean.perfilEdicao}"/>
-								</p:commandButton>
-							</p:outputPanel>							
+							</p:outputPanel>														
 							<p:outputPanel>
 								<p:commandButton action="#{perfilBean.remover}" value="Excluir" title="Excluir" process="@this" update=":formTab:tabela-perfil"/>																	
 							</p:outputPanel>
@@ -86,7 +80,7 @@
                         </p:tab>												
 					</p:tabView>
 					<h:panelGrid columns="1">
-						<p:commandButton style="width: 535px" value="Salvar" action="#{perfilBean.salvar}" ajax="true" update=":formTab:tabela-perfil, :formPerfil"/>
+						<p:commandButton style="width: 535px" value="Salvar" action="#{perfilBean.salvar}" ajax="false" update=":formTab"/>
 					</h:panelGrid>
 				</p:dialog>
 			</h:form>
@@ -112,7 +106,7 @@
                         </p:tab>												
 					</p:tabView>
 					<h:panelGrid columns="1">
-						<p:commandButton style="width: 535px" value="Salvar" action="#{perfilBean.editar}" ajax="true" update=":formTab:tabela-perfil, :formPerfil"/>
+						<p:commandButton style="width: 535px" value="Salvar" action="#{perfilBean.editar}" ajax="false" update=":formTab"/>
 					</h:panelGrid>
 				</p:dialog>
 			</h:form>
