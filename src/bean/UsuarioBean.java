@@ -16,6 +16,9 @@ import repositorio.UsuarioDao;
 @RequestScoped
 public class UsuarioBean implements Serializable{
 
+	//teste
+	
+	
 	private static final long serialVersionUID = 1L;
 	
 	private Usuario usuario;
