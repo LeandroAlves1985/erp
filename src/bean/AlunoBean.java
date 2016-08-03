@@ -38,6 +38,9 @@ public class AlunoBean implements Serializable {
 		alunoSelecionado = new Aluno();
 		enderecoEdicao = new Endereco();
 		telefoneEdicao = new Telefone();
+		alunoDao = new AlunoDao();
+		enderecoDao = new EnderecoDao();
+		telefoneDao = new TelefoneDao();
 	}
 
 	public Aluno getAlunoEdicao() {
@@ -68,7 +71,7 @@ public class AlunoBean implements Serializable {
 	public AlunoDao getAlunoDao() {
 		return alunoDao;
 	}
-
+	
 	public void setAlunoDao(AlunoDao alunoDao) {
 		this.alunoDao = alunoDao;
 	}
@@ -124,15 +127,22 @@ public class AlunoBean implements Serializable {
 		telefoneEdicao = alunoEdicao.getTelefone();
 		visualizar = true;
 	}
+	
+	public void preparaNovoCadastro(){
+		alunoEdicao = new Aluno();
+		enderecoEdicao = new Endereco();
+		telefoneEdicao = new Telefone();
+		visualizar = false;
+	}
 
 	public void salvar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
 			alunoEdicao.setEndereco(enderecoEdicao);
-			alunoEdicao.setTelefone(telefoneEdicao);
+			alunoEdicao.setTelefone(telefoneEdicao);			
 			enderecoDao.create(enderecoEdicao);
 			telefoneDao.create(telefoneEdicao);
-			alunoDao.create(alunoEdicao);
+			alunoDao.create(alunoEdicao);			
 			construct();
 			todosAlunos = alunoDao.findAll();
 			fc.addMessage("formAluno", new FacesMessage("Aluno cadastrado com sucesso!"));

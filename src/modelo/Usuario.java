@@ -28,8 +28,7 @@ public class Usuario implements Serializable {
 	private Perfil perfil;
 	@OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
 	private Professor professor;
-	@OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
-	private Aluno aluno;
+	
 
 	public Usuario() {
 		// TODO Auto-generated constructor stub
@@ -82,14 +81,7 @@ public class Usuario implements Serializable {
 		this.professor = professor;
 	}
 
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -1,13 +1,21 @@
 package repositorio;
 
+import java.io.Serializable;
 import java.util.List;
 
 import modelo.Aluno;
 
-import org.hibernate.*;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-public class AlunoDao {
 
+
+public class AlunoDao implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	Session			session;
 	Transaction		transaction;
 	Criteria		criteria;
@@ -15,7 +23,7 @@ public class AlunoDao {
 	
 	
 	
-	public void create(Aluno a){
+	public void create(Aluno a) throws Exception{
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.beginTransaction();
 		session.save(a);
@@ -44,9 +52,9 @@ public class AlunoDao {
 	
 	public List<Aluno> findAll(){
 		session = HibernateUtil.getSessionFactory().openSession();
-		List<Aluno> lst =  session.createQuery("from Aluno").list();
+		List<Aluno> lista = session.createCriteria(Aluno.class).list();
 		session.close();
-		return lst;
+		return lista;
 	}
 	
 	public Aluno findByCod(Integer cod){

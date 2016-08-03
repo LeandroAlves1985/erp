@@ -34,9 +34,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	private String nomeResponsavel;
 	@Column
 	private String cpfResponsavel;
-	@OneToOne
-	@JoinColumn(name = "id_usuario")
-	private Usuario usuario;
+
 	@ManyToOne
 	@JoinColumn(name = "id_turma")
 	private Turma turma;
@@ -75,7 +73,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome == null ? null: nome.toUpperCase();
+		this.nome = nome == null ? null : nome.toUpperCase();
 	}
 
 	public Date getDataNascimento() {
@@ -91,7 +89,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	}
 
 	public void setEmail(String email) {
-		this.email = email == null ? null: email.toUpperCase();
+		this.email = email == null ? null : email.toUpperCase();
 	}
 
 	public String getNomeResponsavel() {
@@ -99,7 +97,8 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	}
 
 	public void setNomeResponsavel(String nomeResponsavel) {
-		this.nomeResponsavel = nomeResponsavel == null ? null: nomeResponsavel.toUpperCase();
+		this.nomeResponsavel = nomeResponsavel == null ? null : nomeResponsavel
+				.toUpperCase();
 	}
 
 	public String getCpfResponsavel() {
@@ -108,22 +107,6 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 
 	public void setCpfResponsavel(String cpfResponsavel) {
 		this.cpfResponsavel = cpfResponsavel;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public Turma getTurma() {
-		return turma;
-	}
-
-	public void setTurma(Turma turma) {
-		this.turma = turma;
 	}
 
 	public Endereco getEndereco() {
@@ -141,7 +124,14 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	public void setTelefone(Telefone telefone) {
 		this.telefone = telefone;
 	}
-	
+
+	public Turma getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+	}
 
 	@Override
 	public int hashCode() {
@@ -173,7 +163,4 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 		return this.nome.compareTo(a.getNome());
 	}
 
-	
-	
-	
 }
