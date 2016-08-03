@@ -9,14 +9,21 @@ public class InseriUsuario {
 		Usuario usuario = new Usuario();
 		UsuarioDao dao = new UsuarioDao();
 		
-		usuario.setId(null);
-		usuario.setLogin("leandro");
-		usuario.setSenha("leandro");
-		
-		dao.create(usuario);
-		System.out.println("Dados gravados");
-		
-		
+		try {
+			usuario.setId(null);
+			usuario.setLogin("Teste01");
+			usuario.setSenha("Teste01");
+			
+			if(! (dao.findByLogin(usuario.getLogin()) == null)){
+				System.out.println("Ja existe");
+			}else{
+				dao.create(usuario);
+				System.out.println("Dados gravados");
+				
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

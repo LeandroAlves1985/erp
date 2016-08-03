@@ -98,7 +98,7 @@ public class perfilBean implements Serializable {
 			gravaMenuAdministracaoSelecionados(menuAdministracaoSelecionados);
 			perfilDao.create(perfilEdicao);
 			construct();
-			fc.addMessage("formPerfil", new FacesMessage("Perfil cadastrado com sucesso!"));
+			fc.addMessage("formPerfil", new FacesMessage("Perfil cadastrado com sucesso"));
 			
 		} catch (Exception e) {
 			fc.addMessage("formPerfil", new FacesMessage("Erro ao cadastrar perfil!" + e.getMessage()));
@@ -111,7 +111,7 @@ public class perfilBean implements Serializable {
 			gravaMenuAdministracaoSelecionados(menuAdministracaoSelecionados);
 			perfilDao.update(perfilEdicao);
 			construct();
-			fc.addMessage("formPerfil", new FacesMessage("Perfil atualizado com sucesso!"));
+			fc.addMessage("formPerfil", new FacesMessage("Perfil atualizado com sucesso"));
 			
 		} catch (Exception e) {
 			fc.addMessage("formPerfil", new FacesMessage("Erro ao atualizar perfil!" + e.getMessage()));
@@ -122,7 +122,7 @@ public class perfilBean implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
 			perfilDao.delete(perfilSelecionado);
-			fc.addMessage("formPerfil", new FacesMessage("Perfil deletado com sucesso!"));
+			fc.addMessage("formPerfil", new FacesMessage("Perfil excluida com sucesso!"));
 			perfilDao.findAll();
 			
 		} catch (Exception e) {

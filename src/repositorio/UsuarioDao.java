@@ -13,6 +13,8 @@ import org.hibernate.criterion.Restrictions;
 import org.jcommon.encryption.SimpleMD5;
 
 
+
+
 public class UsuarioDao {
 
 	Session			session;
@@ -70,7 +72,15 @@ public class UsuarioDao {
 		return u;
 	}
 	
-	
+	public Usuario findByLogin(String nomeLogin) {
+		session = HibernateUtil.getSessionFactory().openSession();
+		criteria = (Criteria) session.createCriteria(Usuario.class);
+		criteria.add(Restrictions.ilike("login", nomeLogin));
+		Usuario usu = (Usuario) criteria.uniqueResult();
+		session.close();
+		return usu;
+
+	}
 		
 	public Usuario logar(Usuario u) {
 		criptografia(u);
@@ -86,7 +96,14 @@ public class UsuarioDao {
 	
 	
 
-	
+	public static void main(String[] args) {
+		try {
+			
+			System.out.println(new UsuarioDao().findByLogin("gallotti"));
+		} catch (Exception e) {
+			e.getMessage();
+		}
+	}
 	
 	
 	
