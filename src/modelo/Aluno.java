@@ -23,7 +23,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Integer id;
+	private Integer id; //identificador da classe
 	@Column
 	private String nome;
 	@Temporal(TemporalType.DATE)
