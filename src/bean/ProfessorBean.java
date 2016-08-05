@@ -38,6 +38,9 @@ public class ProfessorBean implements Serializable {
 		professorSelecionado = new Professor();
 		enderecoEdicao = new Endereco();
 		telefoneEdicao = new Telefone();
+		professorDao = new ProfessorDao();
+		enderecoDao = new EnderecoDao();
+		telefoneDao = new TelefoneDao();
 	}
 
 	public Professor getProfessorEdicao() {
@@ -123,6 +126,12 @@ public class ProfessorBean implements Serializable {
 		enderecoEdicao = professorEdicao.getEndereco();
 		telefoneEdicao = professorEdicao.getTelefone();
 		visualizar = true;
+	}
+	
+	public void preparaNovoCadastro(){
+		professorEdicao = new Professor();
+		enderecoEdicao = new Endereco();
+		telefoneEdicao = new Telefone();
 	}
 	
 	public void salvar(){

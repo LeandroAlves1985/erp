@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
 @Entity
 public class Turma implements Serializable {
 
@@ -25,7 +26,7 @@ public class Turma implements Serializable {
 	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY)
 	private List<Aluno> alunos;
 	@ManyToMany
-	@JoinTable(name = "disciplina_turma", joinColumns=@JoinColumn(name = "id_disciplina"), inverseJoinColumns=@JoinColumn(name = "id_turma"))
+	@JoinTable(name = "disciplina_turma", joinColumns = @JoinColumn(name = "id_disciplina"), inverseJoinColumns = @JoinColumn(name = "id_turma"))
 	private List<Disciplina> disciplinas;
 
 	public Turma() {
@@ -51,15 +52,7 @@ public class Turma implements Serializable {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao == null ? null: descricao.toUpperCase();
-	}
-
-	public List<Aluno> getAlunos() {
-		return alunos;
-	}
-
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
+		this.descricao = descricao == null ? null : descricao.toUpperCase();
 	}
 
 	public List<Disciplina> getDisciplinas() {
@@ -68,6 +61,14 @@ public class Turma implements Serializable {
 
 	public void setDisciplinas(List<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
+	}
+
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
 	}
 
 	@Override

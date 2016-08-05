@@ -2,6 +2,7 @@ package modelo;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,8 @@ public class Nota implements Serializable {
 	private Double media;
 
 	private transient String situacao;
-	@OneToOne(mappedBy = "nota", fetch = FetchType.LAZY)
+	
+	@OneToOne(mappedBy="nota",fetch=FetchType.EAGER, cascade={CascadeType.ALL})
 	private Disciplina disciplina;
 
 	public Nota() {

@@ -21,16 +21,17 @@ public class TurmaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Turma turma;
+	
 	private Turma turmaEdicao;
 	private Turma turmaSelecionada;
 	private List<Turma> todasTurmas;
 	private TurmaDao turmaDao;
+	
 	private Boolean visualizar;
 
 	@PostConstruct
 	public void construct() {
-		turma = new Turma();
+		
 		turmaEdicao = new Turma();
 		turmaSelecionada = new Turma();
 		todasTurmas = new ArrayList<Turma>();
@@ -45,16 +46,9 @@ public class TurmaBean implements Serializable {
 		this.turmaDao = turmaDao;
 	}
 
-	public Turma getTurma() {
-		return turma;
-	}
-
-	public void setTurma(Turma turma) {
-		this.turma = turma;
-	}
 
 	public List<Turma> getTodasTurmas() {
-		todasTurmas = new ArrayList<Turma>();
+		todasTurmas = turmaDao.findAll();
 		return todasTurmas;
 	}
 
@@ -90,29 +84,17 @@ public class TurmaBean implements Serializable {
 		this.visualizar = visualizar;
 	}
 
-	public void preparaEdicao(){
-	
-		visualizar = false;
-	}
-	
-	public void preparaVisualizacao(){
-		
-		visualizar = true;
-	}
-	
 	
 	
 	public void salvar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
-
-			new TurmaDao().create(turma);
+			turmaDao.create(turmaEdicao);
 			construct();
-			fc.addMessage("formTurma", new FacesMessage(
-					"Turma cadastrada com sucesso"));
+			fc.addMessage("formTurma", new FacesMessage("Turma cadastrada com sucesso"));
+		
 		} catch (Exception e) {
-			fc.addMessage("formTurma", new FacesMessage(
-					"Erro ao cadastrar turma" + e.getMessage()));
+			fc.addMessage("formTurma", new FacesMessage("Erro ao cadastrar turma" + e.getMessage()));
 		}
 	}
 
@@ -120,14 +102,12 @@ public class TurmaBean implements Serializable {
 	public void editar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
-
-			new TurmaDao().update(turma);
+			turmaDao.update(turmaEdicao);
 			construct();
-			fc.addMessage("formTurma", new FacesMessage(
-					"Turma atualizada com sucesso"));
+			fc.addMessage("formTurma", new FacesMessage("Turma atualizada com sucesso"));
+		
 		} catch (Exception e) {
-			fc.addMessage("formTurma", new FacesMessage(
-					"Erro ao atualizar turma" + e.getMessage()));
+			fc.addMessage("formTurma", new FacesMessage("Erro ao atualizar turma" + e.getMessage()));
 		}
 	}
 
@@ -136,13 +116,11 @@ public class TurmaBean implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
 
-			new TurmaDao().delete(turma);
-			fc.addMessage("formTurma", new FacesMessage(
-					"Turma excluida com sucesso"));
+			turmaDao.delete(turmaSelecionada);
+			fc.addMessage("formTurma", new FacesMessage("Turma excluida com sucesso"));
 			turmaDao.findAll();
 		} catch (Exception e) {
-			fc.addMessage("formTurma", new FacesMessage(
-					"Erro ao cadastrar turma!" + e.getMessage()));
+			fc.addMessage("formTurma", new FacesMessage("Erro ao cadastrar turma!" + e.getMessage()));
 		}
 	}
 

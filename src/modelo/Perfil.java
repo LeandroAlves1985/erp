@@ -109,6 +109,7 @@ public class Perfil implements Serializable {
 		this.descricao = descricao;
 	}
 
+
 	public Integer getId() {
 		return id;
 	}

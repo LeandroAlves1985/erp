@@ -3,6 +3,7 @@ package modelo;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +28,7 @@ public class Disciplina implements Serializable, Comparable<Disciplina> {
 	@ManyToMany
 	@JoinTable(name = "professor_disciplina", joinColumns=@JoinColumn(name = "id_professor"), inverseJoinColumns=@JoinColumn(name = "id_disciplina"))
 	private List<Professor> professores;
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL} )
 	@JoinColumn(name = "id_nota")
 	private Nota nota;
 

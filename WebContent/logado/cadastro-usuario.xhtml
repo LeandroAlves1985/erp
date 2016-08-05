@@ -24,17 +24,20 @@
 							<p:outputPanel>
 								<p:commandButton value="Novo" title="Novo" style="color:white" icon="fa fa-file" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
 							</p:outputPanel>
+							
 							<p:outputPanel>
 								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
 							</p:outputPanel>							
 							<p:outputPanel>
-								<p:commandButton value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+								
+								<p:commandButton  action="#{usuarioCadBean.preparaEdicao}" value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
 									<p:resetInput target=":formEdit:edicao-dialog"/>
-									<f:setPropertyActionListener value="#{usuarioBean.usuarioSelecionado}" target="#{usuarioBean.usuarioEdicao}"/>
+									<f:setPropertyActionListener value="#{usuarioCadBean.usuarioSelecionado}" target="#{usuarioCadBean.usuarioEdicao}"/>
 								</p:commandButton>
 							</p:outputPanel>														
+							
 							<p:outputPanel>
-								<p:commandButton action="#{usuarioBean.remover}" value="Excluir" title="Excluir" process="@this" ajax="true" pdate=":formTab"/>																	
+								<p:commandButton action="#{usuarioCadBean.remover}" value="Excluir" title="Excluir" process="@this" ajax="false" pdate=":formTab:tabela-usuario"/>																	
 							</p:outputPanel>
 							
 						</h:panelGrid>
@@ -46,8 +49,8 @@
 			
 			
 			<h:form id="formTab">				
-				<p:dataTable id="tabela-usuario" value="#{usuarioBean.todosUsuarios}" var="linha" emptyMessage="Nenhuma usuario selecionado!" rows="10" paginator="true" paginatorPosition="bottom" style="margin-top: 10px"
-							selectionMode="single" rowKey="#{linha.id}" selection="#{usuarioBean.usuarioSelecionado}" 
+				<p:dataTable id="tabela-usuario" value="#{usuarioCadBean.todosUsuarios}" var="linha" emptyMessage="Nenhuma usuario selecionado!" rows="10" paginator="true" paginatorPosition="bottom" style="margin-top: 10px"
+							selectionMode="single" rowKey="#{linha.id}" selection="#{usuarioCadBean.usuarioSelecionado}" 
 							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {JumpToPageDropdown} {NextPageLink} {LastPageLink}"
 							currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} - Página: {currentPage}/{totalPages} ]">
 							
@@ -68,33 +71,34 @@
 			
 			
 		<h:form id="formCad">				
-			<p:dialog width="580px" maximizable="true" responsive="true" header="Novo Perfil" widgetVar="janelaCadastro" id="cadastro-dialog" resizable="false" modal="false">
+			<p:dialog width="580px" maximizable="true" responsive="true" header="Novo Usuario" widgetVar="janelaCadastro" id="cadastro-dialog" resizable="false" modal="false">
 				<p:tabView id="tab-usuario">
 					<p:tab title="Dados Principais">
 						<h:panelGrid columns="2">							
 			 			  
-			 			  <p:outputPanel>
-							<p:outputLabel value="Login"/>
-							<p:inputText  value="#{usuarioBean.usuarioEdicao.login}" required="true" requiredMessage="Login obrigatória"/>
-						  </p:outputPanel>
+			 			   <p:outputLabel>
+							<p:outputLabel  value="Login"/>
+							<p:inputText    value="#{usuarioCadBean.usuarioEdicao.login}" required="true" requiredMessage="Login obrigatória"/>
+						   </p:outputLabel>
 							
-						  <p:outputPanel>
-							 <p:outputLabel value="Senha"/>
-							 <p:password  value="#{usuarioBean.usuarioEdicao.senha}" required="true" requiredMessage="Senha obrigatória"/>
-						  </p:outputPanel>
-						  
-						 <p:outputPanel>
-						  <p:selectOneMenu value="#{usuarioBean.perfil.id}" converter="perfilConverter" filter="true" filterMatchMode="startsWith" style="text-transform: uppercase">
+						    <p:outputLabel>
+							 <p:outputLabel  value="Senha"/>
+							 <p:password     value="#{usuarioCadBean.usuarioEdicao.senha}" required="true" requiredMessage="Senha obrigatória"/>
+						    </p:outputLabel>
+							
+						  <p:outputLabel>			
+						    <p:outputLabel value="Perfil"/>
+						     <p:selectOneMenu value="#{usuarioCadBean.perfilEdicao.id}"  filter="true" filterMatchMode="startsWith" style="text-transform: uppercase">
 										<f:selectItem itemLabel="Escolha o Perfil" noSelectionOption="true"/>
-										<f:selectItems value="#{PerfilBean.todosPerfis}" var="linha" itemLabel="#{linha.descricao}"/>
-						 </p:selectOneMenu>
-						</p:outputPanel>	
+										<f:selectItems value="#{perfilBean.todosPerfis}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.id}"/>
+						     </p:selectOneMenu>
+						   </p:outputLabel>			
 						</h:panelGrid>					
 						</p:tab>
 					 </p:tabView>
 					
 					<h:panelGrid columns="1">
-						<p:commandButton style="width: 535px" value="Salvar" action="#{usuarioBean.salvar}" ajax="false" update=":formTab"/>
+					 <p:commandButton style="width: 535px" value="Salvar" action="#{usuarioCadBean.salvar}" ajax="false" update=":formTab" oncomplete="PF('janelaCadastro').hide()" />
 					</h:panelGrid>
 				</p:dialog>
 			</h:form>
@@ -102,28 +106,27 @@
 			
 			
 			<h:form id="formEdit">				
-				<p:dialog width="580px" maximizable="true" responsive="true" header="Edição de Perfil" widgetVar="janelaEdicao" id="edicao-dialog" resizable="false" modal="false">
+				<p:dialog width="580px" maximizable="true" responsive="true" header="Edição de Usuario" widgetVar="janelaEdicao" id="edicao-dialog" resizable="false" modal="false">
 					<p:tabView id="tab-usuario-edit">
 						<p:tab title="Dados Principais">
 							<h:panelGrid columns="2">							
 								
 								<p:outputPanel>
 									<p:outputLabel value="Login"/>
-									<p:inputText value="#{usuarioBean.usuarioEdicao.login}" required="true" requiredMessage="Login obrigatória"/>
+									<p:inputText value="#{usuarioCadBean.usuarioEdicao.login}" required="true" requiredMessage="Login obrigatória"/>
 								</p:outputPanel>
 							</h:panelGrid>					
+						    
+						    <p:outputLabel value="Perfil"/>
+						     <p:selectOneMenu value="#{usuarioCadBean.perfilEdicao.id}"  filter="true" filterMatchMode="startsWith" style="text-transform: uppercase">
+										<f:selectItem itemLabel="Escolha o Perfil" noSelectionOption="true"/>
+										<f:selectItems value="#{perfilBean.todosPerfis}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.id}"/>
+						     </p:selectOneMenu>						
 						</p:tab>
-						<p:tab title="Administração">
-                                <p:tree  value="#{perfilBean.menuAdministracao}" var="menu" selectionMode="checkbox" 
-                                        selection="#{perfilBean.menuAdministracaoSelecionados}" >
-                                    <p:treeNode   >
-                                        <h:outputText value="#{menu.nomeMenuTela}"/>
-                                    </p:treeNode>         
-                                </p:tree>
-                        </p:tab>												
+															
 					</p:tabView>
 					<h:panelGrid columns="1">
-						<p:commandButton style="width: 535px" value="Salvar" action="#{usuarioBean.editar}" ajax="false" update=":formTab"/>
+						<p:commandButton style="width: 535px" value="Salvar" action="#{usuarioCadBean.editar}" ajax="false" update=":formTab"/>
 					</h:panelGrid>
 				</p:dialog>
 			</h:form>

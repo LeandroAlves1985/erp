@@ -2,7 +2,7 @@ package repositorio;
 
 import java.util.List;
 
-import modelo.Aluno;
+import modelo.Perfil;
 import modelo.Usuario;
 
 import org.hibernate.Criteria;
@@ -39,6 +39,8 @@ public class UsuarioDao {
 		
 	}
 	
+
+	
 	public void update(Usuario u){
 		criptografia(u);
 		session = HibernateUtil.getSessionFactory().openSession();
@@ -74,12 +76,11 @@ public class UsuarioDao {
 	
 	public Usuario findByLogin(String nomeLogin) {
 		session = HibernateUtil.getSessionFactory().openSession();
-		criteria = (Criteria) session.createCriteria(Usuario.class);
+		criteria = (Criteria) session.createCriteria(Usuario.class);	
 		criteria.add(Restrictions.ilike("login", nomeLogin));
 		Usuario usu = (Usuario) criteria.uniqueResult();
 		session.close();
-		return usu;
-
+		return usu;	
 	}
 		
 	public Usuario logar(Usuario u) {
@@ -97,11 +98,17 @@ public class UsuarioDao {
 	
 
 	public static void main(String[] args) {
+		Usuario u = new Usuario();
+		Perfil p = new Perfil();
 		try {
+		
+		 
+		 System.out.println(new UsuarioDao().findByLogin("çç"));
+		
 			
-			System.out.println(new UsuarioDao().findByLogin("gallotti"));
+			
 		} catch (Exception e) {
-			e.getMessage();
+			e.printStackTrace();
 		}
 	}
 	
