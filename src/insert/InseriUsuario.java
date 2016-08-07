@@ -15,10 +15,11 @@ public class InseriUsuario {
 		
 		try {			
 			usuario.setId(null);
-			usuario.setLogin("gallotti");
-			usuario.setSenha("123");
-			pd.create(p);
+			usuario.setLogin("LEOALVES");
+			usuario.setSenha("LEJOBA");
 			usuario.setPerfil(p);
+			pd.create(p);
+			
 					
 			dao.create(usuario);
 			System.out.println("Dados gravados");
