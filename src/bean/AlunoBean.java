@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import modelo.Aluno;
 import modelo.Endereco;
 import modelo.Telefone;
+import modelo.Turma;
 import repositorio.AlunoDao;
 import repositorio.EnderecoDao;
 import repositorio.TelefoneDao;
@@ -31,6 +32,8 @@ public class AlunoBean implements Serializable {
 	private Telefone telefoneEdicao;
 	private EnderecoDao enderecoDao;
 	private TelefoneDao telefoneDao;
+	
+	private Turma       turmaEdicao;
 
 	@PostConstruct
 	public void construct() {
@@ -41,6 +44,17 @@ public class AlunoBean implements Serializable {
 		alunoDao = new AlunoDao();
 		enderecoDao = new EnderecoDao();
 		telefoneDao = new TelefoneDao();
+		turmaEdicao = new Turma();
+	}
+
+	
+	
+	public Turma getTurmaEdicao() {
+		return turmaEdicao;
+	}
+
+	public void setTurmaEdicao(Turma turmaEdicao) {
+		this.turmaEdicao = turmaEdicao;
 	}
 
 	public Aluno getAlunoEdicao() {
@@ -119,12 +133,14 @@ public class AlunoBean implements Serializable {
 	public void preparaEdicao() {
 		enderecoEdicao = alunoEdicao.getEndereco();
 		telefoneEdicao = alunoEdicao.getTelefone();
+		turmaEdicao    = alunoEdicao.getTurma();
 		visualizar = false;
 	}
 
 	public void preparaVisualizacao() {
 		enderecoEdicao = alunoEdicao.getEndereco();
 		telefoneEdicao = alunoEdicao.getTelefone();
+		turmaEdicao    = alunoEdicao.getTurma();
 		visualizar = true;
 	}
 	
@@ -132,6 +148,7 @@ public class AlunoBean implements Serializable {
 		alunoEdicao = new Aluno();
 		enderecoEdicao = new Endereco();
 		telefoneEdicao = new Telefone();
+		turmaEdicao    = new Turma();
 		visualizar = false;
 	}
 

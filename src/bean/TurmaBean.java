@@ -12,7 +12,10 @@ import javax.faces.context.FacesContext;
 
 import repositorio.DisciplinaDao;
 import repositorio.TurmaDao;
+import modelo.Aluno;
 import modelo.Disciplina;
+import modelo.Endereco;
+import modelo.Telefone;
 import modelo.Turma;
 
 @ManagedBean(name="turmaBean")
@@ -27,15 +30,28 @@ public class TurmaBean implements Serializable {
 	private List<Turma> todasTurmas;
 	private TurmaDao turmaDao;
 	
+	private Disciplina  disciplinaEdicao;
+	
+	
+	
 	private Boolean visualizar;
 
 	@PostConstruct
 	public void construct() {
-		
+		disciplinaEdicao = new Disciplina();
 		turmaEdicao = new Turma();
 		turmaSelecionada = new Turma();
 		todasTurmas = new ArrayList<Turma>();
 		turmaDao = new TurmaDao();
+	}
+	
+	
+	public Disciplina getDisciplinaEdicao() {
+		return disciplinaEdicao;
+	}
+
+	public void setDisciplinaEdicao(Disciplina disciplinaEdicao) {
+		this.disciplinaEdicao = disciplinaEdicao;
 	}
 
 	public TurmaDao getTurmaDao() {
@@ -82,6 +98,21 @@ public class TurmaBean implements Serializable {
 
 	public void setVisualizar(Boolean visualizar) {
 		this.visualizar = visualizar;
+	}
+
+	public void preparaEdicao() {
+		disciplinaEdicao = (Disciplina) turmaEdicao.getDisciplinas();
+		visualizar = false;
+	}
+
+	public void preparaVisualizacao() {
+		disciplinaEdicao = (Disciplina) turmaEdicao.getDisciplinas();
+		visualizar = true;
+	}
+	
+	public void preparaNovoCadastro(){
+		disciplinaEdicao = new Disciplina();
+		visualizar = false;
 	}
 
 	

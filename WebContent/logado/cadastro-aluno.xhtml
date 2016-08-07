@@ -152,12 +152,26 @@
 								</p:outputPanel>								
 							</h:panelGrid>
 						</p:tab>																	
+					
+					  <p:tab title="Turma">
+							<h:panelGrid columns="2">
+							  <p:outputLabel>						    
+						       <p:outputLabel value="Turma"/>
+						       <p:selectOneMenu value="#{alunoBean.turmaEdicao.id}"  filter="true" filterMatchMode="startsWith" style="text-transform: uppercase">
+										<f:selectItem itemLabel="Escolha a Turma" noSelectionOption="true"/>
+										<f:selectItems value="#{turmaBean.todasTurmas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.id}"/>
+						     </p:selectOneMenu>	
+						    </p:outputLabel>
+						  </h:panelGrid>					
+						</p:tab>
 					</p:tabView>
+					
 					<h:panelGrid columns="1">
 						<p:commandButton style="width: 755px" value="Salvar" action="#{alunoBean.salvar}" ajax="false" update="formAluno:menuAluno, :formTab:tabela-aluno" oncomplete="PF('janelaCadastro').hide()"/>
 					</h:panelGrid>
 				</p:dialog>
 			</h:form>
+			
 			<h:form id="formEdit">				
 				<p:dialog width="800px" maximizable="true" responsive="true" header="Edição de Aluno" widgetVar="janelaEdicao" id="edicao-dialog" resizable="false" modal="false">
 					<p:tabView id="tab-aluno-edit">

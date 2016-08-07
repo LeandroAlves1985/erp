@@ -28,7 +28,7 @@
 								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
 							</p:outputPanel>							
 							<p:outputPanel>
-								<p:commandButton value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+								<p:commandButton action="#{disciplinaBean.preparaEdicao}" value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
 									<p:resetInput target=":formEdit:edicao-dialog"/>
 									<f:setPropertyActionListener value="#{disciplinaBean.disciplinaSelecionada}" target="#{disciplinaBean.disciplinaEdicao}"/>
 								</p:commandButton>

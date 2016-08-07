@@ -45,8 +45,14 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	@JoinColumn(name = "id_telefone")
 	private Telefone telefone;
 
+	
+	@OneToOne(mappedBy="aluno")
+	private Aluno_Turma  aluno_turma;
+	
+	
+	
 	public Aluno() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Aluno(Integer id, String nome, Date dataNascimento, String email,
@@ -131,6 +137,21 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 
 	public void setTurma(Turma turma) {
 		this.turma = turma;
+	}
+
+	
+	
+	
+	public Aluno_Turma getAluno_turma() {
+		return aluno_turma;
+	}
+
+	public void setAluno_turma(Aluno_Turma aluno_turma) {
+		this.aluno_turma = aluno_turma;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override

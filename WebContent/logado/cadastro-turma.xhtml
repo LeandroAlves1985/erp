@@ -22,7 +22,7 @@
 						<h:panelGrid columns="4">
 							
 							<p:outputPanel>
-								<p:commandButton value="Novo" title="Novo" style="color:white" icon="fa fa-file" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
+								<p:commandButton action="#{alunoBean.preparaNovoCadastro}" value="Novo" title="Novo" style="color:white" icon="fa fa-file" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
 							</p:outputPanel>
 							<p:outputPanel>
 								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
@@ -72,6 +72,18 @@
 							
 							</h:panelGrid>					
 						</p:tab>
+						
+						<p:tab title="Disciplinas">																	
+								<p:outputLabel>
+								 <p:outputLabel value="Disciplinas"/>
+								 <p:selectManyCheckbox value="#{turmaBean.disciplinaEdicao.id}" style="text-transform: uppercase">
+								  <f:selectItems value="#{disciplinaBean.todasDisciplinas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.id}" />
+								 </p:selectManyCheckbox>
+								</p:outputLabel>			
+												
+						</p:tab>
+						
+						
 																		
 					</p:tabView>
 					<h:panelGrid columns="1">
