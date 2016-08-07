@@ -22,19 +22,19 @@
 						<h:panelGrid columns="4">
 							
 							<p:outputPanel>
-								<p:commandButton action="#{disciplinaBean.preparaNovoCadastro}" value="Novo" title="Novo" style="color:white" icon="fa fa-file" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
+								<p:commandButton rendered="#{usuarioBean.usuarioLogado.perfil.subMenuDisciplinaInclusao}" action="#{disciplinaBean.preparaNovoCadastro}" value="Novo" title="Novo" style="color:white" icon="fa fa-file" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
 							</p:outputPanel>
 							<p:outputPanel>
 								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
 							</p:outputPanel>							
 							<p:outputPanel>
-								<p:commandButton action="#{disciplinaBean.preparaEdicao}" value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+								<p:commandButton rendered="#{usuarioBean.usuarioLogado.perfil.subMenuDisciplinaAlteracao}" action="#{disciplinaBean.preparaEdicao}" value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
 									<p:resetInput target=":formEdit:edicao-dialog"/>
 									<f:setPropertyActionListener value="#{disciplinaBean.disciplinaSelecionada}" target="#{disciplinaBean.disciplinaEdicao}"/>
 								</p:commandButton>
 							</p:outputPanel>														
 							<p:outputPanel>
-								<p:commandButton action="#{disciplinaBean.remover}" value="Excluir" title="Excluir" process="@this" update=":formTab"/>																	
+								<p:commandButton rendered="#{usuarioBean.usuarioLogado.perfil.subMenuDisciplinaExclusao}" action="#{disciplinaBean.remover}" value="Excluir" title="Excluir" process="@this" update=":formTab"/>																	
 							</p:outputPanel>
 							
 						</h:panelGrid>
