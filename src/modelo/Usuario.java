@@ -24,7 +24,7 @@ public class Usuario implements Serializable {
 	@Column
 	private String senha;
 	@ManyToOne
-	@JoinColumn(name = "id_perfil;")
+	@JoinColumn(name = "id_perfil")
 	private Perfil perfil;
 	@OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
 	private Professor professor;
