@@ -13,12 +13,12 @@
 				<h:form>
 					<p:menu toggleable="true">
 						<p:submenu label="Administração">
-							<p:menuitem value="Perfil" action="cadastro-perfil" />
-							<p:menuitem value="Usuario" action="cadastro-usuario" />			
 							<p:menuitem value="Aluno" action="cadastro-aluno" />
-							<p:menuitem value="Professor" action="cadastro-professor" />	
-							<p:menuitem value="Turma" action="cadastro-turma" />	
-							<p:menuitem value="Disciplina" action="cadastro-disciplina" rendered="#{usuarioBean.usuarioLogado.perfil.subMenuDisciplina}"/>														
+							<p:menuitem value="Disciplina" action="cadastro-disciplina" rendered="#{usuarioBean.usuarioLogado.perfil.subMenuDisciplina}"/>
+							<p:menuitem value="Perfil" action="cadastro-perfil" />
+							<p:menuitem value="Professor" action="cadastro-professor" />
+							<p:menuitem value="Turma" action="cadastro-turma" />
+							<p:menuitem value="Usuario" action="cadastro-usuario" />																					
 						</p:submenu>										
 					</p:menu>
 					<p:commandButton value="Sair" action="#{usuarioBean.deslogar}" ajax="true" style="width: 188px"/>
