@@ -20,7 +20,7 @@ public class Perfil implements Serializable {
 	private Integer id;
 	@Column
 	private String descricao;
-	@OneToMany(mappedBy = "perfil", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "perfil", fetch = FetchType.LAZY)
 	private List<Usuario> usuarios;
 
 	// MENU

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
 @Entity
 public class Endereco implements Serializable {
 
@@ -34,6 +35,8 @@ public class Endereco implements Serializable {
 	private Aluno aluno;
 	@OneToOne(mappedBy = "endereco", fetch = FetchType.EAGER)
 	private Professor professor;
+	@OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
+	private Funcionario funcionario;
 
 	public Endereco() {
 		// TODO Auto-generated constructor stub
@@ -65,7 +68,7 @@ public class Endereco implements Serializable {
 	}
 
 	public void setRua(String rua) {
-		this.rua = rua == null ? null: rua.toUpperCase();
+		this.rua = rua == null ? null : rua.toUpperCase();
 	}
 
 	public Integer getNumero() {
@@ -81,7 +84,8 @@ public class Endereco implements Serializable {
 	}
 
 	public void setComplemento(String complemento) {
-		this.complemento = complemento == null ? null: complemento.toUpperCase();
+		this.complemento = complemento == null ? null : complemento
+				.toUpperCase();
 	}
 
 	public String getBairro() {
@@ -89,7 +93,7 @@ public class Endereco implements Serializable {
 	}
 
 	public void setBairro(String bairro) {
-		this.bairro = bairro == null ? null: bairro.toUpperCase();
+		this.bairro = bairro == null ? null : bairro.toUpperCase();
 	}
 
 	public String getCidade() {
@@ -97,7 +101,7 @@ public class Endereco implements Serializable {
 	}
 
 	public void setCidade(String cidade) {
-		this.cidade = cidade == null ? null: cidade.toUpperCase();
+		this.cidade = cidade == null ? null : cidade.toUpperCase();
 	}
 
 	public String getUf() {
@@ -105,7 +109,7 @@ public class Endereco implements Serializable {
 	}
 
 	public void setUf(String uf) {
-		this.uf = uf == null ? null: uf.toUpperCase();
+		this.uf = uf == null ? null : uf.toUpperCase();
 	}
 
 	public String getCep() {
@@ -130,6 +134,18 @@ public class Endereco implements Serializable {
 
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override

@@ -60,6 +60,15 @@ public class PerfilDao {
 		return p;
 	}
 	
+	public Perfil porNome(Perfil p){
+		session = HibernateUtil.getSessionFactory().openSession();
+			query = session.createQuery("from Perfil p where p.descricao = :descricao");
+			query.setString("descricao", p.getDescricao());
+			Perfil resp = (Perfil) query.uniqueResult();
+		session.close();
+		return resp;
+	}
+	
 	
 	
 }
