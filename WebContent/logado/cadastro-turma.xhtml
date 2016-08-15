@@ -71,20 +71,7 @@
 								</p:outputPanel>
 							
 							</h:panelGrid>					
-						</p:tab>
-						
-						<p:tab title="Disciplinas">																	
-								<p:outputLabel>
-								 <p:outputLabel value="Disciplinas"/>
-								 <p:selectManyCheckbox value="#{turmaBean.disciplinaEdicao.id}" style="text-transform: uppercase">
-								  <f:selectItems value="#{disciplinaBean.todasDisciplinas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.id}" />
-								 </p:selectManyCheckbox>
-								</p:outputLabel>			
-												
-						</p:tab>
-						
-						
-																		
+						</p:tab>																
 					</p:tabView>
 					<h:panelGrid columns="1">
 						<p:commandButton style="width: 535px" value="Salvar" action="#{turmaBean.salvar}" ajax="false" update=":formTab"/>

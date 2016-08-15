@@ -170,19 +170,7 @@
 									</p:selectOneMenu>
 								</p:outputPanel>
 							</h:panelGrid>
-						</p:tab>																	
-					
-					  <p:tab title="Turma">
-							<h:panelGrid columns="2">
-							  <p:outputLabel>						    
-						       <p:outputLabel value="Turma"/>
-						       <p:selectOneMenu value="#{alunoBean.turmaEdicao.id}"  filter="true" filterMatchMode="startsWith" style="text-transform: uppercase">
-										<f:selectItem itemLabel="Escolha a Turma" noSelectionOption="true"/>
-										<f:selectItems value="#{turmaBean.todasTurmas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.id}"/>
-						     </p:selectOneMenu>	
-						    </p:outputLabel>
-						  </h:panelGrid>					
-						</p:tab>
+						</p:tab>			  	
 					</p:tabView>
 					
 					<h:panelGrid columns="1">
@@ -276,11 +264,11 @@
 							<h:panelGrid columns="3">
 								<p:outputPanel>
 									<p:outputLabel value="Login"/>
-									<p:inputText value="#{alunoBean.usuarioEdicao.login}" style="text-transform: uppercase; width: 280px" required="true" requiredMessage="Login obrigatório" disabled="#{alunoBean.visualizar}"/>
+									<p:inputText value="#{alunoBean.usuarioEdicao.login}" style="text-transform: uppercase; width: 280px" required="true" disabled="#{alunoBean.visualizar}"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Senha"/>
-									<p:inputText style="text-transform: uppercase" value="#{alunoBean.usuarioEdicao.senha}" required="true" requiredMessage="Senha obrigatória" disabled="#{alunoBean.visualizar}"/>
+									<p:inputText style="text-transform: uppercase" value="#{alunoBean.usuarioEdicao.senha}" disabled="#{alunoBean.visualizar}"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Perfil"/>
@@ -290,6 +278,8 @@
 									</p:selectOneMenu>
 								</p:outputPanel>
 							</h:panelGrid>
+						</p:tab>
+						<p:tab title="Turmas">		
 						</p:tab>																	
 					</p:tabView>
 					<h:panelGrid columns="1">
