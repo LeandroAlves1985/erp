@@ -28,7 +28,7 @@ public class Disciplina implements Serializable, Comparable<Disciplina> {
 	@ManyToMany
 	@JoinTable(name = "professor_disciplina", joinColumns=@JoinColumn(name = "id_professor"), inverseJoinColumns=@JoinColumn(name = "id_disciplina"))
 	private List<Professor> professores;
-	@OneToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL} )
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "id_nota")
 	private Nota nota;
 

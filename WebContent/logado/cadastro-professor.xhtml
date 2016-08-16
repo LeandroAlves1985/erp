@@ -151,7 +151,26 @@
 									<p:inputMask value="#{professorBean.telefoneEdicao.celular}" mask="(99)99999-9999" style="width: 200px"/>
 								</p:outputPanel>								
 							</h:panelGrid>
-						</p:tab>																	
+						</p:tab>
+						<p:tab title="Usuário">
+							<h:panelGrid columns="3">
+								<p:outputPanel>
+									<p:outputLabel value="Login"/>
+									<p:inputText value="#{professorBean.usuarioEdicao.login}" style="text-transform: uppercase; width: 280px" required="true" requiredMessage="Login obrigatório"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Senha"/>
+									<p:inputText style="text-transform: uppercase" value="#{professorBean.usuarioEdicao.senha}" required="true" requiredMessage="Senha obrigatória"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Perfil"/>
+									<p:selectOneMenu value="#{professorBean.perfilEdicao.descricao}" filter="true" filterMatchMode="startsWith">
+										<f:selectItem itemLabel="Selecione o Perfil" noSelectionOption="true"/>
+										<f:selectItems value="#{perfilBean.todosPerfis}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.descricao}"/>
+									</p:selectOneMenu>
+								</p:outputPanel>
+							</h:panelGrid>
+						</p:tab>																			
 					</p:tabView>
 					<h:panelGrid columns="1">
 						<p:commandButton style="width: 755px" value="Salvar" action="#{professorBean.salvar}" ajax="false" update=":formProf:menuProf, :formTab:tabela-prof" oncomplete="PF('janelaCadastro').hide()"/>
@@ -238,7 +257,26 @@
 									<p:inputMask value="#{professorBean.telefoneEdicao.celular}" mask="(99)99999-9999" style="width: 200px" disabled="#{professorBean.visualizar}"/>
 								</p:outputPanel>								
 							</h:panelGrid>
-						</p:tab>																	
+						</p:tab>
+						<p:tab title="Usuário">
+							<h:panelGrid columns="3">
+								<p:outputPanel>
+									<p:outputLabel value="Login"/>
+									<p:inputText value="#{professorBean.usuarioEdicao.login}" style="text-transform: uppercase; width: 280px" disabled="#{professorBean.visualizar}"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Senha"/>
+									<p:inputText style="text-transform: uppercase" value="#{professorBean.usuarioEdicao.senha}" required="true" disabled="#{professorBean.visualizar}"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Perfil"/>
+									<p:selectOneMenu value="#{professorBean.perfilEdicao.descricao}" filter="true" filterMatchMode="startsWith" disabled="#{professorBean.visualizar}">
+										<f:selectItem itemLabel="Selecione o Perfil" noSelectionOption="true"/>
+										<f:selectItems value="#{perfilBean.todosPerfis}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.descricao}"/>
+									</p:selectOneMenu>
+								</p:outputPanel>
+							</h:panelGrid>
+						</p:tab>																		
 					</p:tabView>
 					<h:panelGrid columns="1">
 						<p:commandButton style="width: 755px" value="Salvar" action="#{professorBean.editar}" ajax="false" update=":formProf:menuProf, :formTab:tabela-prof" oncomplete="PF('janelaCadastro').hide()" disabled="#{professorBean.visualizar}"/>

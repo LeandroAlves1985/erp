@@ -86,8 +86,7 @@ public class UsuarioDao {
 	public Usuario logar(Usuario u) {
 		criptografia(u);
 		session = HibernateUtil.getSessionFactory().openSession();		
-		query = session
-				.createQuery("from Usuario where login=:param1 and senha=:param2");
+		query = session.createQuery("from Usuario where login=:param1 and senha=:param2");
 		query.setString("param1", u.getLogin());
 		query.setString("param2", u.getSenha());
 		Usuario resp = (Usuario) query.uniqueResult();
@@ -97,20 +96,7 @@ public class UsuarioDao {
 	
 	
 
-	public static void main(String[] args) {
-		Usuario u = new Usuario();
-		Perfil p = new Perfil();
-		try {
-		
-		 
-		 System.out.println(new UsuarioDao().findByLogin("çç"));
-		
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 	
 	
 	

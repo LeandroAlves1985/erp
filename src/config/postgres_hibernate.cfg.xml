@@ -6,12 +6,11 @@
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/Erp</property>
     <property name="hibernate.connection.username">postgres</property>
-    <property name="hibernate.connection.password">lejoba</property>
+    <property name="hibernate.connection.password">le0405</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="modelo.Aluno"/>
-    <mapping class="modelo.Aluno_Turma"/>
     <mapping class="modelo.Disciplina"/>
     <mapping class="modelo.Endereco"/>
     <mapping class="modelo.Nota"/>
@@ -20,6 +19,7 @@
     <mapping class="modelo.Telefone"/>
     <mapping class="modelo.Turma"/>
     <mapping class="modelo.Usuario"/>
-    <mapping class="modelo.Menu"/>   
+    <mapping class="modelo.Menu"/>
+    <mapping class="modelo.Funcionario"/>   
   </session-factory>
 </hibernate-configuration>

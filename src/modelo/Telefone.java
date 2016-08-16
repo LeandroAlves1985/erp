@@ -2,6 +2,7 @@ package modelo;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
 @Entity
 public class Telefone implements Serializable {
 
@@ -24,6 +26,8 @@ public class Telefone implements Serializable {
 	private Aluno aluno;
 	@OneToOne(mappedBy = "telefone", fetch = FetchType.EAGER)
 	private Professor professor;
+	@OneToOne(mappedBy = "usuario")
+	private Funcionario funcionario;
 
 	public Telefone() {
 		// TODO Auto-generated constructor stub
@@ -74,6 +78,18 @@ public class Telefone implements Serializable {
 
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override

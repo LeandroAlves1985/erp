@@ -1,7 +1,9 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -26,9 +29,12 @@ public class Usuario implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_perfil")
 	private Perfil perfil;
-	@OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
-	private Professor professor;
-	
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+	private List<Professor> professores;
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+	private List<Aluno> alunos;
+	@OneToMany(mappedBy = "usuario")
+	private List<Funcionario> funcionarios;
 
 	public Usuario() {
 		// TODO Auto-generated constructor stub
@@ -40,9 +46,6 @@ public class Usuario implements Serializable {
 		this.login = login;
 		this.senha = senha;
 	}
-
-	
-	
 
 	public Integer getId() {
 		return id;
@@ -57,7 +60,7 @@ public class Usuario implements Serializable {
 	}
 
 	public void setLogin(String login) {
-		this.login = login == null ? null:login.toUpperCase();
+		this.login = login == null ? null : login.toUpperCase();
 	}
 
 	public String getSenha() {
@@ -65,7 +68,7 @@ public class Usuario implements Serializable {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha == null ? null: senha.toUpperCase();
+		this.senha = senha == null ? null : senha.toUpperCase();
 	}
 
 	public Perfil getPerfil() {
@@ -76,15 +79,34 @@ public class Usuario implements Serializable {
 		this.perfil = perfil;
 	}
 
-	public Professor getProfessor() {
-		return professor;
+	public List<Professor> getProfessores() {
+		return professores;
 	}
 
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
 	}
 
-	
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
+	}
+
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

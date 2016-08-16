@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>	
+	<p:layout style="min-width:400px; min-heigth:200px;">
+		<ui:include src="/template/template.xhtml"></ui:include>
+		<p:layoutUnit position="center">
+		
+			<h3 align="center">Cadastro de Funcionarios</h3>
+			<p:growl autoUpdate="true"></p:growl>
+			
+			<h:form id="formFunc">
+				<p:toolbar id="menuFunc">
+					<f:facet name="left">
+						<h:panelGrid columns="5">
+							
+							<p:outputPanel>
+								<p:commandButton action="#{funcionarioBean.preparaNovoCadastro}" value="Novo" title="Novo" style="color:white" icon="fa fa-file" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
+							</p:outputPanel>
+							<p:outputPanel>
+								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
+							</p:outputPanel>							
+							<p:outputPanel>
+								<p:commandButton action="#{funcionarioBean.preparaEdicao}" value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+									<p:resetInput target=":formEdit:edicao-dialog"/>
+									<f:setPropertyActionListener value="#{funcionarioBean.funcionarioSelecionado}" target="#{funcionarioBean.funcionarioEdicao}"/>
+								</p:commandButton>
+							</p:outputPanel>
+							<p:outputPanel>
+								<p:commandButton action="#{funcionarioBean.preparaVisualizacao}" value="Exibir" title="Exibir" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+									<p:resetInput target=":formEdit:edicao-dialog"/>
+									<f:setPropertyActionListener value="#{funcionarioBean.funcionarioSelecionado}" target="#{funcionarioBean.funcionarioEdicao}"/>
+								</p:commandButton>
+							</p:outputPanel>														
+							<p:outputPanel>
+								<p:commandButton action="#{funcionarioBean.remover}" value="Excluir" title="Excluir" process="@this" update=":formTab:tabela-func"/>																	
+							</p:outputPanel>
+							
+						</h:panelGrid>
+					</f:facet>
+				</p:toolbar>
+			</h:form>
+			
+			<h:form id="formTab">				
+				<p:dataTable id="tabela-func" value="#{funcionarioBean.todosFuncionarios}" var="linha" emptyMessage="Nenhum funcionario cadastrado!" rows="10" paginator="true" paginatorPosition="bottom" style="margin-top: 10px"
+							selectionMode="single" rowKey="#{linha.id}" selection="#{funcionarioBean.funcionarioSelecionado}" 
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {JumpToPageDropdown} {NextPageLink} {LastPageLink}"
+							currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} - Página: {currentPage}/{totalPages} ]">
+							
+							<p:ajax event="rowSelect" update=":formFunc:menuFunc"></p:ajax> 
+							<p:ajax event="rowSelect" update=":formFunc:menuFunc"></p:ajax> 
+							<p:ajax event="rowUnselect" update=":formFunc:menuFunc"></p:ajax> 
+														
+							<p:column headerText="Nome" filterMatchMode="contains" filterBy="#{linha.nome}">
+								<h:outputText value="#{linha.nome}" style="text-transform:uppercase"/>
+							</p:column>
+							<p:column headerText="Email" filterMatchMode="contains" filterBy="#{linha.email}">
+								<h:outputText value="#{linha.email}" style="text-transform:uppercase"/>
+							</p:column>	
+							<p:column headerText="Cpf" filterMatchMode="contains" filterBy="#{linha.cpf}">
+								<h:outputText value="#{linha.cpf}"/>
+							</p:column>													
+							
+				</p:dataTable>
+			</h:form>
+			
+			<h:form id="formCad">				
+				<p:dialog width="800px" maximizable="true" responsive="true" header="Novo Funcionario" widgetVar="janelaCadastro" id="cadastro-dialog" resizable="false" modal="false">
+					<p:tabView id="tab-prof">
+						<p:tab title="Dados Principais">
+							<h:panelGrid columns="2">							
+								<p:outputPanel>
+									<p:outputLabel value="Nome"/>
+									<p:inputText value="#{funcionarioBean.funcionarioEdicao.nome}" style="width: 350px; text-transform: uppercase" required="true" requiredMessage="Nome obrigatório"></p:inputText>
+								</p:outputPanel>
+							</h:panelGrid>
+							<h:panelGrid columns="1">
+								<p:outputPanel>
+									<p:outputLabel value="Email"/>
+									<p:inputText value="#{funcionarioBean.funcionarioEdicao.email}" style="width: 640px; text-transform: uppercase"></p:inputText>
+								</p:outputPanel>
+							</h:panelGrid>	
+							<h:panelGrid columns="2">
+								<p:outputPanel>
+									<p:outputLabel value="CPF"/>
+									<p:inputMask value="#{funcionarioBean.funcionarioEdicao.cpf}" mask="999.999.999-99" style="width: 140px"  required="true" requiredMessage="Cpf obrigatório"/>
+								</p:outputPanel>
+							</h:panelGrid>				
+						</p:tab>
+						<p:tab title="Endereço">
+							<h:panelGrid columns="2">
+								<p:outputPanel>
+									<p:outputLabel value="Rua"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.rua}" style="width: 400px; text-transform: uppercase" required="true" requiredMessage="Rua obrigatória"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Número"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.numero}" style="width:200px" required="true" requiredMessage="Numero obrigatório"/>
+								</p:outputPanel>
+							</h:panelGrid>
+							<h:panelGrid columns="1">
+								<p:outputPanel>
+									<p:outputLabel value="Complemento"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.complemento}" style="width: 605px; text-transform: uppercase"/>
+								</p:outputPanel>
+							</h:panelGrid>
+							<h:panelGrid columns="2">
+								<p:outputPanel>
+									<p:outputLabel value="Bairro"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.bairro}" style="width: 300px; text-transform: uppercase" required="true" requiredMessage="Bairro obrigatório"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Cidade"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.cidade}" style="width: 295px; text-transform: uppercase" required="true" requiredMessage="Cidade obrigatória"/>
+								</p:outputPanel>
+							</h:panelGrid>
+							<h:panelGrid columns="2">
+								<p:outputPanel>
+									<p:outputLabel value="UF"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.uf}" style="width: 100px; text-transform: uppercase" required="true" requiredMessage="Uf obrigatória"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="CEP"/>
+									<p:inputMask value="#{funcionarioBean.enderecoEdicao.cep}" mask="99.999-999" style="width: 200px"/>
+								</p:outputPanel>
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="Telefone">
+							<h:panelGrid columns="2">
+								<p:outputPanel>
+									<p:outputLabel value="Telefone"/>
+									<p:inputMask value="#{funcionarioBean.telefoneEdicao.convencional}" mask="(99)9999-9999" style="width: 200px"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Celular"/>
+									<p:inputMask value="#{funcionarioBean.telefoneEdicao.celular}" mask="(99)99999-9999" style="width: 200px"/>
+								</p:outputPanel>								
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="Usuário">
+							<h:panelGrid columns="3">
+								<p:outputPanel>
+									<p:outputLabel value="Login"/>
+									<p:inputText value="#{funcionarioBean.usuarioEdicao.login}" style="text-transform: uppercase; width: 280px" required="true" requiredMessage="Login obrigatório"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Senha"/>
+									<p:inputText style="text-transform: uppercase" value="#{funcionarioBean.usuarioEdicao.senha}" required="true" requiredMessage="Senha obrigatória"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Perfil"/>
+									<p:selectOneMenu value="#{funcionarioBean.perfilEdicao.descricao}" filter="true" filterMatchMode="startsWith">
+										<f:selectItem itemLabel="Selecione o Perfil" noSelectionOption="true"/>
+										<f:selectItems value="#{perfilBean.todosPerfis}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.descricao}"/>
+									</p:selectOneMenu>
+								</p:outputPanel>
+							</h:panelGrid>
+						</p:tab>																			
+					</p:tabView>
+					<h:panelGrid columns="1">
+						<p:commandButton style="width: 755px" value="Salvar" action="#{funcionarioBean.salvar}" ajax="false" update=":formFunc:menuFunc, :formTab:tabela-func" oncomplete="PF('janelaCadastro').hide()"/>
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>
+			<h:form id="formEdit">				
+				<p:dialog width="800px" maximizable="true" responsive="true" header="Edição de Funcionario" widgetVar="janelaEdicao" id="edicao-dialog" resizable="false" modal="false">
+					<p:tabView id="tab-func-edit">
+						<p:tab title="Dados Principais">
+							<h:panelGrid columns="2">							
+								<p:outputPanel>
+									<p:outputLabel value="Nome"/>
+									<p:inputText value="#{funcionarioBean.funcionarioEdicao.nome}" style="width: 350px; text-transform: uppercase" disabled="#{funcionarioBean.visualizar}" required="true" requiredMessage="Nome obrigatório"></p:inputText>
+								</p:outputPanel>
+							</h:panelGrid>
+							<h:panelGrid columns="1">
+								<p:outputPanel>
+									<p:outputLabel value="Email"/>
+									<p:inputText value="#{funcionarioBean.funcionarioEdicao.email}" style="width: 640px; text-transform: uppercase" disabled="#{funcionarioBean.visualizar}"></p:inputText>
+								</p:outputPanel>
+							</h:panelGrid>	
+							<h:panelGrid columns="2">								
+								<p:outputPanel>
+									<p:outputLabel value="CPF"/>
+									<p:inputMask value="#{funcionarioBean.funcionarioEdicao.cpf}" mask="999.999.999-99" style="width: 140px" disabled="#{funcionarioBean.visualizar}" required="true" requiredMessage="Cpf obrigatório"/>
+								</p:outputPanel>
+							</h:panelGrid>				
+						</p:tab>
+						<p:tab title="Endereço">
+							<h:panelGrid columns="2">
+								<p:outputPanel>
+									<p:outputLabel value="Rua"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.rua}" style="width: 400px; text-transform: uppercase" disabled="#{funcionarioBean.visualizar}" required="true" requiredMessage="Rua obrigatória"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Número"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.numero}" style="width:200px" disabled="#{funcionarioBean.visualizar}" required="true" requiredMessage="Numero obrigatório"/>
+								</p:outputPanel>
+							</h:panelGrid>
+							<h:panelGrid columns="1">
+								<p:outputPanel>
+									<p:outputLabel value="Complemento"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.complemento}" style="width: 605px; text-transform: uppercase" disabled="#{funcionarioBean.visualizar}"/>
+								</p:outputPanel>
+							</h:panelGrid>
+							<h:panelGrid columns="2">
+								<p:outputPanel>
+									<p:outputLabel value="Bairro"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.bairro}" style="width: 300px; text-transform: uppercase" disabled="#{funcionarioBean.visualizar}" required="true" requiredMessage="Bairro obrigatório"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Cidade"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.cidade}" style="width: 295px; text-transform: uppercase" disabled="#{funcionarioBean.visualizar}" required="true" requiredMessage="Cidade obrigatória"/>
+								</p:outputPanel>
+							</h:panelGrid>
+							<h:panelGrid columns="2">
+								<p:outputPanel>
+									<p:outputLabel value="UF"/>
+									<p:inputText value="#{funcionarioBean.enderecoEdicao.uf}" style="width: 100px; text-transform: uppercase" disabled="#{funcionarioBean.visualizar}" required="true" requiredMessage="Uf obrigatória"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="CEP"/>
+									<p:inputMask value="#{funcionarioBean.enderecoEdicao.cep}" mask="99.999-999" style="width: 200px" disabled="#{funcionarioBean.visualizar}"/>
+								</p:outputPanel>
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="Telefone">
+							<h:panelGrid columns="2">
+								<p:outputPanel>
+									<p:outputLabel value="Telefone"/>
+									<p:inputMask value="#{funcionarioBean.telefoneEdicao.convencional}" mask="(99)9999-9999" style="width: 200px" disabled="#{funcionarioBean.visualizar}"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Celular"/>
+									<p:inputMask value="#{funcionarioBean.telefoneEdicao.celular}" mask="(99)99999-9999" style="width: 200px" disabled="#{funcionarioBean.visualizar}"/>
+								</p:outputPanel>								
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="Usuário">
+							<h:panelGrid columns="3">
+								<p:outputPanel>
+									<p:outputLabel value="Login"/>
+									<p:inputText value="#{funcionarioBean.usuarioEdicao.login}" style="text-transform: uppercase; width: 280px" disabled="#{funcionarioBean.visualizar}"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Senha"/>
+									<p:inputText style="text-transform: uppercase" value="#{funcionarioBean.usuarioEdicao.senha}" required="true" disabled="#{funcionarioBean.visualizar}"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Perfil"/>
+									<p:selectOneMenu value="#{funcionarioBean.perfilEdicao.descricao}" filter="true" filterMatchMode="startsWith" disabled="#{funcionarioBean.visualizar}">
+										<f:selectItem itemLabel="Selecione o Perfil" noSelectionOption="true"/>
+										<f:selectItems value="#{perfilBean.todosPerfis}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.descricao}"/>
+									</p:selectOneMenu>
+								</p:outputPanel>
+							</h:panelGrid>
+						</p:tab>																		
+					</p:tabView>
+					<h:panelGrid columns="1">
+						<p:commandButton style="width: 755px" value="Salvar" action="#{funcionarioBean.editar}" ajax="false" update=":formFunc:menuFunc, :formTab:tabela-func" oncomplete="PF('janelaCadastro').hide()" disabled="#{funcionarioBean.visualizar}"/>
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>		
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

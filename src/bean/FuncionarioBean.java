@@ -9,31 +9,33 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import modelo.Endereco;
-import modelo.Perfil;
-import modelo.Professor;
-import modelo.Telefone;
-import modelo.Usuario;
 import repositorio.EnderecoDao;
+import repositorio.FuncionarioDao;
 import repositorio.PerfilDao;
 import repositorio.ProfessorDao;
 import repositorio.TelefoneDao;
 import repositorio.UsuarioDao;
+import modelo.Endereco;
+import modelo.Funcionario;
+import modelo.Perfil;
+import modelo.Professor;
+import modelo.Telefone;
+import modelo.Usuario;
 
-@ManagedBean(name = "professorBean")
+@ManagedBean(name="funcionarioBean")
 @ViewScoped
-public class ProfessorBean implements Serializable {
+public class FuncionarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Professor professorEdicao;
-	private Professor professorSelecionado;
-	private ProfessorDao professorDao;
+	private Funcionario funcionarioEdicao;
+	private Funcionario funcionarioSelecionado;
+	private FuncionarioDao funcionarioDao;
 	private Endereco enderecoEdicao;
 	private Telefone telefoneEdicao;
 	private EnderecoDao enderecoDao;
 	private TelefoneDao telefoneDao;
-	private List<Professor> todosProfessores;
+	private List<Funcionario> todosFuncionarios;
 	private Boolean visualizar;
 	private Usuario usuarioEdicao;
 	private Perfil perfilEdicao;
@@ -41,11 +43,11 @@ public class ProfessorBean implements Serializable {
 
 	@PostConstruct
 	public void construct() {
-		professorEdicao = new Professor();
-		professorSelecionado = new Professor();
+		funcionarioEdicao = new Funcionario();
+		funcionarioSelecionado = new Funcionario();
 		enderecoEdicao = new Endereco();
 		telefoneEdicao = new Telefone();
-		professorDao = new ProfessorDao();
+		funcionarioDao = new FuncionarioDao();
 		enderecoDao = new EnderecoDao();
 		telefoneDao = new TelefoneDao();
 		usuarioEdicao = new Usuario();
@@ -53,28 +55,28 @@ public class ProfessorBean implements Serializable {
 		perfilSalvo = new Perfil();
 	}
 
-	public Professor getProfessorEdicao() {
-		return professorEdicao;
+	public Funcionario getFuncionarioEdicao() {
+		return funcionarioEdicao;
 	}
 
-	public void setProfessorEdicao(Professor professorEdicao) {
-		this.professorEdicao = professorEdicao;
+	public void setFuncionarioEdicao(Funcionario funcionarioEdicao) {
+		this.funcionarioEdicao = funcionarioEdicao;
 	}
 
-	public Professor getProfessorSelecionado() {
-		return professorSelecionado;
+	public Funcionario getFuncionarioSelecionado() {
+		return funcionarioSelecionado;
 	}
 
-	public void setProfessorSelecionado(Professor professorSelecionado) {
-		this.professorSelecionado = professorSelecionado;
+	public void setFuncionarioSelecionado(Funcionario funcionarioSelecionado) {
+		this.funcionarioSelecionado = funcionarioSelecionado;
 	}
 
-	public ProfessorDao getProfessorDao() {
-		return professorDao;
+	public FuncionarioDao getFuncionarioDao() {
+		return funcionarioDao;
 	}
 
-	public void setProfessorDao(ProfessorDao professorDao) {
-		this.professorDao = professorDao;
+	public void setFuncionarioDao(FuncionarioDao funcionarioDao) {
+		this.funcionarioDao = funcionarioDao;
 	}
 
 	public Endereco getEnderecoEdicao() {
@@ -109,13 +111,13 @@ public class ProfessorBean implements Serializable {
 		this.telefoneDao = telefoneDao;
 	}
 
-	public List<Professor> getTodosProfessores() {
-		todosProfessores = professorDao.findAll();
-		return todosProfessores;
+	public List<Funcionario> getTodosFuncionarios() {
+		todosFuncionarios = funcionarioDao.findAll();
+		return todosFuncionarios;
 	}
 
-	public void setTodosProfessores(List<Professor> todosProfessores) {
-		this.todosProfessores = todosProfessores;
+	public void setTodosFuncionarios(List<Funcionario> todosFuncionarios) {
+		this.todosFuncionarios = todosFuncionarios;
 	}
 
 	public Boolean getVisualizar() {
@@ -150,48 +152,54 @@ public class ProfessorBean implements Serializable {
 		this.perfilSalvo = perfilSalvo;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
 	public void preparaEdicao() {
-		enderecoEdicao = professorEdicao.getEndereco();
-		telefoneEdicao = professorEdicao.getTelefone();
-		usuarioEdicao = professorEdicao.getUsuario();
+		enderecoEdicao = funcionarioEdicao.getEndereco();
+		telefoneEdicao = funcionarioEdicao.getTelefone();
+		usuarioEdicao = funcionarioEdicao.getUsuario();
 		perfilEdicao = usuarioEdicao.getPerfil();
 		visualizar = false;
 	}
 
 	public void preparaVisualizacao() {
-		enderecoEdicao = professorEdicao.getEndereco();
-		telefoneEdicao = professorEdicao.getTelefone();
-		usuarioEdicao = professorEdicao.getUsuario();
+		enderecoEdicao = funcionarioEdicao.getEndereco();
+		telefoneEdicao = funcionarioEdicao.getTelefone();
+		usuarioEdicao = funcionarioEdicao.getUsuario();
 		perfilEdicao = usuarioEdicao.getPerfil();
 		visualizar = true;
 	}
 
 	public void preparaNovoCadastro() {
-		professorEdicao = new Professor();
+		funcionarioEdicao = new Funcionario();
 		enderecoEdicao = new Endereco();
 		telefoneEdicao = new Telefone();
 		usuarioEdicao = new Usuario();
 		perfilEdicao = new Perfil();
 	}
 
+
 	public void salvar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
 			perfilSalvo = new PerfilDao().porNome(perfilEdicao);
 			usuarioEdicao.setPerfil(perfilSalvo);
-			professorEdicao.setUsuario(usuarioEdicao);
-			professorEdicao.setEndereco(enderecoEdicao);
-			professorEdicao.setTelefone(telefoneEdicao);
+			funcionarioEdicao.setUsuario(usuarioEdicao);
+			funcionarioEdicao.setEndereco(enderecoEdicao);
+			funcionarioEdicao.setTelefone(telefoneEdicao);
 			new UsuarioDao().create(usuarioEdicao);
 			enderecoDao.create(enderecoEdicao);
 			telefoneDao.create(telefoneEdicao);
-			professorDao.create(professorEdicao);
+			funcionarioDao.create(funcionarioEdicao);
 			construct();
-			todosProfessores = professorDao.findAll();
-			fc.addMessage("formProf", new FacesMessage("Professor cadastrado com sucesso!"));
+			todosFuncionarios = funcionarioDao.findAll();
+			fc.addMessage("formFunc", new FacesMessage("Funcionario cadastrado com sucesso!"));
 
 		} catch (Exception e) {
-			fc.addMessage("formProf", new FacesMessage("Erro ao cadastrar professor!" + e.getMessage()));
+			fc.addMessage("formFunc", new FacesMessage("Erro ao cadastrar funcionario!" + e.getMessage()));
 		}
 	}
 
@@ -200,32 +208,44 @@ public class ProfessorBean implements Serializable {
 		try {
 			perfilSalvo = new PerfilDao().porNome(perfilEdicao);
 			usuarioEdicao.setPerfil(perfilSalvo);
-			professorEdicao.setUsuario(usuarioEdicao);
-			professorEdicao.setEndereco(enderecoEdicao);
-			professorEdicao.setTelefone(telefoneEdicao);
+			funcionarioEdicao.setUsuario(usuarioEdicao);
+			funcionarioEdicao.setEndereco(enderecoEdicao);
+			funcionarioEdicao.setTelefone(telefoneEdicao);
 			new UsuarioDao().update(usuarioEdicao);
 			enderecoDao.update(enderecoEdicao);
 			telefoneDao.update(telefoneEdicao);
-			professorDao.update(professorEdicao);
+			funcionarioDao.update(funcionarioEdicao);
 			construct();
-			todosProfessores = professorDao.findAll();
-			fc.addMessage("formProf", new FacesMessage("Professor atualizado com sucesso!"));
+			todosFuncionarios = funcionarioDao.findAll();
+			fc.addMessage("formFunc", new FacesMessage("Funcionario atualizado com sucesso!"));
 
 		} catch (Exception e) {
-			fc.addMessage("formProf", new FacesMessage("Erro ao atualizar professor!" + e.getMessage()));
+			fc.addMessage("formFunc", new FacesMessage("Erro ao atualizar funcionario!" + e.getMessage()));
 		}
 	}
 
 	public void remover() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
-			professorDao.delete(professorSelecionado);
-			todosProfessores = professorDao.findAll();
-			fc.addMessage("formProf", new FacesMessage("Professor excluído com sucesso!"));
+			funcionarioDao.delete(funcionarioSelecionado);
+			todosFuncionarios = funcionarioDao.findAll();
+			fc.addMessage("formFunc", new FacesMessage("Funcionario excluído com sucesso!"));
 
 		} catch (Exception e) {
-			fc.addMessage("formProf", new FacesMessage("Erro ao excluir professor!" + e.getMessage()));
+			fc.addMessage("formFunc", new FacesMessage("Erro ao excluir funcionario!" + e.getMessage()));
 		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

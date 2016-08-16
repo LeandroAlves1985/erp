@@ -10,12 +10,12 @@ public class InseriUsuario {
 		
 		Usuario usuario = new Usuario();
 		UsuarioDao dao = new UsuarioDao();
-		Perfil   p = new Perfil(null, "administrador");
+		Perfil   p = new Perfil(null, "ADMINISTRADOR");
 		PerfilDao pd = new PerfilDao();
 		
 		try {			
 			usuario.setId(null);
-			usuario.setLogin("LEOALVES");
+			usuario.setLogin("LEANDRO");
 			usuario.setSenha("LEJOBA");
 			usuario.setPerfil(p);
 			pd.create(p);

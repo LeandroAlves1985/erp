@@ -151,19 +151,26 @@
 									<p:inputMask value="#{alunoBean.telefoneEdicao.celular}" mask="(99)99999-9999" style="width: 200px"/>
 								</p:outputPanel>								
 							</h:panelGrid>
-						</p:tab>																	
-					
-					  <p:tab title="Turma">
-							<h:panelGrid columns="2">
-							  <p:outputLabel>						    
-						       <p:outputLabel value="Turma"/>
-						       <p:selectOneMenu value="#{alunoBean.turmaEdicao.id}"  filter="true" filterMatchMode="startsWith" style="text-transform: uppercase">
-										<f:selectItem itemLabel="Escolha a Turma" noSelectionOption="true"/>
-										<f:selectItems value="#{turmaBean.todasTurmas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.id}"/>
-						     </p:selectOneMenu>	
-						    </p:outputLabel>
-						  </h:panelGrid>					
 						</p:tab>
+						<p:tab title="Usuário">
+							<h:panelGrid columns="3">
+								<p:outputPanel>
+									<p:outputLabel value="Login"/>
+									<p:inputText value="#{alunoBean.usuarioEdicao.login}" style="text-transform: uppercase; width: 280px" required="true" requiredMessage="Login obrigatório"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Senha"/>
+									<p:inputText style="text-transform: uppercase" value="#{alunoBean.usuarioEdicao.senha}" required="true" requiredMessage="Senha obrigatória"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Perfil"/>
+									<p:selectOneMenu value="#{alunoBean.perfilEdicao.descricao}" filter="true" filterMatchMode="startsWith">
+										<f:selectItem itemLabel="Selecione o Perfil" noSelectionOption="true"/>
+										<f:selectItems value="#{perfilBean.todosPerfis}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.descricao}"/>
+									</p:selectOneMenu>
+								</p:outputPanel>
+							</h:panelGrid>
+						</p:tab>			  	
 					</p:tabView>
 					
 					<h:panelGrid columns="1">
@@ -252,6 +259,27 @@
 									<p:inputMask value="#{alunoBean.telefoneEdicao.celular}" mask="(99)99999-9999" style="width: 200px" disabled="#{alunoBean.visualizar}"/>
 								</p:outputPanel>								
 							</h:panelGrid>
+						</p:tab>
+						<p:tab title="Usuário">
+							<h:panelGrid columns="3">
+								<p:outputPanel>
+									<p:outputLabel value="Login"/>
+									<p:inputText value="#{alunoBean.usuarioEdicao.login}" style="text-transform: uppercase; width: 280px" required="true" disabled="#{alunoBean.visualizar}"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Senha"/>
+									<p:inputText style="text-transform: uppercase" value="#{alunoBean.usuarioEdicao.senha}" disabled="#{alunoBean.visualizar}"/>
+								</p:outputPanel>
+								<p:outputPanel>
+									<p:outputLabel value="Perfil"/>
+									<p:selectOneMenu value="#{alunoBean.perfilEdicao.descricao}" filter="true" filterMatchMode="startsWith" disabled="#{alunoBean.visualizar}">
+										<f:selectItem itemLabel="Selecione o Perfil" noSelectionOption="true"/>
+										<f:selectItems value="#{perfilBean.todosPerfis}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.descricao}"/>
+									</p:selectOneMenu>
+								</p:outputPanel>
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="Turmas">		
 						</p:tab>																	
 					</p:tabView>
 					<h:panelGrid columns="1">

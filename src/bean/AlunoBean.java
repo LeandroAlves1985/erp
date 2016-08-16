@@ -11,11 +11,15 @@ import javax.faces.context.FacesContext;
 
 import modelo.Aluno;
 import modelo.Endereco;
+import modelo.Perfil;
 import modelo.Telefone;
 import modelo.Turma;
+import modelo.Usuario;
 import repositorio.AlunoDao;
 import repositorio.EnderecoDao;
+import repositorio.PerfilDao;
 import repositorio.TelefoneDao;
+import repositorio.UsuarioDao;
 
 @ManagedBean(name = "alunoBean")
 @ViewScoped
@@ -32,8 +36,11 @@ public class AlunoBean implements Serializable {
 	private Telefone telefoneEdicao;
 	private EnderecoDao enderecoDao;
 	private TelefoneDao telefoneDao;
-	
-	private Turma       turmaEdicao;
+	private Usuario usuarioEdicao;
+	private Perfil perfilEdicao;
+	private Perfil perfilSalvo;
+
+	private Turma turmaEdicao;
 
 	@PostConstruct
 	public void construct() {
@@ -45,10 +52,11 @@ public class AlunoBean implements Serializable {
 		enderecoDao = new EnderecoDao();
 		telefoneDao = new TelefoneDao();
 		turmaEdicao = new Turma();
+		usuarioEdicao = new Usuario();
+		perfilEdicao = new Perfil();
+		perfilSalvo = new Perfil();
 	}
 
-	
-	
 	public Turma getTurmaEdicao() {
 		return turmaEdicao;
 	}
@@ -85,7 +93,7 @@ public class AlunoBean implements Serializable {
 	public AlunoDao getAlunoDao() {
 		return alunoDao;
 	}
-	
+
 	public void setAlunoDao(AlunoDao alunoDao) {
 		this.alunoDao = alunoDao;
 	}
@@ -130,36 +138,68 @@ public class AlunoBean implements Serializable {
 		this.telefoneDao = telefoneDao;
 	}
 
+	public Usuario getUsuarioEdicao() {
+		return usuarioEdicao;
+	}
+
+	public void setUsuarioEdicao(Usuario usuarioEdicao) {
+		this.usuarioEdicao = usuarioEdicao;
+	}
+
+	public Perfil getPerfilEdicao() {
+		return perfilEdicao;
+	}
+
+	public void setPerfilEdicao(Perfil perfilEdicao) {
+		this.perfilEdicao = perfilEdicao;
+	}
+
+	public Perfil getPerfilSalvo() {
+		return perfilSalvo;
+	}
+
+	public void setPerfilSalvo(Perfil perfilSalvo) {
+		this.perfilSalvo = perfilSalvo;
+	}
+
 	public void preparaEdicao() {
 		enderecoEdicao = alunoEdicao.getEndereco();
 		telefoneEdicao = alunoEdicao.getTelefone();
-		turmaEdicao    = alunoEdicao.getTurma();
+		usuarioEdicao = alunoEdicao.getUsuario();
+		perfilEdicao = usuarioEdicao.getPerfil();
 		visualizar = false;
 	}
 
 	public void preparaVisualizacao() {
 		enderecoEdicao = alunoEdicao.getEndereco();
 		telefoneEdicao = alunoEdicao.getTelefone();
-		turmaEdicao    = alunoEdicao.getTurma();
+		usuarioEdicao = alunoEdicao.getUsuario();
+		perfilEdicao = usuarioEdicao.getPerfil();
 		visualizar = true;
 	}
-	
-	public void preparaNovoCadastro(){
+
+	public void preparaNovoCadastro() {
 		alunoEdicao = new Aluno();
 		enderecoEdicao = new Endereco();
 		telefoneEdicao = new Telefone();
-		turmaEdicao    = new Turma();
+		turmaEdicao = new Turma();
+		usuarioEdicao = new Usuario();
+		perfilEdicao = new Perfil();
 		visualizar = false;
 	}
 
 	public void salvar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
+			perfilSalvo = new PerfilDao().porNome(perfilEdicao);
+			usuarioEdicao.setPerfil(perfilSalvo);
+			alunoEdicao.setUsuario(usuarioEdicao);
 			alunoEdicao.setEndereco(enderecoEdicao);
-			alunoEdicao.setTelefone(telefoneEdicao);			
+			alunoEdicao.setTelefone(telefoneEdicao);
+			new UsuarioDao().create(usuarioEdicao);
 			enderecoDao.create(enderecoEdicao);
 			telefoneDao.create(telefoneEdicao);
-			alunoDao.create(alunoEdicao);			
+			alunoDao.create(alunoEdicao);
 			construct();
 			todosAlunos = alunoDao.findAll();
 			fc.addMessage("formAluno", new FacesMessage("Aluno cadastrado com sucesso!"));
@@ -168,33 +208,41 @@ public class AlunoBean implements Serializable {
 			fc.addMessage("formAluno", new FacesMessage("Erro ao cadastrar aluno!" + e.getMessage()));
 		}
 	}
-	
-	public void editar(){
+
+	public void editar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
+			perfilSalvo = new PerfilDao().porNome(perfilEdicao);
+			usuarioEdicao.setPerfil(perfilSalvo);
+			alunoEdicao.setUsuario(usuarioEdicao);
 			alunoEdicao.setEndereco(enderecoEdicao);
 			alunoEdicao.setTelefone(telefoneEdicao);
+			new UsuarioDao().update(usuarioEdicao);
 			enderecoDao.update(enderecoEdicao);
 			telefoneDao.update(telefoneEdicao);
 			alunoDao.update(alunoEdicao);
 			construct();
 			todosAlunos = alunoDao.findAll();
-			fc.addMessage("formAluno", new FacesMessage("Aluno atualizado com sucesso!"));
-			
+			fc.addMessage("formAluno", new FacesMessage(
+					"Aluno atualizado com sucesso!"));
+
 		} catch (Exception e) {
-			fc.addMessage("formAluno", new FacesMessage("Erro ao atualizar aluno!" + e.getMessage()));
+			fc.addMessage("formAluno", new FacesMessage(
+					"Erro ao atualizar aluno!" + e.getMessage()));
 		}
 	}
-	
-	public void remover(){
+
+	public void remover() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
 			alunoDao.delete(alunoSelecionado);
 			todosAlunos = alunoDao.findAll();
-			fc.addMessage("formAluno", new FacesMessage("Aluno excluído com sucesso!"));
-			
+			fc.addMessage("formAluno", new FacesMessage(
+					"Aluno excluído com sucesso!"));
+
 		} catch (Exception e) {
-			fc.addMessage("formAluno", new FacesMessage("Erro ao excluir aluno!" + e.getMessage()));
+			fc.addMessage("formAluno", new FacesMessage(
+					"Erro ao excluir aluno!" + e.getMessage()));
 		}
 	}
 

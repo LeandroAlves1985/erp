@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>	
+	<p:layout style="min-width:400px; min-heigth:200px;">
+		<ui:include src="/template/template.xhtml"></ui:include>
+		<p:layoutUnit position="center">
+		
+			<h3 align="center">Cadastro de Disciplinas</h3>
+			<p:growl autoUpdate="true"></p:growl>
+			
+			<h:form id="formDisciplina">
+				<p:toolbar id="menuDisciplina">
+					<f:facet name="left">
+						<h:panelGrid columns="4">
+							
+							<p:outputPanel>
+								<p:commandButton rendered="#{usuarioBean.usuarioLogado.perfil.subMenuDisciplinaInclusao}" action="#{disciplinaBean.preparaNovoCadastro}" value="Novo" title="Novo" style="color:white" icon="fa fa-file" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
+							</p:outputPanel>
+							<p:outputPanel>
+								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
+							</p:outputPanel>							
+							<p:outputPanel>
+								<p:commandButton rendered="#{usuarioBean.usuarioLogado.perfil.subMenuDisciplinaAlteracao}" action="#{disciplinaBean.preparaEdicao}" value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+									<p:resetInput target=":formEdit:edicao-dialog"/>
+									<f:setPropertyActionListener value="#{disciplinaBean.disciplinaSelecionada}" target="#{disciplinaBean.disciplinaEdicao}"/>
+								</p:commandButton>
+								<p:commandButton action="#{disciplinaBean.preparaVisualizacao}" value="Exibir" title="Exibir" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+									<p:resetInput target=":formEdit:edicao-dialog"/>
+									<f:setPropertyActionListener value="#{disciplinaBean.disciplinaSelecionada}" target="#{disciplinaBean.disciplinaEdicao}"/>
+								</p:commandButton>	
+							</p:outputPanel>														
+							<p:outputPanel>
+								<p:commandButton rendered="#{usuarioBean.usuarioLogado.perfil.subMenuDisciplinaExclusao}" action="#{disciplinaBean.remover}" value="Excluir" title="Excluir" process="@this" update=":formTab"/>																	
+							</p:outputPanel>
+							
+						</h:panelGrid>
+					</f:facet>
+				</p:toolbar>
+			</h:form>
+			
+			<h:form id="formTab">				
+				<p:dataTable id="tabela-disciplina" value="#{disciplinaBean.todasDisciplinas}" var="linha" emptyMessage="Nenhuma disciplina selecionada!" rows="10" paginator="true" paginatorPosition="bottom" style="margin-top: 10px"
+							selectionMode="single" rowKey="#{linha.id}" selection="#{disciplinaBean.disciplinaSelecionada}" 
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {JumpToPageDropdown} {NextPageLink} {LastPageLink}"
+							currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} - Página: {currentPage}/{totalPages} ]">
+							
+							<p:ajax event="rowSelect" update=":formDisciplina:menuDisciplina"/> 
+							<p:ajax event="rowSelect" update=":formDisciplina:menuDisciplina"/> 
+							<p:ajax event="rowUnselect" update=":formDisciplina:menuDisciplina"/> 
+														
+							<p:column headerText="Descrição" filterMatchMode="contains" filterBy="#{linha.descricao}">
+								<h:outputText value="#{linha.descricao}" style="text-transform:uppercase"/>
+							</p:column>														
+							
+				</p:dataTable>
+			</h:form>
+			
+			<h:form id="formCad">				
+				<p:dialog width="580px" maximizable="true" responsive="true" header="Nova Disciplina" widgetVar="janelaCadastro" id="cadastro-dialog" resizable="false" modal="false">
+					<p:tabView id="tab-disciplina">
+						<p:tab title="Dados Principais">
+							<h:panelGrid columns="2">							
+								
+								<p:outputPanel>
+									<p:outputLabel value="Descrição"/>
+									<p:inputText style="width: 400px; text-transform: uppercase"  value="#{disciplinaBean.disciplinaEdicao.descricao}" required="true" requiredMessage="Descrição obrigatória"/>
+								</p:outputPanel>
+							
+							</h:panelGrid>					
+						</p:tab>																					
+					</p:tabView>
+					<h:panelGrid columns="1">
+						<p:commandButton style="width: 535px" value="Salvar" action="#{disciplinaBean.salvar}" ajax="false" update=":formTab"/>
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>
+			
+			
+			
+			<h:form id="formEdit">				
+				<p:dialog width="580px" maximizable="true" responsive="true" header="Edição de Disciplina" widgetVar="janelaEdicao" id="edicao-dialog" resizable="false" modal="false">
+					<p:tabView id="tab-disciplina-edit">
+						<p:tab title="Dados Principais">
+							<h:panelGrid columns="2">							
+								
+								<p:outputPanel>
+									<p:outputLabel value="Descrição"/>
+									<p:inputText style="text-transform:uppercase; width: 400px" value="#{disciplinaBean.disciplinaEdicao.descricao}" disabled="#{disciplinaBean.visualizar}" required="true" requiredMessage="Descrição obrigatória"/>
+								</p:outputPanel>
+							
+							</h:panelGrid>					
+						</p:tab>																
+					</p:tabView>
+					<h:panelGrid columns="1">
+						<p:commandButton style="width: 535px" value="Salvar" action="#{disciplinaBean.editar}" ajax="false" update=":formTab"/>
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>
+		
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>
