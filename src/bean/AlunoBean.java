@@ -8,6 +8,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import modelo.Aluno;
 import modelo.Endereco;
@@ -39,7 +41,6 @@ public class AlunoBean implements Serializable {
 	private Usuario usuarioEdicao;
 	private Perfil perfilEdicao;
 	private Perfil perfilSalvo;
-
 	private Turma turmaEdicao;
 
 	@PostConstruct
@@ -160,14 +161,14 @@ public class AlunoBean implements Serializable {
 
 	public void setPerfilSalvo(Perfil perfilSalvo) {
 		this.perfilSalvo = perfilSalvo;
-	}
+	}	
 
 	public void preparaEdicao() {
 		enderecoEdicao = alunoEdicao.getEndereco();
 		telefoneEdicao = alunoEdicao.getTelefone();
 		usuarioEdicao = alunoEdicao.getUsuario();
 		perfilEdicao = usuarioEdicao.getPerfil();
-		visualizar = false;
+		visualizar = false;		
 	}
 
 	public void preparaVisualizacao() {
