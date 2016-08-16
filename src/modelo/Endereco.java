@@ -2,6 +2,7 @@ package modelo;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +36,7 @@ public class Endereco implements Serializable {
 	private Aluno aluno;
 	@OneToOne(mappedBy = "endereco", fetch = FetchType.EAGER)
 	private Professor professor;
-	@OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "usuario")
 	private Funcionario funcionario;
 
 	public Endereco() {

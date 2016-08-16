@@ -120,6 +120,7 @@ public class TurmaBean implements Serializable {
 	public void salvar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
+			//turmaEdicao.setDisciplinas(disciplinaEdicao);
 			turmaDao.create(turmaEdicao);
 			construct();
 			fc.addMessage("formTurma", new FacesMessage("Turma cadastrada com sucesso"));

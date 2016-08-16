@@ -3,6 +3,7 @@ package modelo;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +33,7 @@ public class Usuario implements Serializable {
 	private List<Professor> professores;
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
 	private List<Aluno> alunos;
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "usuario")
 	private List<Funcionario> funcionarios;
 
 	public Usuario() {

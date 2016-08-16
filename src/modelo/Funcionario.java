@@ -2,8 +2,10 @@ package modelo;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,13 +25,13 @@ public class Funcionario implements Serializable {
 	private String cpf;
 	@Column
 	private String email;
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "id_telefone")
 	private Telefone telefone;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 

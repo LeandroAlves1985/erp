@@ -32,6 +32,10 @@
 									<p:resetInput target=":formEdit:edicao-dialog"/>
 									<f:setPropertyActionListener value="#{disciplinaBean.disciplinaSelecionada}" target="#{disciplinaBean.disciplinaEdicao}"/>
 								</p:commandButton>
+								<p:commandButton action="#{disciplinaBean.preparaVisualizacao}" value="Exibir" title="Exibir" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+									<p:resetInput target=":formEdit:edicao-dialog"/>
+									<f:setPropertyActionListener value="#{disciplinaBean.disciplinaSelecionada}" target="#{disciplinaBean.disciplinaEdicao}"/>
+								</p:commandButton>	
 							</p:outputPanel>														
 							<p:outputPanel>
 								<p:commandButton rendered="#{usuarioBean.usuarioLogado.perfil.subMenuDisciplinaExclusao}" action="#{disciplinaBean.remover}" value="Excluir" title="Excluir" process="@this" update=":formTab"/>																	
@@ -89,7 +93,7 @@
 								
 								<p:outputPanel>
 									<p:outputLabel value="Descrição"/>
-									<p:inputText style="text-transform:uppercase; width: 400px" value="#{disciplinaBean.disciplinaEdicao.descricao}" required="true" requiredMessage="Descrição obrigatória"/>
+									<p:inputText style="text-transform:uppercase; width: 400px" value="#{disciplinaBean.disciplinaEdicao.descricao}" disabled="#{disciplinaBean.visualizar}" required="true" requiredMessage="Descrição obrigatória"/>
 								</p:outputPanel>
 							
 							</h:panelGrid>					

@@ -32,6 +32,10 @@
 									<p:resetInput target=":formEdit:edicao-dialog"/>
 									<f:setPropertyActionListener value="#{turmaBean.turmaSelecionada}" target="#{turmaBean.turmaEdicao}"/>
 								</p:commandButton>
+								<p:commandButton action="#{turmaBean.preparaVisualizacao}" value="Exibir" title="Exibir" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+									<p:resetInput target=":formEdit:edicao-dialog"/>
+									<f:setPropertyActionListener value="#{turmaBean.turmaSelecionada}" target="#{turmaBean.turmaEdicao}"/>
+								</p:commandButton>								
 							</p:outputPanel>														
 							<p:outputPanel>
 								<p:commandButton action="#{turmaBean.remover}" value="Excluir" title="Excluir" process="@this" update=":formTab"/>																	
@@ -67,11 +71,19 @@
 								
 								<p:outputPanel>
 									<p:outputLabel value="Descrição"/>
-									<p:inputText style="text-transform:uppercase; width: 400px" value="#{turmaBean.turmaEdicao.descricao}" required="true" requiredMessage="Descrição obrigatória"/>
-								</p:outputPanel>
-							
+									<p:inputText style="text-transform:uppercase; width: 400px" value="#{turmaBean.turmaEdicao.descricao}"  required="true" requiredMessage="Descrição obrigatória"/>
+								</p:outputPanel>							
 							</h:panelGrid>					
 						</p:tab>																
+					 <p:tab title="Disciplinas">																	
+ 								<p:outputLabel>
+ 								 <p:outputLabel value="Disciplinas"/>
+ 								 <p:selectManyCheckbox value="#{turmaBean.disciplinaEdicao.id}" style="text-transform: uppercase" layout="grid" columns="3">
+ 								  <f:selectItems value="#{disciplinaBean.todasDisciplinas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.id}" />
+ 								 </p:selectManyCheckbox>
+ 								</p:outputLabel>			
+ 												
+ 						</p:tab>					
 					</p:tabView>
 					<h:panelGrid columns="1">
 						<p:commandButton style="width: 535px" value="Salvar" action="#{turmaBean.salvar}" ajax="false" update=":formTab"/>
@@ -87,7 +99,7 @@
 								
 								<p:outputPanel>
 									<p:outputLabel value="Descrição"/>
-									<p:inputText style="text-transform:uppercase; width: 400px" value="#{turmaBean.turmaEdicao.descricao}" required="true" requiredMessage="Descrição obrigatória"/>
+									<p:inputText style="text-transform:uppercase; width: 400px" value="#{turmaBean.turmaEdicao.descricao}" disabled="#{turmaBean.visualizar}" required="true" requiredMessage="Descrição obrigatória"/>
 								</p:outputPanel>
 							
 							</h:panelGrid>					
