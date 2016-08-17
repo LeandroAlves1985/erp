@@ -262,6 +262,10 @@ public class AlunoBean implements Serializable {
 					"Erro ao excluir aluno!" + e.getMessage()));
 		}
 	}
+	
+	public void teste(){
+		
+	}
 
 	
 	public void buscaCep(){
