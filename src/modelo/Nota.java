@@ -31,7 +31,7 @@ public class Nota implements Serializable {
 
 	private transient String situacao;
 	
-	@OneToOne(mappedBy="nota",fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+	@OneToOne(mappedBy="nota",fetch=FetchType.LAZY, cascade={CascadeType.ALL})
 	private Disciplina disciplina;
 
 	public Nota() {

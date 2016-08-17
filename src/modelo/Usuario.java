@@ -33,7 +33,7 @@ public class Usuario implements Serializable {
 	private List<Professor> professores;
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
 	private List<Aluno> alunos;
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
 	private List<Funcionario> funcionarios;
 
 	public Usuario() {

@@ -28,7 +28,7 @@
 								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
 							</p:outputPanel>							
 							<p:outputPanel>
-								<p:commandButton value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+								<p:commandButton action="#{turmaBean.preparaEdicao}" value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
 									<p:resetInput target=":formEdit:edicao-dialog"/>
 									<f:setPropertyActionListener value="#{turmaBean.turmaSelecionada}" target="#{turmaBean.turmaEdicao}"/>
 								</p:commandButton>
@@ -74,16 +74,7 @@
 									<p:inputText style="text-transform:uppercase; width: 400px" value="#{turmaBean.turmaEdicao.descricao}"  required="true" requiredMessage="Descrição obrigatória"/>
 								</p:outputPanel>							
 							</h:panelGrid>					
-						</p:tab>																
-					 <p:tab title="Disciplinas">																	
- 								<p:outputLabel>
- 								 <p:outputLabel value="Disciplinas"/>
- 								 <p:selectManyCheckbox value="#{turmaBean.disciplinaEdicao.id}" style="text-transform: uppercase" layout="grid" columns="3">
- 								  <f:selectItems value="#{disciplinaBean.todasDisciplinas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.id}" />
- 								 </p:selectManyCheckbox>
- 								</p:outputLabel>			
- 												
- 						</p:tab>					
+						</p:tab>				 					
 					</p:tabView>
 					<h:panelGrid columns="1">
 						<p:commandButton style="width: 535px" value="Salvar" action="#{turmaBean.salvar}" ajax="false" update=":formTab"/>
@@ -104,6 +95,27 @@
 							
 							</h:panelGrid>					
 						</p:tab>
+						<p:tab title="Disciplinas">																	
+ 							<h:panelGrid columns="2">
+ 								<p:selectOneMenu value="#{turmaBean.disciplinaEdicao.descricao}" filter="true" filterMatchMode="startsWith">
+ 									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+ 									<f:selectItems value="#{disciplinaBean.todasDisciplinas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.descricao}"/>
+ 								</p:selectOneMenu>
+ 								
+ 								<p:outputPanel>
+ 									<p:commandButton action="#{turmaBean.alocarDisciplina}" value="Inserir" update=":formEdit:tab-turma-edit:tabela-disciplinas"/>
+ 								</p:outputPanel>
+ 							</h:panelGrid>						
+ 							
+ 							<p:dataTable id="tabela-disciplinas" value="#{turmaBean.todasDisciplinasPorTurma}" var="linha" emptyMessage="Nenhuma disciplina cadastrada!"
+ 										 paginator="true" rows="10">
+ 								
+ 								<p:column headerText="Descrição">
+ 									<h:outputText value="#{linha.descricao}"/>
+ 								</p:column>
+ 								
+ 							</p:dataTable>											
+ 						</p:tab>
 																		
 					</p:tabView>
 					<h:panelGrid columns="1">

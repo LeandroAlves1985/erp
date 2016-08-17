@@ -25,13 +25,13 @@ public class Funcionario implements Serializable {
 	private String cpf;
 	@Column
 	private String email;
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "id_telefone")
 	private Telefone telefone;
-	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
