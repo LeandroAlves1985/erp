@@ -60,7 +60,14 @@ public class DisciplinaDao {
 		return d;
 	}
 	
-	
+	public Disciplina porNome(Disciplina d){
+		session = HibernateUtil.getSessionFactory().openSession();
+			query = session.createQuery("from Disciplina d where d.descricao = :descricao");
+			query.setString("descricao", d.getDescricao());
+			Disciplina resp = (Disciplina) query.uniqueResult();
+		session.close();
+		return resp;
+	}
 	
 	
 	

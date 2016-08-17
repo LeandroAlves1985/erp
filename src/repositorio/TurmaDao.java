@@ -1,8 +1,9 @@
 package repositorio;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import modelo.Aluno;
+import modelo.Disciplina;
 import modelo.Turma;
 
 import org.hibernate.Criteria;
@@ -60,6 +61,22 @@ public class TurmaDao {
 		return t;
 	}
 	
+	public List<Disciplina> disciplinaPorTurma(Turma t){
+		session = HibernateUtil.getSessionFactory().openSession();
+			query = session.createQuery("from Turma t where t.descricao = :descricao");
+			query.setString("descricao", t.getDescricao());
+			Turma turma = (Turma) query.uniqueResult();
+			List<Disciplina> lista = turma.getDisciplinas();
+			List<Disciplina> listaResp = new ArrayList<Disciplina>();
+			for(Disciplina d : lista){
+				Disciplina d1 = new Disciplina();
+					d1.setId(d.getId());
+					d1.setDescricao(d.getDescricao());
+					listaResp.add(d1);
+			}
+		session.close();
+		return listaResp;	
+	}
 	
 	
 	

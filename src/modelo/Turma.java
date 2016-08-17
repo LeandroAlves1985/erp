@@ -26,8 +26,7 @@ public class Turma implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "aluno_turma", joinColumns=@JoinColumn(name ="id_aluno"), inverseJoinColumns=@JoinColumn(name="id_turma"))
 	private List<Aluno> alunos;
-	@ManyToMany
-	@JoinTable(name = "disciplina_turma", joinColumns = @JoinColumn(name = "id_disciplina"), inverseJoinColumns = @JoinColumn(name = "id_turma"))
+	@ManyToMany(mappedBy = "turmas", fetch = FetchType.LAZY)	
 	private List<Disciplina> disciplinas;
 
 	public Turma() {

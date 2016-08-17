@@ -166,8 +166,8 @@ public class DisciplinaBean implements Serializable {
 	public void editar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
-			notaDao.update(notaEdicao);
-			disciplinaEdicao.setNota(notaEdicao);
+			//notaDao.update(notaEdicao);
+			//disciplinaEdicao.setNota(notaEdicao);
 			disciplinaDao.update(disciplinaEdicao);
 			construct();
 			fc.addMessage("formDisciplina", new FacesMessage("Disciplina atualizada com sucesso"));

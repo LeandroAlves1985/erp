@@ -8,6 +8,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.lavieri.modelutil.cep.WebServiceCep;
 
@@ -22,7 +24,7 @@ import repositorio.EnderecoDao;
 import repositorio.PerfilDao;
 import repositorio.TelefoneDao;
 import repositorio.UsuarioDao;
-
+//teste
 @ManagedBean(name = "alunoBean")
 @ViewScoped
 public class AlunoBean implements Serializable {
@@ -41,7 +43,6 @@ public class AlunoBean implements Serializable {
 	private Usuario usuarioEdicao;
 	private Perfil perfilEdicao;
 	private Perfil perfilSalvo;
-
 	private Turma turmaEdicao;
 	
 	private String mbCep="";
@@ -164,6 +165,7 @@ public class AlunoBean implements Serializable {
 
 	public void setPerfilSalvo(Perfil perfilSalvo) {
 		this.perfilSalvo = perfilSalvo;
+
 	}
 	
 	public String getMbCep() {
@@ -174,12 +176,15 @@ public class AlunoBean implements Serializable {
 		this.mbCep = mbCep;
 	}
 
+		
+
+
 	public void preparaEdicao() {
 		enderecoEdicao = alunoEdicao.getEndereco();
 		telefoneEdicao = alunoEdicao.getTelefone();
 		usuarioEdicao = alunoEdicao.getUsuario();
 		perfilEdicao = usuarioEdicao.getPerfil();
-		visualizar = false;
+		visualizar = false;		
 	}
 
 	public void preparaVisualizacao() {

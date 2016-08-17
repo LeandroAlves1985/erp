@@ -23,12 +23,13 @@ public class Disciplina implements Serializable, Comparable<Disciplina> {
 	private Integer id;
 	@Column
 	private String descricao;
-	@ManyToMany(mappedBy = "disciplinas", fetch = FetchType.LAZY)
+	@ManyToMany
+	@JoinTable(name = "turma_disciplina", joinColumns = @JoinColumn(name = "id_disciplina"), inverseJoinColumns = @JoinColumn(name = "id_turma"))
 	private List<Turma> turmas;
 	@ManyToMany
 	@JoinTable(name = "professor_disciplina", joinColumns=@JoinColumn(name = "id_professor"), inverseJoinColumns=@JoinColumn(name = "id_disciplina"))
 	private List<Professor> professores;
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "id_nota")
 	private Nota nota;
 

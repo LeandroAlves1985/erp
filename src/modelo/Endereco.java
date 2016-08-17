@@ -36,7 +36,7 @@ public class Endereco implements Serializable {
 	private Aluno aluno;
 	@OneToOne(mappedBy = "endereco", fetch = FetchType.EAGER)
 	private Professor professor;
-	@OneToOne(mappedBy = "usuario")
+	@OneToOne(mappedBy = "endereco", fetch = FetchType.EAGER)
 	private Funcionario funcionario;
 
 	public Endereco() {

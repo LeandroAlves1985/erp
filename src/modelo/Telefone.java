@@ -26,7 +26,7 @@ public class Telefone implements Serializable {
 	private Aluno aluno;
 	@OneToOne(mappedBy = "telefone", fetch = FetchType.EAGER)
 	private Professor professor;
-	@OneToOne(mappedBy = "usuario")
+	@OneToOne(mappedBy = "endereco", fetch = FetchType.EAGER)
 	private Funcionario funcionario;
 
 	public Telefone() {
