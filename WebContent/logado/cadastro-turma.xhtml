@@ -96,7 +96,7 @@
 							</h:panelGrid>					
 						</p:tab>
 						<p:tab title="Disciplinas">																	
- 							<h:panelGrid columns="2">
+ 							<h:panelGrid columns="3">
  								<p:selectOneMenu value="#{turmaBean.disciplinaEdicao.descricao}" filter="true" filterMatchMode="startsWith">
  									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
  									<f:selectItems value="#{disciplinaBean.todasDisciplinas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.descricao}"/>
@@ -105,10 +105,17 @@
  								<p:outputPanel>
  									<p:commandButton action="#{turmaBean.alocarDisciplina}" value="Inserir" update=":formEdit:tab-turma-edit:tabela-disciplinas"/>
  								</p:outputPanel>
+ 								
+ 								<p:outputPanel>
+ 									<p:commandButton action="#{turmaBean.removerDisciplina}" value="Remover" update=":formEdit:tab-turma-edit:tabela-disciplinas"/>
+ 								</p:outputPanel> 								
+ 								
  							</h:panelGrid>						
  							
  							<p:dataTable id="tabela-disciplinas" value="#{turmaBean.todasDisciplinasPorTurma}" var="linha" emptyMessage="Nenhuma disciplina cadastrada!"
- 										 paginator="true" rows="10">
+ 										 paginator="true" rows="10" selectionMode="single" selection="#{turmaBean.disciplinaSalvo}" rowKey="#{linha.id}">
+ 										 										 							
+ 								
  								
  								<p:column headerText="Descrição">
  									<h:outputText value="#{linha.descricao}"/>

@@ -34,6 +34,7 @@ public class TurmaBean implements Serializable {
 	private List<Disciplina> listaDisciplina = new ArrayList<Disciplina>();
 	private List<Turma> listaTurma = new ArrayList<Turma>();
 	private List<Disciplina> todasDisciplinasPorTurma;
+	private List<Disciplina> todasDisciplinasPorTurmaRemove;
 
 	@PostConstruct
 	public void construct() {
@@ -130,6 +131,15 @@ public class TurmaBean implements Serializable {
 			List<Disciplina> todasDisciplinasPorTurma) {
 		this.todasDisciplinasPorTurma = todasDisciplinasPorTurma;
 	}
+	
+	public List<Disciplina> getTodasDisciplinasPorTurmaRemove() {
+		return todasDisciplinasPorTurmaRemove;
+	}
+
+	public void setTodasDisciplinasPorTurmaRemove(
+			List<Disciplina> todasDisciplinasPorTurmaRemove) {
+		this.todasDisciplinasPorTurmaRemove = todasDisciplinasPorTurmaRemove;
+	}
 
 	public void preparaEdicao() {
 		todasDisciplinasPorTurma = turmaDao.disciplinaPorTurma(turmaEdicao);
@@ -142,7 +152,7 @@ public class TurmaBean implements Serializable {
 	}
 
 	public void preparaNovoCadastro() {
-		disciplinaEdicao = new Disciplina();
+		//disciplinaEdicao = new Disciplina();
 		visualizar = false;
 	}
 
@@ -196,9 +206,9 @@ public class TurmaBean implements Serializable {
 			listaDisciplina.add(disciplinaSalvo);
 			listaTurma.add(turmaEdicao);
 			turmaEdicao.setDisciplinas(listaDisciplina);
-			disciplinaSalvo.setTurmas(listaTurma);			
-			turmaDao.update(turmaEdicao);
+			disciplinaSalvo.setTurmas(listaTurma);
 			new DisciplinaDao().update(disciplinaSalvo);
+			turmaDao.update(turmaEdicao);			
 			todasDisciplinasPorTurma = turmaDao.disciplinaPorTurma(turmaEdicao);
 			fc.addMessage("formTurma", new FacesMessage("Disciplina alocada com sucesso!"));
 
@@ -206,5 +216,24 @@ public class TurmaBean implements Serializable {
 			fc.addMessage("formTurma", new FacesMessage("Erro ao alocar disciplina!" + e.getMessage()));
 		}
 	}
+	
+	public void removerDisciplina(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		try {
+			todasDisciplinasPorTurma = turmaDao.disciplinaPorTurma(turmaEdicao);
+			todasDisciplinasPorTurma.remove(disciplinaSalvo);
+			turmaEdicao.setDisciplinas(todasDisciplinasPorTurma);
+			disciplinaSalvo.setTurmas(listaTurma);
+			new DisciplinaDao().update(disciplinaSalvo);
+			turmaDao.update(turmaEdicao);
+			todasDisciplinasPorTurma = turmaDao.disciplinaPorTurma(turmaEdicao);
+			fc.addMessage("formTurma", new FacesMessage("Disciplina removida com sucesso!"));
+			
+		} catch (Exception e) {
+			fc.addMessage("formTurma", new FacesMessage("Erro ao remover disciplina!" + e.getMessage()));
+		}
+	}
+	
+	
 
 }
