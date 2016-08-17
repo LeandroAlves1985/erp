@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.lavieri.modelutil.cep.WebServiceCep;
+
 import modelo.Aluno;
 import modelo.Endereco;
 import modelo.Perfil;
@@ -41,6 +43,8 @@ public class AlunoBean implements Serializable {
 	private Perfil perfilSalvo;
 
 	private Turma turmaEdicao;
+	
+	private String mbCep="";
 
 	@PostConstruct
 	public void construct() {
@@ -161,6 +165,14 @@ public class AlunoBean implements Serializable {
 	public void setPerfilSalvo(Perfil perfilSalvo) {
 		this.perfilSalvo = perfilSalvo;
 	}
+	
+	public String getMbCep() {
+		return mbCep;
+	}
+
+	public void setMbCep(String mbCep) {
+		this.mbCep = mbCep;
+	}
 
 	public void preparaEdicao() {
 		enderecoEdicao = alunoEdicao.getEndereco();
@@ -246,4 +258,32 @@ public class AlunoBean implements Serializable {
 		}
 	}
 
+	
+	public void buscaCep(){
+   	 FacesContext fc = FacesContext.getCurrentInstance();
+   	  try {
+			 
+   		  WebServiceCep cep = WebServiceCep.searchCep(mbCep);    		  
+   		  if(cep.wasSuccessful()){
+   			  enderecoEdicao.setCep(mbCep);
+   			  enderecoEdicao.setRua(cep.getLogradouro());
+   			  enderecoEdicao.setBairro(cep.getBairro());
+   			  enderecoEdicao.setCidade(cep.getCidade());
+   			  enderecoEdicao.setUf(cep.getUf());
+   			 fc.addMessage("formAluno", new FacesMessage("Cep Encontrado"));
+   			  
+   	   }else{
+   		   enderecoEdicao = new Endereco();
+   		   mbCep = "";
+   		   fc.addMessage("formAluno", new FacesMessage("Cep não localizado"));
+   	   }		 
+   		
+		} catch (Exception e) {
+			 fc.addMessage("formAluno", new FacesMessage("Error:" + e.getMessage()));
+		}
+    }
+	
+	
+	
+	
 }

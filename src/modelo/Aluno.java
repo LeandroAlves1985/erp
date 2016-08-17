@@ -19,6 +19,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
+
 @Entity
 public class Aluno implements Serializable, Comparable<Aluno> {
 
@@ -34,7 +36,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	private String email;
 	@Column
 	private String nomeResponsavel;
-	@Column
+	@Column(unique=true)	
 	private String cpfResponsavel;
 	@ManyToMany(mappedBy = "alunos", fetch = FetchType.EAGER)
 	private List<Turma> turmas;

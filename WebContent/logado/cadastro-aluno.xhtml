@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	 xmlns:s="http://stella.caelum.com.br/faces2">
 
 <h:head></h:head>
 <h:body>	
@@ -94,11 +95,11 @@
 							<h:panelGrid columns="2">
 								<p:outputPanel>
 									<p:outputLabel value="Responsável"/>
-									<p:inputText value="#{alunoBean.alunoEdicao.nomeResponsavel}" style="width: 300px; text-transform: uppercase" required="tru" requiredMessage="Nome do responsável obrigatório"/>
+									<p:inputText value="#{alunoBean.alunoEdicao.nomeResponsavel}" style="width: 300px; text-transform: uppercase" required="true" requiredMessage="Nome do responsável obrigatório"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="CPF do Responsável"/>
-									<p:inputMask value="#{alunoBean.alunoEdicao.cpfResponsavel}" mask="999.999.999-99" style="width: 140px"  required="true" requiredMessage="Cpf obrigatório"/>
+									<p:inputMask value="#{alunoBean.alunoEdicao.cpfResponsavel}" mask="999.999.999-99" style="width: 140px"  required="true" requiredMessage="Cpf obrigatório"/>							
 								</p:outputPanel>
 							</h:panelGrid>				
 						</p:tab>
@@ -106,38 +107,41 @@
 							<h:panelGrid columns="2">
 								<p:outputPanel>
 									<p:outputLabel value="Rua"/>
-									<p:inputText value="#{alunoBean.enderecoEdicao.rua}" style="width: 400px; text-transform: uppercase" required="true" requiredMessage="Rua obrigatória"/>
+									<p:inputText value="#{alunoBean.enderecoEdicao.rua}" id="rua" style="width: 400px; text-transform: uppercase"  />
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Número"/>
-									<p:inputText value="#{alunoBean.enderecoEdicao.numero}" style="width:200px" required="true" requiredMessage="Numero obrigatório"/>
+									<p:inputText value="#{alunoBean.enderecoEdicao.numero}"  style="width:200px"  />
 								</p:outputPanel>
 							</h:panelGrid>
 							<h:panelGrid columns="1">
 								<p:outputPanel>
 									<p:outputLabel value="Complemento"/>
-									<p:inputText value="#{alunoBean.enderecoEdicao.complemento}" style="width: 605px; text-transform: uppercase"/>
+									<p:inputText value="#{alunoBean.enderecoEdicao.complemento}"  style="width: 605px; text-transform: uppercase"/>
 								</p:outputPanel>
 							</h:panelGrid>
 							<h:panelGrid columns="2">
 								<p:outputPanel>
 									<p:outputLabel value="Bairro"/>
-									<p:inputText value="#{alunoBean.enderecoEdicao.bairro}" style="width: 300px; text-transform: uppercase" required="true" requiredMessage="Bairro obrigatório"/>
+									<p:inputText value="#{alunoBean.enderecoEdicao.bairro}" style="width: 300px; text-transform: uppercase"  />
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Cidade"/>
-									<p:inputText value="#{alunoBean.enderecoEdicao.cidade}" style="width: 295px; text-transform: uppercase" required="true" requiredMessage="Cidade obrigatória"/>
+									<p:inputText value="#{alunoBean.enderecoEdicao.cidade}" style="width: 295px; text-transform: uppercase" />
 								</p:outputPanel>
 							</h:panelGrid>
 							<h:panelGrid columns="2">
 								<p:outputPanel>
 									<p:outputLabel value="UF"/>
-									<p:inputText value="#{alunoBean.enderecoEdicao.uf}" style="width: 100px; text-transform: uppercase" required="true" requiredMessage="Uf obrigatória"/>
+									<p:inputText value="#{alunoBean.enderecoEdicao.uf}" style="width: 100px; text-transform: uppercase"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="CEP"/>
-									<p:inputMask value="#{alunoBean.enderecoEdicao.cep}" mask="99.999-999" style="width: 200px"/>
+									<p:inputMask value="#{alunoBean.mbCep}" mask="99.999-999" style="width: 200px"/>
+									<p:commandButton  value="Buscar Cep" action="#{alunoBean.buscaCep}" style="color:white" icon="fa fa-search"  ajax="true" update=":formCad:tab-aluno"/>
 								</p:outputPanel>
+								
+								
 							</h:panelGrid>
 						</p:tab>
 						<p:tab title="Telefone">
@@ -160,7 +164,7 @@
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Senha"/>
-									<p:inputText style="text-transform: uppercase" value="#{alunoBean.usuarioEdicao.senha}" required="true" requiredMessage="Senha obrigatória"/>
+									<p:password style="text-transform: uppercase" value="#{alunoBean.usuarioEdicao.senha}" required="true" requiredMessage="Senha obrigatória"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Perfil"/>
@@ -268,7 +272,7 @@
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Senha"/>
-									<p:inputText style="text-transform: uppercase" value="#{alunoBean.usuarioEdicao.senha}" disabled="#{alunoBean.visualizar}"/>
+									<p:password style="text-transform: uppercase" value="#{alunoBean.usuarioEdicao.senha}" disabled="#{alunoBean.visualizar}"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Perfil"/>

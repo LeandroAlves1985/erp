@@ -99,18 +99,18 @@
 								<p:outputPanel>
 									<p:outputLabel value="CPF"/>
 									<p:inputMask value="#{professorBean.professorEdicao.cpf}" mask="999.999.999-99" style="width: 140px"  required="true" requiredMessage="Cpf obrigatório"/>
-								</p:outputPanel>
+								</p:outputPanel>								
 							</h:panelGrid>				
 						</p:tab>
 						<p:tab title="Endereço">
 							<h:panelGrid columns="2">
 								<p:outputPanel>
 									<p:outputLabel value="Rua"/>
-									<p:inputText value="#{professorBean.enderecoEdicao.rua}" style="width: 400px; text-transform: uppercase" required="true" requiredMessage="Rua obrigatória"/>
+									<p:inputText value="#{professorBean.enderecoEdicao.rua}" style="width: 400px; text-transform: uppercase"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Número"/>
-									<p:inputText value="#{professorBean.enderecoEdicao.numero}" style="width:200px" required="true" requiredMessage="Numero obrigatório"/>
+									<p:inputText value="#{professorBean.enderecoEdicao.numero}" style="width:200px"/>
 								</p:outputPanel>
 							</h:panelGrid>
 							<h:panelGrid columns="1">
@@ -122,21 +122,22 @@
 							<h:panelGrid columns="2">
 								<p:outputPanel>
 									<p:outputLabel value="Bairro"/>
-									<p:inputText value="#{professorBean.enderecoEdicao.bairro}" style="width: 300px; text-transform: uppercase" required="true" requiredMessage="Bairro obrigatório"/>
+									<p:inputText value="#{professorBean.enderecoEdicao.bairro}" style="width: 300px; text-transform: uppercase"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Cidade"/>
-									<p:inputText value="#{professorBean.enderecoEdicao.cidade}" style="width: 295px; text-transform: uppercase" required="true" requiredMessage="Cidade obrigatória"/>
+									<p:inputText value="#{professorBean.enderecoEdicao.cidade}" style="width: 295px; text-transform: uppercase"/>
 								</p:outputPanel>
 							</h:panelGrid>
 							<h:panelGrid columns="2">
 								<p:outputPanel>
 									<p:outputLabel value="UF"/>
-									<p:inputText value="#{professorBean.enderecoEdicao.uf}" style="width: 100px; text-transform: uppercase" required="true" requiredMessage="Uf obrigatória"/>
+									<p:inputText value="#{professorBean.enderecoEdicao.uf}" style="width: 100px; text-transform: uppercase"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="CEP"/>
-									<p:inputMask value="#{professorBean.enderecoEdicao.cep}" mask="99.999-999" style="width: 200px"/>
+									<p:inputMask value="#{professorBean.mbCep}" mask="99.999-999" style="width: 200px"/>
+									<p:commandButton  value="Buscar Cep" action="#{professorBean.buscaCep}" style="color:white" icon="fa fa-search"  ajax="true" update=":formCad:tab-prof"/>
 								</p:outputPanel>
 							</h:panelGrid>
 						</p:tab>
@@ -160,7 +161,7 @@
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Senha"/>
-									<p:inputText style="text-transform: uppercase" value="#{professorBean.usuarioEdicao.senha}" required="true" requiredMessage="Senha obrigatória"/>
+									<p:password style="text-transform: uppercase" value="#{professorBean.usuarioEdicao.senha}" required="true" requiredMessage="Senha obrigatória"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Perfil"/>
