@@ -211,6 +211,7 @@ public class TurmaBean implements Serializable {
 			turmaDao.update(turmaEdicao);			
 			todasDisciplinasPorTurma = turmaDao.disciplinaPorTurma(turmaEdicao);
 			fc.addMessage("formTurma", new FacesMessage("Disciplina alocada com sucesso!"));
+			construct();
 
 		} catch (Exception e) {
 			fc.addMessage("formTurma", new FacesMessage("Erro ao alocar disciplina!" + e.getMessage()));
