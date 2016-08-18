@@ -3,6 +3,7 @@ package modelo;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,8 +27,9 @@ public class Turma implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "aluno_turma", joinColumns=@JoinColumn(name ="id_aluno"), inverseJoinColumns=@JoinColumn(name="id_turma"))
 	private List<Aluno> alunos;
-	@ManyToMany(mappedBy = "turmas", fetch = FetchType.LAZY)	
-	private List<Disciplina> disciplinas;
+	
+	@OneToMany(mappedBy="turma")
+	private List<Turma_Disciplina> turma_disciplina;
 
 	public Turma() {
 		// TODO Auto-generated constructor stub
@@ -55,12 +57,13 @@ public class Turma implements Serializable {
 		this.descricao = descricao == null ? null : descricao.toUpperCase();
 	}
 
-	public List<Disciplina> getDisciplinas() {
-		return disciplinas;
+	
+	public List<Turma_Disciplina> getTurma_disciplina() {
+		return turma_disciplina;
 	}
 
-	public void setDisciplinas(List<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
+	public void setTurma_disciplina(List<Turma_Disciplina> turma_disciplina) {
+		this.turma_disciplina = turma_disciplina;
 	}
 
 	public List<Aluno> getAlunos() {

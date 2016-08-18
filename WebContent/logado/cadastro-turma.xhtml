@@ -95,7 +95,8 @@
 							
 							</h:panelGrid>					
 						</p:tab>
-						<p:tab title="Disciplinas">																	
+					    
+					    <p:tab title="Disciplinas">																	
  							<h:panelGrid columns="3">
  								<p:selectOneMenu value="#{turmaBean.disciplinaEdicao.descricao}" filter="true" filterMatchMode="startsWith">
  									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
@@ -103,7 +104,7 @@
  								</p:selectOneMenu>
  								
  								<p:outputPanel>
- 									<p:commandButton action="#{turmaBean.alocarDisciplina}" value="Inserir" update=":formEdit:tab-turma-edit:tabela-disciplinas"/>
+ 									<p:commandButton action="#{turmaBean.alocarDisciplina}" value="Inserir"   update=":formEdit:tab-turma-edit:tabela-disciplinas"/>
  								</p:outputPanel>
  								
  								<p:outputPanel>
@@ -112,22 +113,21 @@
  								
  							</h:panelGrid>						
  							
- 							<p:dataTable id="tabela-disciplinas" value="#{turmaBean.todasDisciplinasPorTurma}" var="linha" emptyMessage="Nenhuma disciplina cadastrada!"
+ 						  
+ 							<p:dataTable id="tabela-disciplinas"   value="#{turmaBean.todasDisciplinasPorTurma}" var="linha" emptyMessage="Nenhuma disciplina cadastrada!"
  										 paginator="true" rows="10" selectionMode="single" selection="#{turmaBean.disciplinaSalvo}" rowKey="#{linha.id}">
  										 										 							
- 								
- 								
  								<p:column headerText="Descrição">
  									<h:outputText value="#{linha.descricao}"/>
  								</p:column>
  								
  							</p:dataTable>											
+ 						 
  						</p:tab>
+ 						
 																		
 					</p:tabView>
-					<h:panelGrid columns="1">
-						<p:commandButton style="width: 535px" value="Salvar" action="#{turmaBean.editar}" ajax="false" update=":formTab"/>
-					</h:panelGrid>
+					
 				</p:dialog>
 			</h:form>
 		

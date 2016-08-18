@@ -1,7 +1,9 @@
 package insert;
 
+import repositorio.DisciplinaDao;
 import repositorio.PerfilDao;
 import repositorio.UsuarioDao;
+import modelo.Disciplina;
 import modelo.Perfil;
 import modelo.Usuario;
 
@@ -22,6 +24,10 @@ public class InseriUsuario {
 			
 					
 			dao.create(usuario);
+			
+			
+			
+			
 			System.out.println("Dados gravados");
 				
 						

@@ -5,13 +5,14 @@ import java.util.List;
 
 import modelo.Disciplina;
 import modelo.Turma;
+import modelo.Turma_Disciplina;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class TurmaDao {
+public class Turma_DisciplinaDao {
 
 	Session			session;
 	Transaction		transaction;
@@ -20,64 +21,67 @@ public class TurmaDao {
 	
 	
 	
-	public void create(Turma t){
+	public void create(Turma_Disciplina td){
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		session.save(t);
+		session.save(td);
 		transaction.commit();
 		session.close();
 		
 	}
 	
-	public void update(Turma t){
+	public void update(Turma_Disciplina td){
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		session.update(t);
+		session.update(td);
 		transaction.commit();
 		session.close();
 		
 	}
 	
-	public void delete(Turma t){
+	public void delete(Turma_Disciplina td){
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		session.delete(t);
+		session.delete(td);
 		transaction.commit();
 		session.close();
 		
 	}
 	
-	public List<Turma> findAll(){
+	public List<Turma_Disciplina> findAll(){
 		session = HibernateUtil.getSessionFactory().openSession();
-		List<Turma> lst =  session.createQuery("from Turma").list();
+		List<Turma_Disciplina> lst =  session.createQuery("from Turma_Disciplina").list();
 		session.close();
 		return lst;
 	}
 	
-	public Turma findByCod(Integer cod){
+	public Turma_Disciplina findByCod(Integer cod){
 		session = HibernateUtil.getSessionFactory().openSession();
-		Turma t	= (Turma) session.get(Turma.class, cod);
+		Turma_Disciplina td = (Turma_Disciplina) session.get(Turma_Disciplina.class, cod);
 		session.close();
-		return t;
+		return td;
 	}
 	
-//	public List<Disciplina> disciplinaPorTurma(Turma t){
-//		session = HibernateUtil.getSessionFactory().openSession();
-//			query = session.createQuery("from Turma t where t.descricao = :descricao");
-//			query.setString("descricao", t.getDescricao());
-//			Turma turma = (Turma) query.uniqueResult();
-//			List<Disciplina> lista = turma.getDisciplinas();
-//			List<Disciplina> listaResp = new ArrayList<Disciplina>();
-//			for(Disciplina d : lista){
-//				Disciplina d1 = new Disciplina();
-//					d1.setId(d.getId());
-//					d1.setDescricao(d.getDescricao());
-//					listaResp.add(d1);
-//			}
-//		session.close();
-//		return listaResp;	
-//	}
-//	
+	
+	public static void main(String[] args) {
+		Turma_Disciplina td = new Turma_Disciplina();
+		
+		try {
+			Turma t = new Turma(null, "101");
+			new TurmaDao().create(t);
+			Disciplina d1 = new Disciplina(null, "Java OO");
+			new DisciplinaDao().create(d1);
+			
+			td.setTurma(t);
+			td.setDisciplina(d1);			
+			new Turma_DisciplinaDao().create(td);			
+			System.out.println("ok");			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	
 	
