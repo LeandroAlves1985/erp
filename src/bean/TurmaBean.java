@@ -19,7 +19,7 @@ import modelo.Endereco;
 import modelo.Telefone;
 import modelo.Turma;
 import modelo.Turma_Disciplina;
-//teste
+
 @ManagedBean(name = "turmaBean")
 @ViewScoped
 public class TurmaBean implements Serializable {
@@ -43,7 +43,7 @@ public class TurmaBean implements Serializable {
 	private List<Turma_Disciplina>  todasTurmas_disciplinas;
 	
 	
-
+//teste
 	@PostConstruct
 	public void construct() {
 		disciplinaEdicao = new Disciplina();
