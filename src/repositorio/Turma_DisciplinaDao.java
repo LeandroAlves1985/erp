@@ -1,5 +1,6 @@
 package repositorio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +13,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class Turma_DisciplinaDao {
+public class Turma_DisciplinaDao implements Serializable {
 
+	
+	private static final long serialVersionUID = 1L;
+	
 	Session			session;
 	Transaction		transaction;
 	Criteria		criteria;

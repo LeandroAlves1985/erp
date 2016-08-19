@@ -1,5 +1,6 @@
 package repositorio;
 
+import java.io.Serializable;
 import java.util.List;
 
 import modelo.Perfil;
@@ -15,8 +16,11 @@ import org.jcommon.encryption.SimpleMD5;
 
 
 
-public class UsuarioDao {
+public class UsuarioDao implements Serializable {
 
+	
+	private static final long serialVersionUID = 1L;
+	
 	Session			session;
 	Transaction		transaction;
 	Criteria		criteria;

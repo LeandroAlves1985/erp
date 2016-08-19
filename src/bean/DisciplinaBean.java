@@ -154,7 +154,10 @@ public class DisciplinaBean implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {			
 			disciplinaDao.create(disciplinaEdicao);
-			construct();
+			disciplinaEdicao = new Disciplina();
+			
+			
+			
 			fc.addMessage("formDisciplina", new FacesMessage("Disciplina cadastrada com sucesso"));
 		
 		} catch (Exception e) {

@@ -28,7 +28,7 @@
 								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
 							</p:outputPanel>							
 							<p:outputPanel>
-								<p:commandButton action="#{turmaBean.preparaEdicao}" value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+								<p:commandButton  value="Editar" title="Editar" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
 									<p:resetInput target=":formEdit:edicao-dialog"/>
 									<f:setPropertyActionListener value="#{turmaBean.turmaSelecionada}" target="#{turmaBean.turmaEdicao}"/>
 								</p:commandButton>
@@ -87,7 +87,7 @@
 					<p:tabView id="tab-turma-edit">
 						<p:tab title="Dados Principais">
 							<h:panelGrid columns="2">							
-								
+																							
 								<p:outputPanel>
 									<p:outputLabel value="Descrição"/>
 									<p:inputText style="text-transform:uppercase; width: 400px" value="#{turmaBean.turmaEdicao.descricao}" disabled="#{turmaBean.visualizar}" required="true" requiredMessage="Descrição obrigatória"/>
@@ -108,17 +108,17 @@
  								</p:outputPanel>
  								
  								<p:outputPanel>
- 									<p:commandButton action="#{turmaBean.removerDisciplina}" value="Remover" update=":formEdit:tab-turma-edit:tabela-disciplinas"/>
+ 									<p:commandButton action="#{turmaBean.removerDisciplina}" process="@this" value="Remover" update=":formEdit:tab-turma-edit:tabela-disciplinas"/>
  								</p:outputPanel> 								
  								
  							</h:panelGrid>						
  							
  						  
- 							<p:dataTable id="tabela-disciplinas"   value="#{turmaBean.todasDisciplinasPorTurma}" var="linha" emptyMessage="Nenhuma disciplina cadastrada!"
- 										 paginator="true" rows="10" selectionMode="single" selection="#{turmaBean.disciplinaSalvo}" rowKey="#{linha.id}">
+ 							<p:dataTable id="tabela-disciplinas"   value="#{turmaBean.todasTurmas_disciplinas}" var="linha" emptyMessage="Nenhuma disciplina cadastrada!"
+ 										 paginator="true" rows="10" selectionMode="single" selection="#{turmaBean.turma_disciplinaSelecionada}" rowKey="#{linha.id}">
  										 										 							
  								<p:column headerText="Descrição">
- 									<h:outputText value="#{linha.descricao}"/>
+ 									<h:outputText value="#{linha.disciplina.descricao}"/>
  								</p:column>
  								
  							</p:dataTable>											

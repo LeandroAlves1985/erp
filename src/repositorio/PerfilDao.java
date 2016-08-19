@@ -1,5 +1,6 @@
 package repositorio;
 
+import java.io.Serializable;
 import java.util.List;
 
 import modelo.Aluno;
@@ -10,8 +11,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class PerfilDao {
+public class PerfilDao implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	Session			session;
 	Transaction		transaction;
 	Criteria		criteria;
