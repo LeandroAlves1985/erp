@@ -20,14 +20,9 @@ public class InseriUsuario {
 			usuario.setLogin("LEANDRO");
 			usuario.setSenha("LEJOBA");
 			usuario.setPerfil(p);
-			pd.create(p);
-			
+			pd.create(p);		
 					
-			dao.create(usuario);
-			
-			
-			
-			
+			dao.create(usuario);			
 			System.out.println("Dados gravados");
 				
 						
