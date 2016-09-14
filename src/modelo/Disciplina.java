@@ -13,11 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Disciplina implements Serializable, Comparable<Disciplina> {
+public class Disciplina implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -25,18 +26,14 @@ public class Disciplina implements Serializable, Comparable<Disciplina> {
 	private Integer id;
 	@Column
 	private String descricao;
-	
-	@ManyToMany
-	@JoinTable(name = "turma_disciplina", joinColumns=@JoinColumn(name = "id_disciplina"), inverseJoinColumns=@JoinColumn(name = "id_turma"))
-	private List<Turma> turmas;
-
 	@ManyToMany
 	@JoinTable(name = "professor_disciplina", joinColumns = @JoinColumn(name = "id_professor"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
 	private List<Professor> professores;
-
 	@OneToOne
 	@JoinColumn(name = "id_nota")
 	private Nota nota;
+	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
+	private List<TurmaDisciplina> turmasDisciplinas;
 
 	public Disciplina() {
 		// TODO Auto-generated constructor stub
@@ -61,19 +58,7 @@ public class Disciplina implements Serializable, Comparable<Disciplina> {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao == null ? null : descricao.toUpperCase();
-	}
-
-	public List<Turma> getTurmas() {
-		return turmas;
-	}
-
-	public void setTurmas(List<Turma> turmas) {
-		this.turmas = turmas;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+		this.descricao = descricao;
 	}
 
 	public List<Professor> getProfessores() {
@@ -90,6 +75,14 @@ public class Disciplina implements Serializable, Comparable<Disciplina> {
 
 	public void setNota(Nota nota) {
 		this.nota = nota;
+	}
+
+	public List<TurmaDisciplina> getTurmasDisciplinas() {
+		return turmasDisciplinas;
+	}
+
+	public void setTurmasDisciplinas(List<TurmaDisciplina> turmasDisciplinas) {
+		this.turmasDisciplinas = turmasDisciplinas;
 	}
 
 	@Override
@@ -115,11 +108,6 @@ public class Disciplina implements Serializable, Comparable<Disciplina> {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	@Override
-	public int compareTo(Disciplina d) {
-		return this.descricao.compareTo(d.getDescricao());
 	}
 
 }

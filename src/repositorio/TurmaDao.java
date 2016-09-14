@@ -65,7 +65,7 @@ public class TurmaDao implements Serializable {
 		return t;
 	}
 	
-	public List<Disciplina> disciplinaPorTurma(Turma t){
+	/*public List<Disciplina> disciplinaPorTurma(Turma t){
 		session = HibernateUtil.getSessionFactory().openSession();
 			query = session.createQuery("from Turma t where t.descricao = :descricao");
 			query.setString("descricao", t.getDescricao());
@@ -81,6 +81,23 @@ public class TurmaDao implements Serializable {
 		session.close();
 		return listaResp;	
 	}
+	
+	public List<Turma> turmaPorDisciplina(Disciplina d){
+		session = HibernateUtil.getSessionFactory().openSession();
+			query = session.createQuery("from Disciplina d where d.descricao = :descricao");
+			query.setString("descricao", d.getDescricao());
+			Disciplina disciplina = (Disciplina) query.uniqueResult();
+			List<Turma> lista = disciplina.getTurmas();
+			List<Turma> listaResp = new ArrayList<Turma>();
+			for(Turma t : lista){
+				Turma t1 = new Turma();
+					t1.setId(d.getId());
+					t1.setDescricao(d.getDescricao());
+					listaResp.add(t1);
+			}
+		session.close();
+		return listaResp;	
+	}*/
 	
 	
 }
