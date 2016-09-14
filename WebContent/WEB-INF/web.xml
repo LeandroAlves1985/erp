@@ -22,6 +22,14 @@
     <param-value>true</param-value> 
   </context-param>
 
+   <mime-mapping>
+        <extension>java</extension>
+        <mime-type>text/plain</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>cpp</extension>
+        <mime-type>text/plain</mime-type>
+    </mime-mapping>
 
 
 </web-app>

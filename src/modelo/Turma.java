@@ -28,8 +28,8 @@ public class Turma implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "aluno_turma", joinColumns = @JoinColumn(name = "id_aluno"), inverseJoinColumns = @JoinColumn(name = "id_turma"))
 	private List<Aluno> alunos;
-	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY)
-	private List<TurmaDisciplina> turmasDisciplinas;
+	@ManyToMany(mappedBy = "turmas", fetch = FetchType.LAZY)
+	private List<Disciplina> disciplinas;
 
 	public Turma() {
 		// TODO Auto-generated constructor stub
@@ -65,12 +65,12 @@ public class Turma implements Serializable {
 		this.alunos = alunos;
 	}
 
-	public List<TurmaDisciplina> getTurmasDisciplinas() {
-		return turmasDisciplinas;
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
 	}
 
-	public void setTurmasDisciplinas(List<TurmaDisciplina> turmasDisciplinas) {
-		this.turmasDisciplinas = turmasDisciplinas;
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 
 	@Override
