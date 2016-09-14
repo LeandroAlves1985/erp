@@ -103,15 +103,15 @@
 								</p:outputPanel>
 							</h:panelGrid>				
 						</p:tab>
-						<p:tab title="Endereço">
+						<p:tab title="Endereço" id="tab-endereco">
 							<h:panelGrid columns="2">
 								<p:outputPanel>
 									<p:outputLabel value="Rua"/>
-									<p:inputText value="#{alunoBean.enderecoEdicao.rua}" id="rua" style="width: 400px; text-transform: uppercase"  />
+									<p:inputText value="#{alunoBean.enderecoEdicao.rua}" id="rua" style="width: 400px; text-transform: uppercase" required="true" requiredMessage="Rua Obrigatória" />
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Número"/>
-									<p:inputText value="#{alunoBean.enderecoEdicao.numero}"  style="width:200px"  />
+									<p:inputText value="#{alunoBean.enderecoEdicao.numero}"  style="width:200px" required="true" requiredMessage="Numero Obrigatória" />
 								</p:outputPanel>
 							</h:panelGrid>
 							<h:panelGrid columns="1">
@@ -123,36 +123,33 @@
 							<h:panelGrid columns="2">
 								<p:outputPanel>
 									<p:outputLabel value="Bairro"/>
-									<p:inputText value="#{alunoBean.enderecoEdicao.bairro}" style="width: 300px; text-transform: uppercase"  />
+									<p:inputText value="#{alunoBean.enderecoEdicao.bairro}" style="width: 300px; text-transform: uppercase" required="true" requiredMessage="Bairro Obrigatória" />
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Cidade"/>
-									<p:inputText value="#{alunoBean.enderecoEdicao.cidade}" style="width: 295px; text-transform: uppercase" />
+									<p:inputText value="#{alunoBean.enderecoEdicao.cidade}" style="width: 295px; text-transform: uppercase"  required="true" requiredMessage="Cidade Obrigatória"/>
 								</p:outputPanel>
 							</h:panelGrid>
 							<h:panelGrid columns="2">
 								<p:outputPanel>
 									<p:outputLabel value="UF"/>
-									<p:inputText value="#{alunoBean.enderecoEdicao.uf}" style="width: 100px; text-transform: uppercase"/>
+									<p:inputText value="#{alunoBean.enderecoEdicao.uf}" style="width: 100px; text-transform: uppercase" required="true" requiredMessage="Uf Obrigatória"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="CEP"/>
-									<p:inputMask value="#{alunoBean.mbCep}" mask="99.999-999" style="width: 200px"/>
-									<p:commandButton  value="Buscar Cep" action="#{alunoBean.buscaCep}" style="color:white" icon="fa fa-search"  ajax="true" update=":formCad:tab-aluno"/>
-								</p:outputPanel>
-								
-								
+									<p:inputMask value="#{alunoBean.mbCep}" mask="99.999-999" style="width: 200px" required="true" requiredMessage="Cep Obrigatório"/>									
+								</p:outputPanel>								
 							</h:panelGrid>
 						</p:tab>
 						<p:tab title="Telefone">
 							<h:panelGrid columns="2">
 								<p:outputPanel>
 									<p:outputLabel value="Telefone"/>
-									<p:inputMask value="#{alunoBean.telefoneEdicao.convencional}" mask="(99)9999-9999" style="width: 200px"/>
+									<p:inputMask value="#{alunoBean.telefoneEdicao.convencional}" mask="(99)9999-9999" style="width: 200px" required="true" requiredMessage="Telefone Obrigatória"/>
 								</p:outputPanel>
 								<p:outputPanel>
 									<p:outputLabel value="Celular"/>
-									<p:inputMask value="#{alunoBean.telefoneEdicao.celular}" mask="(99)99999-9999" style="width: 200px"/>
+									<p:inputMask value="#{alunoBean.telefoneEdicao.celular}" mask="(99)99999-9999" style="width: 200px" required="true" requiredMessage="Celular Obrigatória"/>
 								</p:outputPanel>								
 							</h:panelGrid>
 						</p:tab>
@@ -177,8 +174,11 @@
 						</p:tab>			  	
 					</p:tabView>
 					
-					<h:panelGrid columns="1">
-						<p:commandButton style="width: 755px" value="Salvar" action="#{alunoBean.salvar}" ajax="false" update="formAluno:menuAluno, :formTab:tabela-aluno" oncomplete="PF('janelaCadastro').hide()"/>
+					<h:panelGrid columns="2">
+						<p:commandButton style="width: 665px" value="Salvar" action="#{alunoBean.salvar}" ajax="true" update=":formTab:tabela-aluno"/>
+						<p:commandButton value="Limpar" style="width: 165">
+							<p:ajax update="tab-aluno" resetValues="true"></p:ajax>
+						</p:commandButton>
 					</h:panelGrid>
 				</p:dialog>
 			</h:form>
@@ -287,7 +287,7 @@
 						</p:tab>																	
 					</p:tabView>
 					<h:panelGrid columns="1">
-						<p:commandButton style="width: 755px" value="Salvar" action="#{alunoBean.editar}" ajax="false" update=":formTab" oncomplete="PF('janelaCadastro').hide()" disabled="#{alunoBean.visualizar}"/>
+						<p:commandButton style="width: 755px" value="Salvar" action="#{alunoBean.editar}" ajax="true" update=":formTab:tabela-aluno" oncomplete="PF('janelaCadastro').hide()" disabled="#{alunoBean.visualizar}"/>
 					</h:panelGrid>
 				</p:dialog>
 			</h:form>		

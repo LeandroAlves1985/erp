@@ -21,6 +21,5 @@
     <mapping class="modelo.Usuario"/>
     <mapping class="modelo.Menu"/>
     <mapping class="modelo.Funcionario"/>
-    <mapping class="modelo.Turma_Disciplina"/>
   </session-factory>
 </hibernate-configuration>

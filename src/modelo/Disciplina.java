@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 @Entity
 public class Disciplina implements Serializable, Comparable<Disciplina> {
 
@@ -25,13 +26,14 @@ public class Disciplina implements Serializable, Comparable<Disciplina> {
 	@Column
 	private String descricao;
 	
-	@OneToMany(mappedBy="disciplina")	
-	private List<Turma_Disciplina>  turma_disciplina;	
-	
 	@ManyToMany
-	@JoinTable(name = "professor_disciplina", joinColumns=@JoinColumn(name = "id_professor"), inverseJoinColumns=@JoinColumn(name = "id_disciplina"))
+	@JoinTable(name = "turma_disciplina", joinColumns=@JoinColumn(name = "id_disciplina"), inverseJoinColumns=@JoinColumn(name = "id_turma"))
+	private List<Turma> turmas;
+
+	@ManyToMany
+	@JoinTable(name = "professor_disciplina", joinColumns = @JoinColumn(name = "id_professor"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
 	private List<Professor> professores;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_nota")
 	private Nota nota;
@@ -59,15 +61,15 @@ public class Disciplina implements Serializable, Comparable<Disciplina> {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao == null ? null: descricao.toUpperCase();
-	}	
-
-	public List<Turma_Disciplina> getTurma_disciplina() {
-		return turma_disciplina;
+		this.descricao = descricao == null ? null : descricao.toUpperCase();
 	}
 
-	public void setTurma_disciplina(List<Turma_Disciplina> turma_disciplina) {
-		this.turma_disciplina = turma_disciplina;
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
 	}
 
 	public static long getSerialversionuid() {
@@ -114,10 +116,10 @@ public class Disciplina implements Serializable, Comparable<Disciplina> {
 			return false;
 		return true;
 	}
+
 	@Override
 	public int compareTo(Disciplina d) {
 		return this.descricao.compareTo(d.getDescricao());
 	}
-
 
 }
