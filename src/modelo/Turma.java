@@ -15,13 +15,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 @Entity
+@SequenceGenerator(sequenceName = "seq_turma", name = "seq_turma")
 public class Turma implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(generator = "seq_turma")
 	private Integer id;
 	@Column
 	private String descricao;
@@ -54,7 +56,7 @@ public class Turma implements Serializable {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao == null ? null : descricao.toUpperCase();
 	}
 
 	public List<Aluno> getAlunos() {

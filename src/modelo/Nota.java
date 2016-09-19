@@ -11,12 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 @Entity
+@SequenceGenerator(sequenceName = "seq_nota", name = "seq_nota")
 public class Nota implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(generator = "seq_nota")
 	private Integer id;
 	@Column
 	private Double nota1;

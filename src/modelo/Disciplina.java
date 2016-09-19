@@ -16,13 +16,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
+@SequenceGenerator(sequenceName = "seq_disciplina", name = "seq_disciplina")
 public class Disciplina implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(generator = "seq_disciplina")
 	private Integer id;
 	@Column
 	private String descricao;
@@ -59,7 +61,7 @@ public class Disciplina implements Serializable {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao == null ? null : descricao.toUpperCase();
 	}
 
 	public List<Professor> getProfessores() {

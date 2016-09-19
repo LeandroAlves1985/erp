@@ -1,8 +1,6 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -16,17 +14,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
 
 @Entity
+@SequenceGenerator(sequenceName = "seq_aluno", name = "seq_aluno")
 public class Aluno implements Serializable, Comparable<Aluno> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(generator = "seq_aluno")
 	private Integer id; // identificador da classe
 	@Column
 	private String nome;

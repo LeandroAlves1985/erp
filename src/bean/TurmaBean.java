@@ -25,23 +25,22 @@ public class TurmaBean implements Serializable {
 	private Turma turmaSelecionada;
 	private List<Turma> todasTurmas;
 	private TurmaDao turmaDao;
+	private DisciplinaDao disciplinaDao;
 	private Disciplina disciplinaEdicao;
 	private Boolean visualizar;
 	private Disciplina disciplinaSalvo;
 	private List<Disciplina> listaDisciplina;
 	private List<Turma> listaTurma;
-	private List<Disciplina> todasDisciplinasPorTurma;
+	private List<Disciplina> todasDisciplinasPorTurma;	
 
 	@PostConstruct
 	public void construct() {
 		disciplinaEdicao = new Disciplina();
 		turmaEdicao = new Turma();
 		turmaSelecionada = new Turma();
-		todasTurmas = new ArrayList<Turma>();
 		turmaDao = new TurmaDao();
 		disciplinaSalvo = new Disciplina();
-		listaTurma = new ArrayList<Turma>();
-		listaDisciplina = new ArrayList<Disciplina>();
+		disciplinaDao = new DisciplinaDao();
 	}
 
 	public Disciplina getDisciplinaEdicao() {
@@ -121,37 +120,47 @@ public class TurmaBean implements Serializable {
 		this.listaTurma = listaTurma;
 	}
 
-	public List<Disciplina> getTodasDisciplinasPorTurma() {		
+	public List<Disciplina> getTodasDisciplinasPorTurma() {
 		return todasDisciplinasPorTurma;
 	}
 
-	public void setTodasDisciplinasPorTurma(List<Disciplina> todasDisciplinasPorTurma) {
+	public void setTodasDisciplinasPorTurma(
+			List<Disciplina> todasDisciplinasPorTurma) {
 		this.todasDisciplinasPorTurma = todasDisciplinasPorTurma;
 	}
-	
-	public void preparaEdicao() {
-		todasDisciplinasPorTurma = new TurmaDao().disciplinaPorTurma(turmaEdicao);
-		visualizar = false;			
+
+	public DisciplinaDao getDisciplinaDao() {
+		return disciplinaDao;
 	}
 
-	public void preparaVisualizacao() {		
+	public void setDisciplinaDao(DisciplinaDao disciplinaDao) {
+		this.disciplinaDao = disciplinaDao;
+	}
+
+	public void preparaEdicao() {
+		todasDisciplinasPorTurma = new TurmaDao().disciplinaPorTurma(turmaEdicao);
+		visualizar = false;
+	}
+
+	public void preparaVisualizacao() {
 		visualizar = true;
 	}
 
-	public void preparaNovoCadastro() {		
+	public void preparaNovoCadastro() {
 		visualizar = false;
 	}
 
 	public void salvar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
-
 			turmaDao.create(turmaEdicao);
 			construct();
-			fc.addMessage("formTurma", new FacesMessage("Turma cadastrada com sucesso"));
+			fc.addMessage("formTurma", new FacesMessage(
+					"Turma cadastrada com sucesso"));
 
 		} catch (Exception e) {
-			fc.addMessage("formTurma", new FacesMessage("Erro ao cadastrar turma" + e.getMessage()));
+			fc.addMessage("formTurma", new FacesMessage(
+					"Erro ao cadastrar turma" + e.getMessage()));
 		}
 	}
 
@@ -160,10 +169,12 @@ public class TurmaBean implements Serializable {
 		try {
 			turmaDao.update(turmaEdicao);
 			construct();
-			fc.addMessage("formTurma", new FacesMessage("Turma atualizada com sucesso"));
+			fc.addMessage("formTurma", new FacesMessage(
+					"Turma atualizada com sucesso"));
 
 		} catch (Exception e) {
-			fc.addMessage("formTurma", new FacesMessage("Erro ao atualizar turma" + e.getMessage()));
+			fc.addMessage("formTurma", new FacesMessage(
+					"Erro ao atualizar turma" + e.getMessage()));
 		}
 	}
 
@@ -171,50 +182,42 @@ public class TurmaBean implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
 			turmaDao.delete(turmaSelecionada);
-			fc.addMessage("formTurma", new FacesMessage("Turma excluida com sucesso"));
+			fc.addMessage("formTurma", new FacesMessage(
+					"Turma excluida com sucesso"));
 			turmaDao.findAll();
 		} catch (Exception e) {
-			fc.addMessage("formTurma", new FacesMessage("Erro ao excluir turma!" + e.getMessage()));
+			fc.addMessage("formTurma", new FacesMessage(
+					"Erro ao excluir turma!" + e.getMessage()));
 		}
 	}
-	
-	public void salvaTurmaDisciplina(){
+
+	public void salvaTurmaDisciplina() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
-			disciplinaSalvo = new DisciplinaDao().porNome(disciplinaEdicao);
-			listaDisciplina.clear();
+			disciplinaSalvo = disciplinaDao.porNome(disciplinaEdicao);
+			listaDisciplina = turmaEdicao.getDisciplinas();
 			listaDisciplina.add(disciplinaSalvo);
-			listaTurma.clear();
-			listaTurma.add(turmaEdicao);
-			disciplinaSalvo.setTurmas(listaTurma);
-			turmaEdicao.setDisciplinas(listaDisciplina);			
-			new TurmaDao().update(turmaEdicao);
-			new DisciplinaDao().update(disciplinaSalvo);
-			listaTurma.clear();
-			listaDisciplina.clear();
+			turmaEdicao.setDisciplinas(listaDisciplina);
+			turmaDao.update(turmaEdicao);
 			todasDisciplinasPorTurma = new TurmaDao().disciplinaPorTurma(turmaEdicao);
 			fc.addMessage("formTurma", new FacesMessage("Disciplina alocada com sucesso!"));
-			
+
 		} catch (Exception e) {
 			fc.addMessage("formTurma", new FacesMessage("Erro ao alocar turma!"));
 		}
 	}
-	
-	public void removerDisciplina(){
+
+	public void removerDisciplina() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
-			todasDisciplinasPorTurma = turmaDao.disciplinaPorTurma(turmaEdicao);
-			todasDisciplinasPorTurma.remove(disciplinaSalvo);
-			turmaEdicao.setDisciplinas(todasDisciplinasPorTurma);
-			disciplinaSalvo.setTurmas(listaTurma);
-			new DisciplinaDao().update(disciplinaSalvo);
-			turmaDao.update(turmaEdicao);
-			todasDisciplinasPorTurma = turmaDao.disciplinaPorTurma(turmaEdicao);
 			
-			fc.addMessage("formTurma", new FacesMessage("Disciplina removida com sucesso!"));
-			
+
+			fc.addMessage("formTurma", new FacesMessage(
+					"Disciplina removida com sucesso!"));
+
 		} catch (Exception e) {
-			fc.addMessage("formTurma", new FacesMessage("Erro ao remover disciplina!" + e.getMessage()));
+			fc.addMessage("formTurma", new FacesMessage(
+					"Erro ao remover disciplina!" + e.getMessage()));
 		}
 	}
 
