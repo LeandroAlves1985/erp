@@ -44,8 +44,6 @@ public class Professor implements Serializable, Comparable<Professor> {
 	@OneToOne
 	@JoinColumn(name = "id_telefone")
 	private Telefone telefone;
-	@ManyToMany(mappedBy = "professores", fetch = FetchType.LAZY)
-	private List<Disciplina> disciplinas;
 
 	public Professor() {
 		// TODO Auto-generated constructor stub
@@ -75,7 +73,7 @@ public class Professor implements Serializable, Comparable<Professor> {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome == null ? null: nome.toUpperCase();
+		this.nome = nome == null ? null : nome.toUpperCase();
 	}
 
 	public Date getDataNascimento() {
@@ -91,7 +89,7 @@ public class Professor implements Serializable, Comparable<Professor> {
 	}
 
 	public void setEmail(String email) {
-		this.email = email == null ? null: email.toUpperCase();
+		this.email = email == null ? null : email.toUpperCase();
 	}
 
 	public String getCpf() {
@@ -134,14 +132,6 @@ public class Professor implements Serializable, Comparable<Professor> {
 		this.telefone = telefone;
 	}
 
-	public List<Disciplina> getDisciplinas() {
-		return disciplinas;
-	}
-
-	public void setDisciplinas(List<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -171,6 +161,5 @@ public class Professor implements Serializable, Comparable<Professor> {
 	public int compareTo(Professor p) {
 		return this.nome.compareTo(p.getNome());
 	}
-
 
 }

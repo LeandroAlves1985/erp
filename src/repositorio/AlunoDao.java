@@ -64,6 +64,15 @@ public class AlunoDao implements Serializable {
 		return aluno;
 	}
 	
+	public Aluno porNome(Aluno a){
+		session = HibernateUtil.getSessionFactory().openSession();
+			query = session.createQuery("from Aluno a where a.nome = :nome");
+			query.setString("nome", a.getNome());
+			Aluno resp = (Aluno) query.uniqueResult();
+		session.close();
+		return resp;
+	}
+	
 	
 	
 	

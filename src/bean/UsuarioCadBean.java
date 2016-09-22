@@ -115,13 +115,7 @@ public class UsuarioCadBean implements Serializable {
 	public void preparaVisualizacao() {
 		perfilEdicao = usuarioEdicao.getPerfil();
 		visualizar = true;
-	}
-	
-	
-	
-	
-	
-	
+	}	
 	
 	public void salvar() {
 		FacesContext fc = FacesContext.getCurrentInstance();

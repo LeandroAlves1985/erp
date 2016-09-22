@@ -175,10 +175,7 @@ public class AlunoBean implements Serializable {
 	public void setMbCep(String mbCep) {
 		this.mbCep = mbCep;
 	}
-
-		
-
-
+	
 	public void preparaEdicao() {
 		enderecoEdicao = alunoEdicao.getEndereco();
 		telefoneEdicao = alunoEdicao.getTelefone();
