@@ -82,16 +82,4 @@ public class TurmaDao implements Serializable {
 		return listaResp;	
 	}
 	
-	
-	
-	public void alocaDisciplina(Turma t, Disciplina d){
-		session = HibernateUtil.getSessionFactory().openSession();
-			transaction = session.beginTransaction();
-				session.update(t);
-				session.update(d);
-			transaction.commit();
-		session.close();
-	}
-	
-	
 }

@@ -14,12 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 @Entity
-@SequenceGenerator(sequenceName = "seq_funcionario", name = "seq_funcionario")
 public class Funcionario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(generator = "seq_funcionario")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	@Column
 	private String nome;

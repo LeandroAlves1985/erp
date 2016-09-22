@@ -13,12 +13,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(sequenceName = "seq_perfil", name = "seq_perfil")
 public class Perfil implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(generator = "seq_perfil")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	@Column
 	private String descricao;
@@ -110,7 +109,6 @@ public class Perfil implements Serializable {
 		this.id = id;
 		this.descricao = descricao;
 	}
-
 
 	public Integer getId() {
 		return id;

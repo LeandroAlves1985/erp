@@ -17,12 +17,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(sequenceName = "seq_usu", name = "seq_usu")
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(generator = "seq_usu")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	@Column
 	private String login;

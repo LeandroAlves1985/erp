@@ -19,12 +19,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@SequenceGenerator(sequenceName = "seq_prof", name = "seq_prof")
 public class Professor implements Serializable, Comparable<Professor> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(generator = "seq_prof")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	@Column
 	private String nome;

@@ -19,12 +19,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(sequenceName = "seq_disciplina", name = "seq_disciplina")
 public class Disciplina implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(generator = "seq_disciplina")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	@Column
 	private String descricao;
@@ -34,9 +33,6 @@ public class Disciplina implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "id_nota")
 	private Nota nota;
-	@ManyToMany
-	@JoinTable(name = "turma_disciplina", joinColumns = @JoinColumn(name = "id_disciplina"), inverseJoinColumns = @JoinColumn(name = "id_turma"))
-	private List<Turma> turmas;
 
 	public Disciplina() {
 		// TODO Auto-generated constructor stub
@@ -78,14 +74,6 @@ public class Disciplina implements Serializable {
 
 	public void setNota(Nota nota) {
 		this.nota = nota;
-	}
-
-	public List<Turma> getTurmas() {
-		return turmas;
-	}
-
-	public void setTurmas(List<Turma> turmas) {
-		this.turmas = turmas;
 	}
 
 	@Override

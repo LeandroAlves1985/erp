@@ -18,20 +18,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(sequenceName = "seq_turma", name = "seq_turma")
 public class Turma implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(generator = "seq_turma")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	@Column
 	private String descricao;
 	@ManyToMany
 	@JoinTable(name = "aluno_turma", joinColumns = @JoinColumn(name = "id_aluno"), inverseJoinColumns = @JoinColumn(name = "id_turma"))
 	private List<Aluno> alunos;
-	@ManyToMany(mappedBy = "turmas", fetch = FetchType.LAZY)
+	@ManyToMany
+	@JoinTable(name = "turma_disciplina", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
 	private List<Disciplina> disciplinas;
+	
 
 	public Turma() {
 		// TODO Auto-generated constructor stub
@@ -66,7 +67,7 @@ public class Turma implements Serializable {
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
 	}
-
+	
 	public List<Disciplina> getDisciplinas() {
 		return disciplinas;
 	}

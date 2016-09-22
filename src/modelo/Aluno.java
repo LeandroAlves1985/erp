@@ -21,12 +21,11 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-@SequenceGenerator(sequenceName = "seq_aluno", name = "seq_aluno")
 public class Aluno implements Serializable, Comparable<Aluno> {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(generator = "seq_aluno")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id; // identificador da classe
 	@Column
 	private String nome;

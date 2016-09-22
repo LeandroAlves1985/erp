@@ -12,7 +12,7 @@ public class HibernateUtil {
     static {
         try {
             
-            sessionFactory = new AnnotationConfiguration().configure("config/oracle_hibernate.cfg.xml").buildSessionFactory();
+            sessionFactory = new AnnotationConfiguration().configure("config/postgres_hibernate.cfg.xml").buildSessionFactory();
         } catch (Throwable ex) {
             
             System.err.println("Initial SessionFactory creation failed." + ex);
