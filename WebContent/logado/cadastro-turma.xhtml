@@ -111,7 +111,7 @@
  								</p:outputPanel> 
  								
  								<p:outputPanel>
- 									<p:commandButton action="#{turmaBean.preparaLancamento}" update=":formNota:tabela-nota" value="Notas" oncomplete="PF('janelaNota').show()" process="@this">
+ 									<p:commandButton value="Notas">
  										<f:setPropertyActionListener value="#{turmaBean.disciplinaSalvo}" target="#{turmaBean.disciplinaSelecionado}"/>
  									</p:commandButton>
  								</p:outputPanel> 								
