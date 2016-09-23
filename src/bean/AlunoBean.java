@@ -52,6 +52,7 @@ public class AlunoBean implements Serializable {
 	private List<Disciplina> todasDisciplinasPorTurma;
 	private Nota notaEdicao;
 	private Nota notaSelecionada;
+	private String tituloJanelaNota;
 
 	@PostConstruct
 	public void construct() {
@@ -236,6 +237,14 @@ public class AlunoBean implements Serializable {
 		this.notaSelecionada = notaSelecionada;
 	}
 
+	public void setTituloJanelaNota(String tituloJanelaNota) {
+		this.tituloJanelaNota = tituloJanelaNota;
+	}
+
+	public String getTituloJanelaNota() {
+		return disciplinaSelecionada.getDescricao();
+	}
+
 	public void preparaNovoCadastro(){
 		alunoEdicao = new Aluno();
 		alunoSelecionado = new Aluno();
@@ -394,6 +403,15 @@ public class AlunoBean implements Serializable {
 			fc.addMessage("formAluno", new FacesMessage("Erro ao cadastrar nota!" + e.getMessage()));
 		}
 	}
+	
+	public void habilitaBotao(){
+		if(disciplinaSelecionada.getId()==null){
+			visualizar = true;
+		} else{
+			visualizar = false;
+		}
+	}
+	
 	
 
 }
