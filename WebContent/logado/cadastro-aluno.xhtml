@@ -329,9 +329,7 @@
 					<p:tab title="Disciplinas">
 					<h:panelGrid columns="1">
 						<p:outputPanel>
-							<p:commandButton value="Lançar Notas" oncomplete="PF('janelaNota').show()" action="#{alunoBean.preparaListaNotas}" update=":formNota:nota-dialog">
-								<p:resetInput target=":formNota:nota-dialog"/>
-							</p:commandButton>
+							<p:commandButton value="Lançar Notas" oncomplete="PF('janelaNota').show()" action="#{alunoBean.preparaListaNotas}" update=":formNota:nota-dialog"/>							
 						</p:outputPanel>
 					</h:panelGrid>
 					
