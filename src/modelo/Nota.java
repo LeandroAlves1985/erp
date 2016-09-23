@@ -29,8 +29,7 @@ public class Nota implements Serializable {
 	private Double nota3;
 	@Column
 	private Double nota4;
-	@Column
-	private Double media;
+	private transient Double media;
 	private transient String situacao;
 	@ManyToOne
 	@JoinColumn(name = "id_aluno")

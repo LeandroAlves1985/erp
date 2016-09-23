@@ -375,14 +375,13 @@ public class AlunoBean implements Serializable {
 			notaEdicao = new Nota();
 		}else{
 			notaEdicao = notaSelecionada;
-			notaEdicao.setMedia(notaEdicao.getNota1() + notaEdicao.getNota2() + notaEdicao.getNota3() + notaEdicao.getNota4() / 4);
+			notaEdicao.setMedia((notaEdicao.getNota1() + notaEdicao.getNota2() + notaEdicao.getNota3() + notaEdicao.getNota4()) / 4);
 			if(notaEdicao.getMedia()>6.9){
 				notaEdicao.setSituacao("APROVADO");
 			} else{
 				notaEdicao.setSituacao("REPROVADO");
-			}	
-		}
-			
+			}				
+		}			
 	}
 	
 	public void salvaNota(){
