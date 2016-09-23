@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -31,8 +32,15 @@ public class Nota implements Serializable {
 	@Column
 	private Double media;
 	private transient String situacao;
-	@OneToOne(mappedBy = "nota", fetch = FetchType.LAZY)
-	private Lancamento lancamento;
+	@ManyToOne
+	@JoinColumn(name = "id_aluno")
+	private Aluno aluno;
+	@ManyToOne
+	@JoinColumn(name = "id_disciplina")
+	private Disciplina disciplina;
+	@ManyToOne
+	@JoinColumn(name = "id_turma")
+	private Turma turma;
 
 	public Nota() {
 		// TODO Auto-generated constructor stub
@@ -106,16 +114,32 @@ public class Nota implements Serializable {
 		this.situacao = situacao;
 	}
 
-	public Lancamento getLancamento() {
-		return lancamento;
-	}
-
-	public void setLancamento(Lancamento lancamento) {
-		this.lancamento = lancamento;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}	
+
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public Turma getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
 	}
 
 	@Override

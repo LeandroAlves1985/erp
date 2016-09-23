@@ -27,9 +27,9 @@ public class Disciplina implements Serializable {
 	private Integer id;
 	@Column
 	private String descricao;
-	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
-	private List<Lancamento> lancamentos;
-
+	@OneToMany(mappedBy = "disciplina")
+	private List<Nota> notas;
+	
 	public Disciplina() {
 		// TODO Auto-generated constructor stub
 	}
@@ -55,18 +55,18 @@ public class Disciplina implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao == null ? null : descricao.toUpperCase();
 	}
-
-	public List<Lancamento> getLancamentos() {
-		return lancamentos;
-	}
-
-	public void setLancamentos(List<Lancamento> lancamentos) {
-		this.lancamentos = lancamentos;
-	}
-
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public List<Nota> getNotas() {
+		return notas;
+	}
+
+	public void setNotas(List<Nota> notas) {
+		this.notas = notas;
+	}	
 
 	@Override
 	public int hashCode() {

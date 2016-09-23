@@ -13,7 +13,6 @@
     <mapping class="modelo.Disciplina"/>
     <mapping class="modelo.Endereco"/>
     <mapping class="modelo.Funcionario"/>
-    <mapping class="modelo.Lancamento"/>
     <mapping class="modelo.Nota"/>
     <mapping class="modelo.Perfil"/>
     <mapping class="modelo.Professor"/>

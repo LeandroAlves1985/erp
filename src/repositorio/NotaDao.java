@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import modelo.Aluno;
+import modelo.Disciplina;
 import modelo.Nota;
+import modelo.Turma;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -62,6 +64,17 @@ public class NotaDao implements Serializable {
 		Nota n	= (Nota) session.get(Nota.class, cod);
 		session.close();
 		return n;
+	}
+	
+	public Nota porAluno(Aluno a, Turma t, Disciplina d){
+		session = HibernateUtil.getSessionFactory().openSession();
+			query = session.createQuery("from Nota n where n.aluno = :aluno and n.turma = :turma and n.disciplina = :disciplina");
+			query.setEntity("aluno", a);
+			query.setEntity("turma", t);
+			query.setEntity("disciplina", d);
+			Nota nota = (Nota) query.uniqueResult();
+		session.close();
+		return nota;
 	}
 	
 	

@@ -27,17 +27,14 @@ public class Turma implements Serializable {
 	@Column
 	private String descricao;
 	@ManyToMany
-	@JoinTable(name = "turma_aluno", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_aluno"))
-	private List<Aluno> alunos;
-	@ManyToMany
 	@JoinTable(name = "turma_disciplina", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
 	private List<Disciplina> disciplinas;
 	@ManyToMany
 	@JoinTable(name = "turma_professor", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_professor"))
 	private List<Professor> professores;
-	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY)
-	private List<Lancamento> lancamentos;
-
+	@OneToMany(mappedBy = "turma")
+	private List<Nota> notas;
+	
 	public Turma() {
 		// TODO Auto-generated constructor stub
 	}
@@ -64,14 +61,6 @@ public class Turma implements Serializable {
 		this.descricao = descricao == null ? null : descricao.toUpperCase();
 	}
 
-	public List<Aluno> getAlunos() {
-		return alunos;
-	}
-
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
-	}
-
 	public List<Disciplina> getDisciplinas() {
 		return disciplinas;
 	}
@@ -87,17 +76,17 @@ public class Turma implements Serializable {
 	public void setProfessores(List<Professor> professores) {
 		this.professores = professores;
 	}
-
-	public List<Lancamento> getLancamentos() {
-		return lancamentos;
-	}
-
-	public void setLancamentos(List<Lancamento> lancamentos) {
-		this.lancamentos = lancamentos;
-	}
-
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}	
+
+	public List<Nota> getNotas() {
+		return notas;
+	}
+
+	public void setNotas(List<Nota> notas) {
+		this.notas = notas;
 	}
 
 	@Override
