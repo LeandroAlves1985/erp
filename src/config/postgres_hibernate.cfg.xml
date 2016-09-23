@@ -9,17 +9,16 @@
     <property name="hibernate.connection.password">le0405</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
-    <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="modelo.Aluno"/>
     <mapping class="modelo.Disciplina"/>
     <mapping class="modelo.Endereco"/>
+    <mapping class="modelo.Funcionario"/>
+    <mapping class="modelo.Lancamento"/>
     <mapping class="modelo.Nota"/>
     <mapping class="modelo.Perfil"/>
     <mapping class="modelo.Professor"/>
     <mapping class="modelo.Telefone"/>
     <mapping class="modelo.Turma"/>
     <mapping class="modelo.Usuario"/>
-    <mapping class="modelo.Menu"/>
-    <mapping class="modelo.Funcionario"/>
   </session-factory>
 </hibernate-configuration>

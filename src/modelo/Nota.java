@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+
 @Entity
 public class Nota implements Serializable {
 
@@ -28,11 +30,9 @@ public class Nota implements Serializable {
 	private Double nota4;
 	@Column
 	private Double media;
-
 	private transient String situacao;
-	
-	@OneToOne(mappedBy="nota",fetch=FetchType.LAZY, cascade={CascadeType.ALL})
-	private Disciplina disciplina;
+	@OneToOne(mappedBy = "nota", fetch = FetchType.LAZY)
+	private Lancamento lancamento;
 
 	public Nota() {
 		// TODO Auto-generated constructor stub
@@ -106,12 +106,16 @@ public class Nota implements Serializable {
 		this.situacao = situacao;
 	}
 
-	public Disciplina getDisciplina() {
-		return disciplina;
+	public Lancamento getLancamento() {
+		return lancamento;
 	}
 
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
+	public void setLancamento(Lancamento lancamento) {
+		this.lancamento = lancamento;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override

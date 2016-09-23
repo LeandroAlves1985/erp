@@ -1,8 +1,6 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -15,11 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-
 
 @Entity
 public class Aluno implements Serializable, Comparable<Aluno> {
@@ -36,10 +34,8 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	private String email;
 	@Column
 	private String nomeResponsavel;
-	@Column(unique=true)	
+	@Column(unique = true)
 	private String cpfResponsavel;
-	@ManyToMany(mappedBy = "alunos", fetch = FetchType.EAGER)
-	private List<Turma> turmas;
 	@OneToOne
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
@@ -49,6 +45,8 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
+	@OneToMany(mappedBy = "aluno", fetch = FetchType.LAZY)
+	private List<Lancamento> lancamentos;
 
 	public Aluno() {
 
@@ -130,14 +128,20 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 		this.telefone = telefone;
 	}
 
-	
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Lancamento> getLancamentos() {
+		return lancamentos;
+	}
+
+	public void setLancamentos(List<Lancamento> lancamentos) {
+		this.lancamentos = lancamentos;
 	}
 
 	public static long getSerialversionuid() {

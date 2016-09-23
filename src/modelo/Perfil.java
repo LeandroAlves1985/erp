@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Perfil implements Serializable {
@@ -108,7 +109,6 @@ public class Perfil implements Serializable {
 		this.id = id;
 		this.descricao = descricao;
 	}
-
 
 	public Integer getId() {
 		return id;

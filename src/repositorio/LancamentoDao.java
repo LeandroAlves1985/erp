@@ -3,15 +3,15 @@ package repositorio;
 import java.io.Serializable;
 import java.util.List;
 
-import modelo.Aluno;
-import modelo.Professor;
+import modelo.Disciplina;
+import modelo.Lancamento;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class ProfessorDao implements Serializable {
+public class LancamentoDao implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -23,55 +23,51 @@ public class ProfessorDao implements Serializable {
 	
 	
 	
-	public void create(Professor p){
+	public void create(Lancamento l){
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		session.save(p);
+		session.save(l);
 		transaction.commit();
 		session.close();
 		
 	}
 	
-	public void update(Professor p){
+	public void update(Lancamento l){
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		session.update(p);
+		session.update(l);
 		transaction.commit();
 		session.close();
 		
 	}
 	
-	public void delete(Professor p){
+	public void delete(Lancamento l){
 		session = HibernateUtil.getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		session.delete(p);
+		session.delete(l);
 		transaction.commit();
 		session.close();
 		
 	}
 	
-	public List<Professor> findAll(){
+	public List<Lancamento> findAll(){
 		session = HibernateUtil.getSessionFactory().openSession();
-		List<Professor> lst =  session.createQuery("from Professor").list();
+		List<Lancamento> lst =  session.createQuery("from Lancamento").list();
 		session.close();
 		return lst;
 	}
 	
-	public Professor findByCod(Integer cod){
+	public Lancamento findByCod(Integer cod){
 		session = HibernateUtil.getSessionFactory().openSession();
-		Professor p	= (Professor) session.get(Professor.class, cod);
+		Lancamento l = (Lancamento) session.get(Lancamento.class, cod);
 		session.close();
-		return p;
+		return l;
 	}
 	
-	public Professor porNome(Professor p){
-		session = HibernateUtil.getSessionFactory().openSession();
-			query = session.createQuery("from Professor p where p.nome = :nome");
-			query.setString("nome", p.getNome());
-			Professor resp = (Professor) query.uniqueResult();
-		session.close();
-		return resp;
-	}
+	
+	
+	
+	
 	
 	
 }

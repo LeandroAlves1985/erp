@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>	
+	<p:layout style="min-width:400px; min-heigth:200px;">
+		<ui:include src="/template/template.xhtml"></ui:include>
+		<p:layoutUnit position="center">
+		
+			<h3 align="center">Inserir Notas</h3>
+			<p:growl autoUpdate="true"></p:growl>
+			
+			<h:form id="formNota">
+				<p:toolbar id="menuNota">
+					<f:facet name="left">
+						<h:panelGrid columns="4">						
+								<p:commandButton action="#{lancBean.preparaEdicao}" value="Exibir Alunos" title="Exibir Alunos" oncomplete="PF('janelaEdicao').show()" process="@this" update=":formEdit:edicao-dialog">
+									<p:resetInput target=":formEdit:edicao-dialog"/>
+									<f:setPropertyActionListener value="#{lancBean.turmaSelecionada}" target="#{lancBean.turmaEdicao}"/>
+								</p:commandButton>								
+												
+						</h:panelGrid>
+					</f:facet>
+				</p:toolbar>
+			</h:form>
+			
+			<h:form id="formTab">				
+				<p:dataTable id="tabela-turma" value="#{turmaBean.todasTurmas}" var="linha" emptyMessage="Nenhuma turma selecionada!" rows="10" paginator="true" paginatorPosition="bottom" style="margin-top: 10px"
+							selectionMode="single" rowKey="#{linha.id}" selection="#{turmaBean.turmaSelecionada}" 
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {JumpToPageDropdown} {NextPageLink} {LastPageLink}"
+							currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} - Página: {currentPage}/{totalPages} ]">
+							
+							<p:ajax event="rowSelect" update=":formNota:menuNota"></p:ajax> 
+							<p:ajax event="rowSelect" update=":formNota:menuNota"></p:ajax> 
+							<p:ajax event="rowUnselect" update=":formNota:menuNota"></p:ajax> 
+														
+							<p:column headerText="Descrição" filterMatchMode="contains" filterBy="#{linha.descricao}">
+								<h:outputText value="#{linha.descricao}" style="text-transform:uppercase"/>
+							</p:column>														
+							
+				</p:dataTable>
+			</h:form>			
+			
+			
+			<h:form id="formEdit">				
+				<p:dialog width="580px" maximizable="true" dynamic="true" responsive="true" header="Inserir Notas" widgetVar="janelaEdicao" id="edicao-dialog" resizable="false" modal="false">
+																						
+ 								
+ 						<p:commandButton action="#{lancBean.preparaEdicao}" value="Inserir Notas" title="Exibir Alunos" oncomplete="PF('janelaInsertNotas').show()" process="@this" update=":formInsertNotas:edicao-insert">
+							<p:resetInput target=":formEdit:edicao-dialog"/>
+							<f:setPropertyActionListener	value="#{lancBean.alunoSelecionado}"	target="#{lancBean.alunoEdicao}" />
+ 						</p:commandButton>		
+ 								
+ 										
+				          <p:dataTable id="tabela-aluno" value="#{lancBean.todosAlunosPorTurma}" var="linha" emptyMessage="Nenhum aluno cadastrado!" rows="10"
+				          	paginator="true" paginatorPosition="bottom" style="margin-top: 10px" selectionMode="single"
+				          	rowKey="#{linha.id}"  	selection="#{lancBean.alunoSelecionado}"
+				          	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {JumpToPageDropdown} {NextPageLink} {LastPageLink}"
+				          	currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} - Página: {currentPage}/{totalPages} ]">
+
+				          	<p:ajax event="rowSelect" update=":formNota:menuNota"></p:ajax>
+				          	<p:ajax event="rowSelect" update=":formNota:menuNota"></p:ajax>
+				          	<p:ajax event="rowUnselect"	update=":formNota:menuNota"></p:ajax>
+
+				          	<p:column  headerText="Nome"		filterMatchMode="contains" filterBy="#{linha.nome}">
+				          		<h:outputText value="#{linha.nome}" style="text-transform:uppercase" />
+				          	</p:column>				          	
+				          										
+				    </p:dataTable>			      					
+ 				 </p:dialog>
+ 				</h:form>		
+ 						
+ 			  
+ 			  <h:form id=":formInsertNotas">				
+				<p:dialog width="580px" maximizable="true" responsive="true" header="Inserir Notas" widgetVar="janelaInsertNotas" id=":edicao-insert" resizable="false" modal="false">
+																						
+ 					<p:selectOneMenu value="#{turmaBean.disciplinaEdicao.descricao}" filter="true" filterMatchMode="startsWith">
+ 					 <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+ 					 <f:selectItems value="#{disciplinaBean.todasDisciplinas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.descricao}"/>
+ 					</p:selectOneMenu>		
+ 									          	
+				    <p:outputPanel>
+						<p:outputLabel value="Nota1"/>
+						<p:inputText
+							style="text-transform:uppercase; width: 400px" value="#{lancBean.notaEdicao.nota1}"	disabled="#{turmaBean.visualizar}" required="true" />
+				    </p:outputPanel>     										
+				   <p:outputPanel>
+						<p:outputLabel value="Nota2"/>
+						<p:inputText style="text-transform:uppercase; width: 400px" value="#{lancBean.notaEdicao.nota2}" disabled="#{turmaBean.visualizar}" required="true"/>
+				   </p:outputPanel>  
+				   <p:outputPanel>
+						<p:outputLabel value="Nota3"/>
+						<p:inputText style="text-transform:uppercase; width: 400px" value="#{lancBean.notaEdicao.nota3}" disabled="#{turmaBean.visualizar}" required="true"/>
+				   </p:outputPanel>  
+				   <p:outputPanel>
+						<p:outputLabel value="Nota4"/>
+						<p:inputText style="text-transform:uppercase; width: 400px" value="#{lancBean.notaEdicao.nota4}" disabled="#{turmaBean.visualizar}" required="true"/>
+				   </p:outputPanel>   
+				    
+				    		      					
+ 				 </p:dialog>
+ 				</h:form>	
+ 					
+ 					
+ 					
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

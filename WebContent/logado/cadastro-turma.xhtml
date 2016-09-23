@@ -22,7 +22,7 @@
 						<h:panelGrid columns="4">
 							
 							<p:outputPanel>
-								<p:commandButton action="#{alunoBean.preparaNovoCadastro}" value="Novo" title="Novo" style="color:white" icon="fa fa-file" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
+								<p:commandButton action="#{turmaBean.preparaNovoCadastro}" value="Novo" title="Novo" style="color:white" icon="fa fa-file" oncomplete="PF('janelaCadastro').show()" process="@this"/> 
 							</p:outputPanel>
 							<p:outputPanel>
 								<span class="ui-separator"><span class="ui-icon ui-icon-grip-dotted-vertical"/></span>
@@ -77,7 +77,7 @@
 						</p:tab>				 					
 					</p:tabView>
 					<h:panelGrid columns="1">
-						<p:commandButton style="width: 535px" value="Salvar" action="#{turmaBean.salvar}" ajax="false" update=":formTab"/>
+						<p:commandButton style="width: 535px" value="Salvar" action="#{turmaBean.salvar}" update=":formTab"/>
 					</h:panelGrid>
 				</p:dialog>
 			</h:form>
@@ -94,10 +94,9 @@
 								</p:outputPanel>
 							
 							</h:panelGrid>					
-						</p:tab>
-					    
+						</p:tab>					    
 					    <p:tab title="Disciplinas">																	
- 							<h:panelGrid columns="3">
+ 							<h:panelGrid columns="4">
  								<p:selectOneMenu value="#{turmaBean.disciplinaEdicao.descricao}" filter="true" filterMatchMode="startsWith">
  									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
  									<f:selectItems value="#{disciplinaBean.todasDisciplinas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.descricao}"/>
@@ -109,7 +108,8 @@
  								
  								<p:outputPanel>
  									<p:commandButton action="#{turmaBean.removerDisciplina}" process="@this" value="Remover" update=":formEdit:tab-turma-edit:tabela-disciplinas"/>
- 								</p:outputPanel> 								
+ 								</p:outputPanel> 
+ 								
  								
  							</h:panelGrid>						
  							
@@ -121,7 +121,7 @@
  								<p:ajax event="rowSelect" update=":formTurma:menuTurma"></p:ajax> 
 								<p:ajax event="rowSelect" update=":formTurma:menuTurma"></p:ajax> 
 								<p:ajax event="rowUnselect" update=":formTurma:menuTurma"></p:ajax>
- 								
+								 								
  								<p:column headerText="Descrição">
  									<h:outputText value="#{linha.descricao}"/>
  								</p:column>
@@ -129,13 +129,83 @@
  							</p:dataTable>											
  						 
  						</p:tab>
- 						
-																		
+ 						<p:tab title="Alunos">																	
+ 							<h:panelGrid columns="3">
+ 								<p:selectOneMenu value="#{turmaBean.alunoEdicao.nome}" filter="true" filterMatchMode="startsWith">
+ 									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+ 									<f:selectItems value="#{alunoBean.todosAlunos}" var="linha" itemLabel="#{linha.nome}" itemValue="#{linha.nome}"/>
+ 								</p:selectOneMenu>
+ 								
+ 								<p:outputPanel>
+ 									<p:commandButton action="#{turmaBean.salvaTurmaAluno}" value="Inserir" update=":formEdit:tab-turma-edit:tabela-alunos"/>
+ 								</p:outputPanel>
+ 								
+ 								<p:outputPanel>
+ 									<p:commandButton action="#{turmaBean.removerAluno}" process="@this" value="Remover" update=":formEdit:tab-turma-edit:tabela-alunos"/>
+ 								</p:outputPanel> 								
+ 								
+ 							</h:panelGrid>							
+ 						  
+ 							<p:dataTable id="tabela-alunos" value="#{turmaBean.todosAlunosPorTurma}" var="linha" emptyMessage="Nenhuma aluno cadastrado!"
+ 										 paginator="true" rows="10" selection="#{turmaBean.alunoSalvo}" selectionMode="single" rowKey="#{linha.id}"> 										 
+ 										  										 										 							
+ 								
+ 								<p:ajax event="rowSelect" update=":formTurma:menuTurma"></p:ajax> 
+								<p:ajax event="rowSelect" update=":formTurma:menuTurma"></p:ajax> 
+								<p:ajax event="rowUnselect" update=":formTurma:menuTurma"></p:ajax>
+ 								
+ 								<p:column headerText="Nome">
+ 									<h:outputText value="#{linha.nome}"/>
+ 								</p:column>
+ 								<p:column headerText="Data de Nascimento">
+ 									<h:outputText value="#{linha.dataNascimento}">
+ 										<f:convertDateTime pattern="dd/MM/yyyy"/>
+ 									</h:outputText>
+ 								</p:column>
+ 								
+ 							</p:dataTable>						 
+ 						</p:tab>
+ 						<p:tab title="Professores">																	
+ 							<h:panelGrid columns="3">
+ 								<p:selectOneMenu value="#{turmaBean.professorEdicao.nome}" filter="true" filterMatchMode="startsWith">
+ 									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+ 									<f:selectItems value="#{professorBean.todosProfessores}" var="linha" itemLabel="#{linha.nome}" itemValue="#{linha.nome}"/>
+ 								</p:selectOneMenu>
+ 								
+ 								<p:outputPanel>
+ 									<p:commandButton action="#{turmaBean.salvaTurmaProfessor}" value="Inserir" update=":formEdit:tab-turma-edit:tabela-professores"/>
+ 								</p:outputPanel>
+ 								
+ 								<p:outputPanel>
+ 									<p:commandButton action="#{turmaBean.removerProfessor}" process="@this" value="Remover" update=":formEdit:tab-turma-edit:tabela-professores"/>
+ 								</p:outputPanel> 								
+ 								
+ 							</h:panelGrid>							
+ 						  
+ 							<p:dataTable id="tabela-professores" value="#{turmaBean.todosProfessorresPorTurma}" var="linha" emptyMessage="Nenhuma professor cadastrado!"
+ 										 paginator="true" rows="10" selection="#{turmaBean.professorSalvo}" selectionMode="single" rowKey="#{linha.id}"> 										 
+ 										  										 										 							
+ 								
+ 								<p:ajax event="rowSelect" update=":formTurma:menuTurma"></p:ajax> 
+								<p:ajax event="rowSelect" update=":formTurma:menuTurma"></p:ajax> 
+								<p:ajax event="rowUnselect" update=":formTurma:menuTurma"></p:ajax>
+ 								
+ 								<p:column headerText="Nome">
+ 									<h:outputText value="#{linha.nome}"/>
+ 								</p:column>
+ 								
+ 								<p:column headerText="Cpf">
+ 									<h:outputText value="#{linha.cpf}"/>
+ 								</p:column>								
+ 								
+ 							</p:dataTable>						 
+ 						</p:tab>																	
 					</p:tabView>
-					
+					<h:panelGrid columns="1">
+						<p:commandButton style="width: 535px" value="Salvar" action="#{turmaBean.editar}" ajax="false" update=":formTab"/>
+					</h:panelGrid>
 				</p:dialog>
-			</h:form>
-		
+			</h:form>	
 		</p:layoutUnit>
 	</p:layout>
 </h:body>

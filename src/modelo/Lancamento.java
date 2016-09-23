@@ -1,43 +1,46 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-
 @Entity
-public class Disciplina implements Serializable {
+public class Lancamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
-	@Column
-	private String descricao;
-	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
-	private List<Lancamento> lancamentos;
+	@ManyToOne
+	@JoinColumn(name = "id_aluno")
+	private Aluno aluno;
+	@ManyToOne
+	@JoinColumn(name = "id_disciplina")
+	private Disciplina disciplina;
+	@ManyToOne
+	@JoinColumn(name = "id_turma")
+	private Turma turma;
+	@OneToOne
+	@JoinColumn(name = "id_nota")
+	private Nota nota;
 
-	public Disciplina() {
+	public Lancamento() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Disciplina(Integer id, String descricao) {
+	public Lancamento(Integer id, Aluno aluno, Disciplina disciplina,
+			Turma turma, Nota nota) {
 		super();
 		this.id = id;
-		this.descricao = descricao;
+		this.aluno = aluno;
+		this.disciplina = disciplina;
+		this.turma = turma;
+		this.nota = nota;
 	}
 
 	public Integer getId() {
@@ -48,20 +51,36 @@ public class Disciplina implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public Aluno getAluno() {
+		return aluno;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao == null ? null : descricao.toUpperCase();
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
-	public List<Lancamento> getLancamentos() {
-		return lancamentos;
+	public Disciplina getDisciplina() {
+		return disciplina;
 	}
 
-	public void setLancamentos(List<Lancamento> lancamentos) {
-		this.lancamentos = lancamentos;
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public Turma getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+	}
+
+	public Nota getNota() {
+		return nota;
+	}
+
+	public void setNota(Nota nota) {
+		this.nota = nota;
 	}
 
 	public static long getSerialversionuid() {
@@ -84,7 +103,7 @@ public class Disciplina implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Disciplina other = (Disciplina) obj;
+		Lancamento other = (Lancamento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.Aluno;
 import modelo.Disciplina;
+import modelo.Professor;
 import modelo.Turma;
 
 import org.hibernate.Criteria;
@@ -82,5 +84,36 @@ public class TurmaDao implements Serializable {
 		return listaResp;	
 	}
 	
+	public List<Aluno> alunoPorTurma(Turma t){
+		session = HibernateUtil.getSessionFactory().openSession();
+			query = session.createQuery("from Turma t where t.descricao = :descricao");
+			query.setString("descricao", t.getDescricao());
+			Turma turma = (Turma) query.uniqueResult();
+			List<Aluno> lista = turma.getAlunos();
+			List<Aluno> listaResp = new ArrayList<Aluno>();
+			for(Aluno a : lista){
+				Aluno a1 = new Aluno();
+					a1 = a;
+					listaResp.add(a1);
+			}
+		session.close();
+		return listaResp;
+	}
+	
+	public List<Professor> professorPorTurma(Turma t){
+		session = HibernateUtil.getSessionFactory().openSession();
+			query = session.createQuery("from Turma t where t.descricao = :descricao");
+			query.setString("descricao", t.getDescricao());
+			Turma turma = (Turma) query.uniqueResult();
+			List<Professor> lista = turma.getProfessores();
+			List<Professor> listaResp = new ArrayList<Professor>();
+			for(Professor p : lista){
+				Professor p1 = new Professor();
+					p1 = p;
+					listaResp.add(p1);
+			}
+		session.close();
+		return listaResp;
+	}
 	
 }

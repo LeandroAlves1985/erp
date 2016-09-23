@@ -29,13 +29,7 @@ public class DisciplinaBean implements Serializable {
 	private Disciplina disciplinaEdicao;
 	private Disciplina disciplinaSelecionada;
 	private List<Disciplina> todasDisciplinas;
-	private DisciplinaDao disciplinaDao;
-
-	private Professor professorEdicao;
-	private Nota notaEdicao;
-	private NotaDao notaDao;
-	
-	private Turma turmaEdicao;
+	private DisciplinaDao disciplinaDao;	
 	private Boolean visualizar;
 
 	
@@ -45,23 +39,9 @@ public class DisciplinaBean implements Serializable {
 		disciplinaEdicao = new Disciplina();
 		disciplinaSelecionada = new Disciplina();
 		todasDisciplinas = new ArrayList<Disciplina>();
-		disciplinaDao = new DisciplinaDao();
-		professorEdicao = new Professor();
-		notaEdicao = new Nota();
-		turmaEdicao = new Turma();
-		notaDao = new NotaDao();
-	}
-
+		disciplinaDao = new DisciplinaDao();		
+	}	
 	
-	
-	public NotaDao getNotaDao() {
-		return notaDao;
-	}
-
-	public void setNotaDao(NotaDao notaDao) {
-		this.notaDao = notaDao;
-	}
-
 	public Boolean getVisualizar() {
 		return visualizar;
 	}
@@ -87,30 +67,6 @@ public class DisciplinaBean implements Serializable {
 		this.disciplinaSelecionada = disciplinaSelecionada;
 	}
 
-	public Professor getProfessorEdicao() {
-		return professorEdicao;
-	}
-
-	public void setProfessorEdicao(Professor professorEdicao) {
-		this.professorEdicao = professorEdicao;
-	}
-
-	public Nota getNotaEdicao() {
-		return notaEdicao;
-	}
-
-	public void setNotaEdicao(Nota notaEdicao) {
-		this.notaEdicao = notaEdicao;
-	}
-
-	public Turma getTurmaEdicao() {
-		return turmaEdicao;
-	}
-
-	public void setTurmaEdicao(Turma turmaEdicao) {
-		this.turmaEdicao = turmaEdicao;
-	}
-
 	public DisciplinaDao getDisciplinaDao() {
 		return disciplinaDao;
 	}
@@ -132,32 +88,24 @@ public class DisciplinaBean implements Serializable {
 		return serialVersionUID;
 	}
 
-	public void preparaEdicao() {
-		notaEdicao = disciplinaEdicao.getNota();		
+	public void preparaEdicao() {		
 		visualizar = false;
 	}
 
 	public void preparaVisualizacao() {
-		notaEdicao = disciplinaEdicao.getNota();
 		visualizar = true;
 	}
 	
 	public void preparaNovoCadastro(){
 		disciplinaEdicao = new Disciplina();
-		notaEdicao = new Nota();
 		visualizar = false;
-	}
-	
-	
+	}	
 	
 	public void salvar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {			
 			disciplinaDao.create(disciplinaEdicao);
-			disciplinaEdicao = new Disciplina();
-			
-			
-			
+			disciplinaEdicao = new Disciplina();			
 			fc.addMessage("formDisciplina", new FacesMessage("Disciplina cadastrada com sucesso"));
 		
 		} catch (Exception e) {
@@ -168,9 +116,7 @@ public class DisciplinaBean implements Serializable {
 	
 	public void editar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		try {
-			//notaDao.update(notaEdicao);
-			//disciplinaEdicao.setNota(notaEdicao);
+		try {			
 			disciplinaDao.update(disciplinaEdicao);
 			construct();
 			fc.addMessage("formDisciplina", new FacesMessage("Disciplina atualizada com sucesso"));
