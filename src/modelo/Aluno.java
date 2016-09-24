@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -44,9 +45,12 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	private Telefone telefone;
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
-	private Usuario usuario;
+	private Usuario usuario;	
+	@ManyToMany
+	@JoinTable(name = "turma_aluno", joinColumns = @JoinColumn(name = "id_aluno"), inverseJoinColumns = @JoinColumn(name = "id_turma"))
+	private List<Turma> turmas;
 	@OneToMany(mappedBy = "aluno", fetch = FetchType.LAZY)
-	private List<Lancamento> lancamentos;
+	private List<Nota> notas;
 
 	public Aluno() {
 
@@ -136,16 +140,24 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 		this.usuario = usuario;
 	}
 
-	public List<Lancamento> getLancamentos() {
-		return lancamentos;
-	}
-
-	public void setLancamentos(List<Lancamento> lancamentos) {
-		this.lancamentos = lancamentos;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
+	}
+
+	public List<Nota> getNotas() {
+		return notas;
+	}
+
+	public void setNotas(List<Nota> notas) {
+		this.notas = notas;
 	}
 
 	@Override

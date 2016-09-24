@@ -1,9 +1,12 @@
 package repositorio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import modelo.Aluno;
+import modelo.Professor;
+import modelo.Turma;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -71,6 +74,22 @@ public class AlunoDao implements Serializable {
 			Aluno resp = (Aluno) query.uniqueResult();
 		session.close();
 		return resp;
+	}
+	
+	public List<Turma> turmaPorAluno(Aluno a){
+		session = HibernateUtil.getSessionFactory().openSession();
+			query = session.createQuery("from Aluno a where a.nome = :nome");
+			query.setString("nome", a.getNome());
+			Aluno aluno = (Aluno) query.uniqueResult();
+			List<Turma> lista = aluno.getTurmas();
+			List<Turma> listaResp = new ArrayList<Turma>();
+			for(Turma t : lista){
+				Turma t1 = new Turma();
+					t1 = t;
+					listaResp.add(t1);
+			}
+		session.close();
+		return listaResp;
 	}
 	
 	

@@ -108,8 +108,12 @@
  								
  								<p:outputPanel>
  									<p:commandButton action="#{turmaBean.removerDisciplina}" process="@this" value="Remover" update=":formEdit:tab-turma-edit:tabela-disciplinas"/>
+
  								</p:outputPanel> 
  								
+
+ 																			
+
  								
  							</h:panelGrid>						
  							
@@ -129,42 +133,7 @@
  							</p:dataTable>											
  						 
  						</p:tab>
- 						<p:tab title="Alunos">																	
- 							<h:panelGrid columns="3">
- 								<p:selectOneMenu value="#{turmaBean.alunoEdicao.nome}" filter="true" filterMatchMode="startsWith">
- 									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
- 									<f:selectItems value="#{alunoBean.todosAlunos}" var="linha" itemLabel="#{linha.nome}" itemValue="#{linha.nome}"/>
- 								</p:selectOneMenu>
- 								
- 								<p:outputPanel>
- 									<p:commandButton action="#{turmaBean.salvaTurmaAluno}" value="Inserir" update=":formEdit:tab-turma-edit:tabela-alunos"/>
- 								</p:outputPanel>
- 								
- 								<p:outputPanel>
- 									<p:commandButton action="#{turmaBean.removerAluno}" process="@this" value="Remover" update=":formEdit:tab-turma-edit:tabela-alunos"/>
- 								</p:outputPanel> 								
- 								
- 							</h:panelGrid>							
- 						  
- 							<p:dataTable id="tabela-alunos" value="#{turmaBean.todosAlunosPorTurma}" var="linha" emptyMessage="Nenhuma aluno cadastrado!"
- 										 paginator="true" rows="10" selection="#{turmaBean.alunoSalvo}" selectionMode="single" rowKey="#{linha.id}"> 										 
- 										  										 										 							
- 								
- 								<p:ajax event="rowSelect" update=":formTurma:menuTurma"></p:ajax> 
-								<p:ajax event="rowSelect" update=":formTurma:menuTurma"></p:ajax> 
-								<p:ajax event="rowUnselect" update=":formTurma:menuTurma"></p:ajax>
- 								
- 								<p:column headerText="Nome">
- 									<h:outputText value="#{linha.nome}"/>
- 								</p:column>
- 								<p:column headerText="Data de Nascimento">
- 									<h:outputText value="#{linha.dataNascimento}">
- 										<f:convertDateTime pattern="dd/MM/yyyy"/>
- 									</h:outputText>
- 								</p:column>
- 								
- 							</p:dataTable>						 
- 						</p:tab>
+ 						
  						<p:tab title="Professores">																	
  							<h:panelGrid columns="3">
  								<p:selectOneMenu value="#{turmaBean.professorEdicao.nome}" filter="true" filterMatchMode="startsWith">

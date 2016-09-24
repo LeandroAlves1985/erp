@@ -5,8 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	 xmlns:s="http://stella.caelum.com.br/faces2">
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head></h:head>
 <h:body>	
@@ -283,14 +282,127 @@
 								</p:outputPanel>
 							</h:panelGrid>
 						</p:tab>
-						<p:tab title="Turmas">		
-						</p:tab>																	
+						<p:tab title="Turmas">																	
+ 							<h:panelGrid columns="4">
+ 								<p:selectOneMenu value="#{alunoBean.turmaSelecionada.descricao}" filter="true" filterMatchMode="startsWith">
+ 									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+ 									<f:selectItems value="#{turmaBean.todasTurmas}" var="linha" itemLabel="#{linha.descricao}" itemValue="#{linha.descricao}"/>
+ 								</p:selectOneMenu>
+ 								
+ 								<p:outputPanel>
+ 									<p:commandButton value="Inserir" action="#{alunoBean.salvaAlunoTurma}" update=":formEdit:tab-aluno-edit:tabela-turmas"/>
+ 								</p:outputPanel>
+ 								
+ 								<p:outputPanel>
+ 									<p:commandButton value="Remover" action="#{alunoBean.removerTurma}" process="@this" update=":formEdit:tab-aluno-edit:tabela-turmas"/>
+ 								</p:outputPanel>
+ 								
+ 								<p:outputPanel>
+ 									<p:commandButton value="Disciplinas" action="#{alunoBean.preparaListaDisciplina}" oncomplete="PF('janelaDisc').show()" update=":formDisciplina:tab-disciplina:tabela-disciplinas"/>
+ 								</p:outputPanel> 								
+ 								
+ 							</h:panelGrid>							
+ 						  
+ 							<p:dataTable id="tabela-turmas" value="#{alunoBean.turmasPorAluno}" var="linha" emptyMessage="Nenhuma turma cadastrado!"
+ 										 paginator="true" rows="10" selection="#{alunoBean.turmaEdicao}" selectionMode="single" rowKey="#{linha.id}"> 										 
+ 										  										 										 							
+ 								
+ 								<p:ajax event="rowSelect" update=":formAluno:menuAluno"></p:ajax> 
+								<p:ajax event="rowSelect" update=":formAluno:menuAluno"></p:ajax> 
+								<p:ajax event="rowUnselect" update=":formAluno:menuAluno"></p:ajax>
+ 								
+ 								<p:column headerText="Descricao">
+ 									<h:outputText value="#{linha.descricao}"/>
+ 								</p:column>															
+ 								
+ 							</p:dataTable>						 
+ 						</p:tab>																	
 					</p:tabView>
 					<h:panelGrid columns="1">
 						<p:commandButton style="width: 755px" value="Salvar" action="#{alunoBean.editar}" ajax="true" update=":formTab:tabela-aluno" oncomplete="PF('janelaCadastro').hide()" disabled="#{alunoBean.visualizar}"/>
 					</h:panelGrid>
 				</p:dialog>
-			</h:form>		
+			</h:form>
+			<h:form id="formDisciplina">
+				<p:dialog width="800px" maximizable="true" responsive="true" header="Disciplinas" widgetVar="janelaDisc" id="disc-dialog" resizable="false" modal="false">
+					<p:tabView id="tab-disciplina">
+					<p:tab title="Disciplinas">
+					<h:panelGrid columns="1">
+						<p:outputPanel>
+							<p:commandButton value="Lançar Notas" oncomplete="PF('janelaNota').show()" action="#{alunoBean.preparaListaNotas}" update="formNota:nota-dialog"/>							
+						</p:outputPanel>
+					</h:panelGrid>
+					
+					<p:dataTable id="tabela-disciplinas"   value="#{alunoBean.todasDisciplinasPorTurma}" var="linha" emptyMessage="Nenhuma disciplina cadastrada!"
+ 							     paginator="true" rows="10" selection="#{alunoBean.disciplinaSelecionada}" selectionMode="single" rowKey="#{linha.id}"> 										 
+ 										  										 										 							
+ 								
+ 								<p:ajax event="rowSelect" update=":formAluno:menuAluno"></p:ajax> 
+								<p:ajax event="rowSelect" update=":formAluno:menuAluno"></p:ajax> 
+								<p:ajax event="rowUnselect" update=":formAluno:menuAluno"></p:ajax>
+																 								
+ 								<p:column headerText="Descrição">
+ 									<h:outputText value="#{linha.descricao}"/>
+ 								</p:column>
+ 								
+ 					</p:dataTable>
+ 					</p:tab>
+ 					</p:tabView>				
+				</p:dialog>
+			</h:form>
+			
+			
+			<h:form id="formNota">
+			 <p:dialog width="800px" maximizable="true" responsive="true" header="Notas" widgetVar="janelaNota" id="nota-dialog" resizable="false" modal="false">
+			  <p:tabView id="tb">
+				
+				 <p:tab title="Notas">
+					<h:panelGrid columns="4">
+						<p:outputPanel>
+							<p:outputLabel value="Nota 1"/>
+							<p:inputText value="#{alunoBean.notaEdicao.nota1}">
+							 <p:ajax listener="#{alunoBean.CalcMediaSit}" event="keyup" update=":formNota:tb:media,:formNota:tb:situacao "/>
+							</p:inputText>
+						</p:outputPanel>
+						<p:outputPanel>
+							<p:outputLabel value="Nota 2"/>
+							<p:inputText value="#{alunoBean.notaEdicao.nota2}">
+							  <p:ajax listener="#{alunoBean.CalcMediaSit}" event="keyup" update=":formNota:tb:media,:formNota:tb:situacao "/>
+							</p:inputText>
+						</p:outputPanel>
+						<p:outputPanel>
+							<p:outputLabel value="Nota 3"/>
+							<p:inputText value="#{alunoBean.notaEdicao.nota3}">
+							 <p:ajax listener="#{alunoBean.CalcMediaSit}" event="keyup" update=":formNota:tb:media,:formNota:tb:situacao "/>
+							</p:inputText>
+						</p:outputPanel>
+						<p:outputPanel>
+							<p:outputLabel value="Nota 4"/>
+							<p:inputText value="#{alunoBean.notaEdicao.nota4}">
+							 <p:ajax listener="#{alunoBean.CalcMediaSit}" event="keyup" update=":formNota:tb:media,:formNota:tb:situacao "/>
+							</p:inputText>
+						</p:outputPanel>
+					</h:panelGrid>
+					  
+						<p:outputPanel>
+							<p:outputLabel value="Média: " />
+							<p:outputLabel value="#{alunoBean.notaEdicao.media}" id="media"/>
+						</p:outputPanel>
+						<p:outputPanel>
+							<p:outputLabel value="Situação: "/>
+							<p:outputLabel value="#{alunoBean.notaEdicao.situacao}" id="situacao"/>
+						</p:outputPanel>
+													
+				  </p:tab>			
+				
+				</p:tabView>
+					<h:panelGrid columns="1">
+						<p:outputPanel>
+							<p:commandButton value="Salvar" style="width: 755px" action="#{alunoBean.salvaNota}"/>
+						</p:outputPanel>
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>			
 		</p:layoutUnit>
 	</p:layout>
 </h:body>

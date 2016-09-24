@@ -11,7 +11,6 @@ import javax.faces.context.FacesContext;
 
 import modelo.Aluno;
 import modelo.Disciplina;
-import modelo.Lancamento;
 import modelo.Nota;
 import modelo.Professor;
 import modelo.Turma;
@@ -21,7 +20,6 @@ import org.primefaces.event.CellEditEvent;
 
 import repositorio.AlunoDao;
 import repositorio.DisciplinaDao;
-import repositorio.LancamentoDao;
 import repositorio.NotaDao;
 import repositorio.ProfessorDao;
 import repositorio.TurmaDao;
@@ -52,7 +50,6 @@ public class TurmaBean implements Serializable {
 	private Boolean testaBotao;
 	private Disciplina disciplinaSelecionado;
 	private Nota notaEdicao;
-	private Lancamento lancamentoEdicao;
 
 	@PostConstruct
 	public void construct() {
@@ -70,7 +67,6 @@ public class TurmaBean implements Serializable {
 		professorDao = new ProfessorDao();
 		disciplinaSelecionado = null;
 		notaEdicao = null;
-		lancamentoEdicao = new Lancamento();
 	}
 
 	public Disciplina getDisciplinaEdicao() {
@@ -238,20 +234,11 @@ public class TurmaBean implements Serializable {
 	public void setNotaEdicao(Nota notaEdicao) {
 		this.notaEdicao = notaEdicao;
 	}	
-	
-	public Lancamento getLancamentoEdicao() {
-		return lancamentoEdicao;
-	}
-
-	public void setLancamentoEdicao(Lancamento lancamentoEdicao) {
-		this.lancamentoEdicao = lancamentoEdicao;
-	}
 
 	public void preparaEdicao() {
 		todasDisciplinasPorTurma = new TurmaDao().disciplinaPorTurma(turmaEdicao);
 		disciplinaEdicao = new Disciplina();
 		disciplinaSalvo = new Disciplina();
-		todosAlunosPorTurma = turmaDao.alunoPorTurma(turmaEdicao);
 		alunoEdicao = new Aluno();
 		alunoSalvo = new Aluno();
 		todosProfessorresPorTurma = turmaDao.professorPorTurma(turmaEdicao);
@@ -337,36 +324,6 @@ public class TurmaBean implements Serializable {
 		}
 	}
 	
-	public void salvaTurmaAluno() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		try {
-			alunoSalvo = alunoDao.porNome(alunoEdicao);
-			List<Aluno> alunos = turmaDao.alunoPorTurma(turmaEdicao);						
-			alunos.add(alunoSalvo);
-			turmaEdicao.setAlunos(alunos);
-			turmaDao.update(turmaEdicao);
-			todosAlunosPorTurma = turmaDao.alunoPorTurma(turmaEdicao);
-			fc.addMessage("formTurma", new FacesMessage("Aluno alocado com sucesso!"));		
-
-		} catch (Exception e) {
-			fc.addMessage("formTurma", new FacesMessage("Erro ao alocar aluno!"));
-		}
-	}
-	
-	public void removerAluno() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		try {
-			List<Aluno> alunos = turmaDao.alunoPorTurma(turmaEdicao);
-			alunos.remove(alunoSalvo);
-			turmaEdicao.setAlunos(alunos);
-			turmaDao.update(turmaEdicao);
-			todosAlunosPorTurma = turmaDao.alunoPorTurma(turmaEdicao);
-			fc.addMessage("formTurma", new FacesMessage("Aluno removido com sucesso!"));
-
-		} catch (Exception e) {
-			fc.addMessage("formTurma", new FacesMessage("Erro ao remover aluno!" + e.getMessage()));
-		}
-	}
 	
 	public void salvaTurmaProfessor() {
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -399,7 +356,4 @@ public class TurmaBean implements Serializable {
 		}
 	}
 	
-	public void preparaLancamento(){
-		
-	}
 }
